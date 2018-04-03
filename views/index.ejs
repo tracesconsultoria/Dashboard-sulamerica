@@ -5,7 +5,7 @@
 		<link rel="stylesheet" href="/public/css/bootstrap.min.css">
 		<link rel="stylesheet" href="/public/css/font-awesome.min.css">
 		<style>
-					body 		{ word-wrap:break-word; }
+							body 		{ word-wrap:break-word; }
 		</style>
 		<meta charset="utf-8">
 		<meta http-equiv="Content-Language" content="pt-br">
@@ -22,22 +22,14 @@
 		<link rel="stylesheet" type="text/css" media="all" href="/public/css/style.css">
 		<link rel="stylesheet" type="text/css" href="/public/css/dataTables.bootstrap.css">
 		<link rel="stylesheet" type="text/css" href="/public/css/buttons.dataTables.min.css">
-		<!-- <link rel="stylesheet" type="text/css" href="/public/css/normalize.css"> -->
-		<!--link rel="stylesheet" type="text/css" href="/public/css/stylesheet.css"-->
-		<!-- <link rel="stylesheet" type="text/css" href="/public/css/bootstrap-select.min.css">		 -->
-
-		<!-- <link rel="stylesheet" type="text/css" href="/public/css/selectized.bootstrap3.css"> -->
+		<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/selectize.js/0.12.4/css/selectize.bootstrap3.min.css">
 		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/selectize.js/0.12.4/css/selectize.default.min.css">
 		
-
 		
-		<!-- <script src="/public/js/assets/jquery/jquery-3.1.0.min.js"></script> -->
 		<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 		<script src="/public/js/assets/tether/tether.min.js"></script>
 		<script src="/public/js/assets/bootstrap/bootstrap4-alpha3.min.js"></script>
-
-		<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/selectize.js/0.12.4/js/standalone/selectize.js"></script> -->
-		
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/selectize.js/0.12.4/js/standalone/selectize.js"></script>
 		<script src="/public/js/canvasjs.min.js"></script>
 		<script type="text/javascript" src="/public/js/moment.min.js"></script>
 		<script type="text/javascript" src="/public/js/daterangepicker.js"></script>
@@ -52,10 +44,9 @@
 		<script type="text/javascript" src="/public/js/buttons.html5.min.js"></script>
 		<script type="text/javascript" src="/public/js/buttons.print.min.js"></script>
 		<script type="text/javascript" src="/public/js/buttons.colVis.min.js"></script>
-		<!-- <script type="text/javascript" src="/public/js/standalone/selectize.js"></script> -->
 		<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/selectize.js/0.12.4/js/standalone/selectize.min.js"></script>
 		<script type="text/javascript" src="/public/js/index.js"></script>
-		<script type="text/javascript" src="/public/js/bootstrap-select.min.js"></script>
+		
 	</head>
 	<script>
 	$(document).ready(function() {
@@ -68,48 +59,109 @@
 		document.filterProdutor="<%=filterProdutor%>";
 		document.filterEstrutura="<%=filterEstrutura%>";
 		document.filterRegiao="<%=filterRegiao%>";
-		// $('#buttonFilter').fadeTo(1000, 0.4);
-		// $('#buttonFilter').hide();
-		// $('.selectized').prop('disabled', true);
 		$.get("/filter", function(arrFilter) {
-		// $('#buttonFilter').fadeTo(0.4, 1000);
-		// $('#buttonFilter').show();
-		// $('.selectized').prop('disabled', false);
-			// console.log('chamou funcao' + Date());
+		// console.log('chamou funcao' + Date());
 		document.arrFilter = JSON.parse(arrFilter);
 		// console.log('Meio' + Date());
-		setDiretor(null, null, null, null, null, null, null, false);
-		setGerente(null, null, null, null, null, null, null, false);
-		setRepresentante(null, null, null, null, null, null, null, false);
-		setCorretora(null, null, null, null, null, null, null, false);
-		setMidia();
-		setRegioes();
-		setEstrutura(null, null, null, null, null, null, null, false);
-		setProdutor(null, null, null, null, null, null, null, false);
-		// console.log('FIM' + Date());
 
-		// $('.selectized').selectize([]);
+			var diretor = localStorage.getItem('Diretor');
+			$('#filterDiretor').val(diretor);
+			if (diretor) {
+						setDiretor(diretor);
+						setGerente(diretor);
+						setRepresentante(diretor);
+						setCorretora(diretor);
+						setEstrutura(diretor);
+						setProdutor(diretor);
 
-		$(window).keydown(function(event){
+			} else {
+			var gerente = localStorage.getItem('Gerente');
+			$('#filterGerente').val(gerente);
+			if (gerente) {
+			alert(gerente);
+						setDiretor(null, gerente);
+						setGerente(null, gerente);
+						setRepresentante(null, gerente);
+						setCorretora(null, gerente);
+						setEstrutura(null, gerente);
+						setProdutor(null, gerente);
+
+			} else {
+				
+
+			var representante = localStorage.getItem('Representante');
+			$('#filterRepresentante').val(representante);
+			if (representante) {
+						setDiretor(null, null, representante);
+						setGerente(null, null, representante);
+						setRepresentante(null, null, representante);
+						setCorretora(null, null, representante);
+						setEstrutura(null, null, representante);
+						setProdutor(null, null, representante);
+
+			} else {
+
+			var corretora = localStorage.getItem('Corretora');
+			$('#filterCorretora').val(corretora);
+			if (corretora) {
+						setDiretor(null, null, null, corretora);
+						setGerente(null, null, null, corretora);
+						setRepresentante(null, null, null, corretora);
+						setCorretora(null, null, null, corretora);
+						setEstrutura(null, null, null, corretora);
+						setProdutor(null, null, null, corretora);
+
+			} else {
+
+
+			var estrutura = localStorage.getItem('Estrutura');
+			$('#filterEstrutura').val(estrutura);
+			if (estrutura) {
+						setDiretor(null, null, null, null, null, estrutura);
+						setGerente(null, null, null, null, null, estrutura);
+						setRepresentante(null, null, null, null, null, estrutura);
+						setCorretora(null, null, null, null, null, estrutura);
+						setEstrutura(null, null, null, null, null, estrutura);
+						setProdutor(null, null, null, null, null, estrutura);
+
+			} else {
+			var produtor = localStorage.getItem('Produtor');
+			$('#filterProdutor').val(produtor);
+			if (produtor) {
+						setDiretor(null, null, null, null, null, null, produtor);
+						setGerente(null, null, null, null, null, null, produtor);
+						setRepresentante(null, null, null, null, null, null, produtor);
+						setCorretora(null, null, null, null, null, null,  produtor);
+						setEstrutura(null, null, null, null, null, null,  produtor);
+						setProdutor(null, null, null, null, null, null, produtor);
+
+			} else {
+				setDiretor(null, null, null, null, null, null, null, false);
+				setGerente(null, null, null, null, null, null, null, false);
+				setRepresentante(null, null, null, null, null, null, null, false);
+				setCorretora(null, null, null, null, null, null, null, false);
+				setMidia();
+				setRegioes();
+				setEstrutura(null, null, null, null, null, null, null, false);
+				setProdutor(null, null, null, null, null, null, null, false);
+				
+			}
+		}
+	}
+}
+}
+}		// console.log('FIM' + Date());
+
+		$(window).keydown(function(event){ // Impede de recarregar a página ao apertar ENTER
 			if(event.keyCode == 13) {
 				event.preventDefault();
 				return false;
 				}
 			});
-
-		// $('.selectpicker').selectpicker({
-		// 	style: 'btn-action',
-		// 	size: 4
-		// });
-
-		// $('.selectpicker').selectpicker('refresh');
-		
 	})
-
 	$.get("/midias", function(result){
 		document.midias = JSON.parse(result)
 	})
-
 	$.get("/regioes", function(result){
 		document.regioes = JSON.parse(result)
 	})
@@ -202,9 +254,9 @@
 		var chartFunil = new CanvasJS.Chart("chartFunil", {
 			animationEnabled: false,
 			height: 500,
-//			title:{
-//				text: ""
-//			},
+			//			title:{
+				//				text: ""
+			//			},
 			data: [{
 				indexLabelMaxWidth: 300,
 				indexLabelFontSize: 13,
@@ -291,8 +343,43 @@
 	}
 	</script>
 	<body>
-		<!-- header -->
-	<div class="container">
+		<style> /*  LOADER */
+		.overlayer { 
+		background-color: black;
+		opacity: 0.8;
+		width: 100%;
+		height: 100%;
+		position: absolute;
+		z-index: 1040;
+		top: 0;
+		}
+		.loader {
+			margin-top: 25%;
+			margin-left: auto;
+			margin-right: auto;
+			border: 16px solid #f3f3f3;
+			border-radius: 50%;
+			border-top: 16px solid #3498db;
+			width: 120px;
+			height: 120px;
+			-webkit-animation: spin 2s linear infinite; /* Safari */
+			animation: spin 2s linear infinite;
+		}
+				/* Safari */
+			@-webkit-keyframes spin {
+			0% { -webkit-transform: rotate(0deg); }
+			100% { -webkit-transform: rotate(360deg); }
+			}
+			@keyframes spin {
+			0% { transform: rotate(0deg); }
+			100% { transform: rotate(360deg); }
+		} 
+		/*  LOADER */
+		</style>
+		<div class="overlayer">
+			<div class="loader"></div>
+		</div>
+		<div class="container">
 			<nav class="navbar navbar-fixed-top" id="header">
 				<span>
 					<img class="logo" src="/public/img/logo-1.png">
@@ -306,7 +393,7 @@
 							<td><center>
 								<div class="btn-group btn-group-sm" role="group" aria-label="...">
 									
-									<a href="#" class="btn btn-default btn-primary" data-toggle="modal" data-target="#dialogFilter" id="buttonFilter"><span class="fa fa-search"></span> &nbsp;Filtro&nbsp;</a>
+									<a class="btn btn-default btn-primary" data-toggle="modal" data-target="#dialogFilter" id="buttonFilter"><span class="fa fa-search"></span> &nbsp;Filtro&nbsp;</a>
 									<% if(user.id == 1){ %>
 									<a href="/edit" class="btn btn-default"><span class="fa fa-cogs"></span> &nbsp;Editar&nbsp;</a>
 									<% } %>
@@ -348,415 +435,389 @@
 			</nav>
 			
 			
-<div class="row tile_count">
-	<div class="shiny-html-output col-sm-5 col-md-2 col-xs-12 tile_stats_count shiny-bound-output" id="boxVisitas">
-		<span class="count_top"><i class="fa fa-user"></i> Visitas</span>
-		<div id="sessions" class="count">
-			<%= dataTotal["sessions"] ? dataTotal["sessions"].toLocaleString("pt-BR").replace(",", ".")  : 0  %>
-		</div>
-	</div>
-<div class="shiny-html-output col-sm-12 col-md-2 col-xs-12 tile_stats_count shiny-bound-output" id="boxPreCadastro">
-		<span class="count_top"><i class="fa fa-pencil-square-o"></i> Pré-Cadastro</span>
-		<div id="pre_registration" class="count">
-			<%= dataTotal["precadastro"] ? dataTotal["precadastro"] : 0  %>
-		</div>
-</div>
-<div class="shiny-html-output col-sm-12 col-md-2 col-xs-12 tile_stats_count shiny-bound-output" id="boxCadastroFinalizado">
-	<span class="count_top"><i class="fa fa-check"></i> Cadastro Finalizado</span>
-	<div id="personal_data_completed" class="count">
-		<%= dataTotal["dadospessoais"] ? dataTotal["dadospessoais"] : 0  %>
-	</div>
-</div>
-<div class="shiny-html-output col-sm-12 col-md-2 col-xs-12 tile_stats_count shiny-bound-output" id="boxVidas">
-	<span class="count_top"><i class="fa fa-heart"></i> Vidas</span>
-	<div id="lifes" class="count">
-		<%= dataTotal["vidas"] ? dataTotal["vidas"] : 0  %>
-	</div>
-</div>
-<div class="shiny-html-output col-sm-12 col-md-2 col-xs-12 tile_stats_count shiny-bound-output" id="boxVendas">
-	<span class="count_top"><i class="fa fa-handshake-o"></i> Vendas</span>
-	<div id="transactions" class="count">
-		<%= dataTotal["vendas"] ? dataTotal["vendas"] : 0  %>
-	</div>
-</div>
-<div class="shiny-html-output col-sm-12 col-md-2 col-xs-12 tile_stats_count shiny-bound-output" id="boxReceita">
-	<span class="count_top"><i class="fa fa-usd"></i> Receita</span>
-	<div id="revenue" class="count">
-		
-		<%= dataTotal["receita"] ? dataTotal["receita"].toLocaleString("pt-BR").replace(",", "|").replace(".", ",").replace("|", ".").substr(0, (dataTotal["receita"].toLocaleString("pt-BR").replace(",", "|").replace(".", ",").indexOf(",") + 3)) : 0  %>
-	</div>
-</div>
-</div>
-
-
-
-<div class="row">
-<div class="shiny-html-output col-md-7 col-sm-12 col-xs-12 shiny-bound-output">
-	<div class="x_panel" style="min-height: 567px;margin-bottom: 50px;">
-		<div class="x_title no-padding">
-			<a href="#!" id="trocaGrafico" class="pull-right"><i class="fa fa-eye"  style="font-size:24px"></i></a>
-			<!-- <a href="#!" id="trocaGrafico" class="btn btn-primary pull-right btn-xs"><i class="fa fa-eye"></i></a> -->
-			<h4>Funil</h4>
-		</div>
-			<div class="clearfix"></div>
-				<div class="x-content no-padding">
-					<div id="chartFunil" style="display: none;"></div>
-					<div id="chartFunilPSD">
-						<img src="/public/img/funil.png" alt="" class="img-responsive">
-						<div class="count charBar_count visitas">
-							Visitas - <%= dataTotal["sessions"] ? dataTotal["sessions"].toLocaleString("pt-BR").replace(",", ".") : 0  %>
-						</div>
-						<div class="count charBar_count precadastro" style="top: 142px;">
-							Pré-Cadastro - <%= dataTotal["precadastro"] ? dataTotal["precadastro"] : 0  %>
-						</div>
-						<div class="count charBar_count dadospessoais" style="top: 216px;">
-							Dados Pessoais - <%= dataTotal["dadospessoais"] ? dataTotal["dadospessoais"] : 0  %>
-						</div>
-						<div class="count charBar_count dependentes" style="top: 284px;">
-							Dependentes - <%= dataTotal["dependentes"] ? dataTotal["dependentes"] : 0  %>
-						</div>
-						<div class="count charBar_count corretor" style="top: 354px;">
-							Corretor - <%= dataTotal["corretor"] ? dataTotal["corretor"] : 0  %>
-						</div>
-						<div class="count charBar_count checkout" style="top: 423px;">
-							Checkout - <%= dataTotal["checkout"] ? dataTotal["checkout"] : 0  %>
-						</div>
-						<div class="count charBar_count vendas" style="top: 493px;">
-							Compras Finalizadas - <%= dataTotal["vendas"] ? dataTotal["vendas"] : 0  %>
-						</div>
-					</div>
-					<div id="charBar" style="display: none">
-						<img src="/public/img/dashboard.png" alt="" class="img-responsive">
-						<div class="count charBar_count visitas">
-							Visitas - <%= dataTotal["sessions"] ? dataTotal["sessions"].toLocaleString("pt-BR").replace(",", ".") : 0  %>
-						</div>
-						<div class="count charBar_count precadastro" style="top: 142px;">
-							Pré-Cadastro - <%= dataTotal["precadastro"] ? dataTotal["precadastro"] : 0  %>
-						</div>
-						<div class="count charBar_count dadospessoais" style="top: 216px;">
-							Dados Pessoais - <%= dataTotal["dadospessoais"] ? dataTotal["dadospessoais"] : 0  %>
-						</div>
-						<div class="count charBar_count dependentes" style="top: 284px;">
-							Dependentes - <%= dataTotal["dependentes"] ? dataTotal["dependentes"] : 0  %>
-						</div>
-						<div class="count charBar_count corretor" style="top: 354px;">
-							Corretor - <%= dataTotal["corretor"] ? dataTotal["corretor"] : 0  %>
-						</div>
-						<div class="count charBar_count checkout" style="top: 423px;">
-							Checkout - <%= dataTotal["checkout"] ? dataTotal["checkout"] : 0  %>
-						</div>
-						<div class="count charBar_count vendas" style="top: 493px;">
-							Compras Finalizadas - <%= dataTotal["vendas"] ? dataTotal["vendas"] : 0  %>
-						</div>
+			<div class="row tile_count">
+				<div class="shiny-html-output col-sm-5 col-md-2 col-xs-12 tile_stats_count shiny-bound-output" id="boxVisitas">
+					<span class="count_top"><i class="fa fa-user"></i> Visitas</span>
+					<div id="sessions" class="count">
+						<%= dataTotal["sessions"] ? dataTotal["sessions"].toLocaleString("pt-BR").replace(",", ".")  : 0  %>
 					</div>
 				</div>
-	</div>
-</div> <!-- FUNIL -->
-<div class="col-sm-12 col-md-5 col-xs-12">
-	<div class="col-sm-12 col-xs-12">
-		<div class="shiny-html-output no-padding col-sm-12 col-md-12 col-xs-12 shiny-bound-output" id="boxPreCadastroPorVisita">
-		<div class="animated flipInY">
-			<div class="tile-stats orange-bg">
-				<div class="icon"><i class="fa fa-level-down dark-orange-text"></i></div>
-				<div class="count white-text" id="registration_per_session">
-					<%= ((dataTotal["precadastro"]*100/dataTotal["sessions"]) > 0) ? (dataTotal["precadastro"]*100/(dataTotal["sessions"] == 0 ? 1 : dataTotal["sessions"])).toFixed(2) : "0.00"%> %
-				</div>
-				<h3 class="white-text">Pré-Cadastro por Visita</h3>
-			</div>
-		</div>
-		</div>
-
-		<div class="shiny-html-output no-padding col-sm-12 col-md-12 col-xs-12 shiny-bound-output" id="boxDadosPessoaisPorPreCadastro">
-			<div class="animated flipInY">
-				<div class="tile-stats orange-bg">
-					<div class="icon"><i class="fa fa-level-down dark-orange-text"></i></div>
-					<div class="count white-text" id="personal_per_registration">
-						<%= ((dataTotal["dadospessoais"]*100/dataTotal["precadastro"]) > 0) ? (dataTotal["dadospessoais"]*100/(dataTotal["precadastro"] == 0 ? 1 : dataTotal["precadastro"])).toFixed(2) : "0.00"%> %
+				<div class="shiny-html-output col-sm-12 col-md-2 col-xs-12 tile_stats_count shiny-bound-output" id="boxPreCadastro">
+					<span class="count_top"><i class="fa fa-pencil-square-o"></i> Pré-Cadastro</span>
+					<div id="pre_registration" class="count">
+						<%= dataTotal["precadastro"] ? dataTotal["precadastro"] : 0  %>
 					</div>
-					<h3 class="white-text">Dados Pessoais por Pré-Cadastro</h3>
+				</div>
+				<div class="shiny-html-output col-sm-12 col-md-2 col-xs-12 tile_stats_count shiny-bound-output" id="boxCadastroFinalizado">
+					<span class="count_top"><i class="fa fa-check"></i> Cadastro Finalizado</span>
+					<div id="personal_data_completed" class="count">
+						<%= dataTotal["dadospessoais"] ? dataTotal["dadospessoais"] : 0  %>
+					</div>
+				</div>
+				<div class="shiny-html-output col-sm-12 col-md-2 col-xs-12 tile_stats_count shiny-bound-output" id="boxVidas">
+					<span class="count_top"><i class="fa fa-heart"></i> Vidas</span>
+					<div id="lifes" class="count">
+						<%= dataTotal["vidas"] ? dataTotal["vidas"] : 0  %>
+					</div>
+				</div>
+				<div class="shiny-html-output col-sm-12 col-md-2 col-xs-12 tile_stats_count shiny-bound-output" id="boxVendas">
+					<span class="count_top"><i class="fa fa-handshake-o"></i> Vendas</span>
+					<div id="transactions" class="count">
+						<%= dataTotal["vendas"] ? dataTotal["vendas"] : 0  %>
+					</div>
+				</div>
+				<div class="shiny-html-output col-sm-12 col-md-2 col-xs-12 tile_stats_count shiny-bound-output" id="boxReceita">
+					<span class="count_top"><i class="fa fa-usd"></i> Receita</span>
+					<div id="revenue" class="count">
+						
+						<%= dataTotal["receita"] ? dataTotal["receita"].toLocaleString("pt-BR").replace(",", "|").replace(".", ",").replace("|", ".").substr(0, (dataTotal["receita"].toLocaleString("pt-BR").replace(",", "|").replace(".", ",").indexOf(",") + 3)) : 0  %>
+					</div>
 				</div>
 			</div>
-		</div>
-
-		<div class="shiny-html-output no-padding col-sm-12 col-md-12 col-xs-12 shiny-bound-output" id="boxDependentesPorDadosPessoais">
-			<div class="animated flipInY">
-				<div class="tile-stats orange-bg">
-					<div class="icon"><i class="fa fa-level-down dark-orange-text"></i></div>
-					<div class="count white-text" id="dependent_per_personal">
-						<%= ((dataTotal["dependentes"]*100/dataTotal["dadospessoais"]) > 0) ? (dataTotal["dependentes"]*100/(dataTotal["dadospessoais"] == 0 ? 1 : dataTotal["dadospessoais"])).toFixed(2) : "0.00"%> %
+			<div class="row">
+				<div class="shiny-html-output col-md-7 col-sm-12 col-xs-12 shiny-bound-output">
+					<div class="x_panel" style="min-height: 567px;margin-bottom: 50px;">
+						<div class="x_title no-padding">
+							<a href="#!" id="trocaGrafico" class="pull-right"><i class="fa fa-eye"  style="font-size:24px"></i></a>
+							<!-- <a href="#!" id="trocaGrafico" class="btn btn-primary pull-right btn-xs"><i class="fa fa-eye"></i></a> -->
+							<h4>Funil</h4>
+						</div>
+						<div class="clearfix"></div>
+						<div class="x-content no-padding">
+							<div id="chartFunil" style="display: none;"></div>
+							<div id="chartFunilPSD">
+								<img src="/public/img/funil.png" alt="" class="img-responsive">
+								<div class="count charBar_count visitas">
+									Visitas - <%= dataTotal["sessions"] ? dataTotal["sessions"].toLocaleString("pt-BR").replace(",", ".") : 0  %>
+								</div>
+								<div class="count charBar_count precadastro" style="top: 142px;">
+									Pré-Cadastro - <%= dataTotal["precadastro"] ? dataTotal["precadastro"] : 0  %>
+								</div>
+								<div class="count charBar_count dadospessoais" style="top: 216px;">
+									Dados Pessoais - <%= dataTotal["dadospessoais"] ? dataTotal["dadospessoais"] : 0  %>
+								</div>
+								<div class="count charBar_count dependentes" style="top: 284px;">
+									Dependentes - <%= dataTotal["dependentes"] ? dataTotal["dependentes"] : 0  %>
+								</div>
+								<div class="count charBar_count corretor" style="top: 354px;">
+									Corretor - <%= dataTotal["corretor"] ? dataTotal["corretor"] : 0  %>
+								</div>
+								<div class="count charBar_count checkout" style="top: 423px;">
+									Checkout - <%= dataTotal["checkout"] ? dataTotal["checkout"] : 0  %>
+								</div>
+								<div class="count charBar_count vendas" style="top: 493px;">
+									Compras Finalizadas - <%= dataTotal["vendas"] ? dataTotal["vendas"] : 0  %>
+								</div>
+							</div>
+							<div id="charBar" style="display: none">
+								<img src="/public/img/dashboard.png" alt="" class="img-responsive">
+								<div class="count charBar_count visitas">
+									Visitas - <%= dataTotal["sessions"] ? dataTotal["sessions"].toLocaleString("pt-BR").replace(",", ".") : 0  %>
+								</div>
+								<div class="count charBar_count precadastro" style="top: 142px;">
+									Pré-Cadastro - <%= dataTotal["precadastro"] ? dataTotal["precadastro"] : 0  %>
+								</div>
+								<div class="count charBar_count dadospessoais" style="top: 216px;">
+									Dados Pessoais - <%= dataTotal["dadospessoais"] ? dataTotal["dadospessoais"] : 0  %>
+								</div>
+								<div class="count charBar_count dependentes" style="top: 284px;">
+									Dependentes - <%= dataTotal["dependentes"] ? dataTotal["dependentes"] : 0  %>
+								</div>
+								<div class="count charBar_count corretor" style="top: 354px;">
+									Corretor - <%= dataTotal["corretor"] ? dataTotal["corretor"] : 0  %>
+								</div>
+								<div class="count charBar_count checkout" style="top: 423px;">
+									Checkout - <%= dataTotal["checkout"] ? dataTotal["checkout"] : 0  %>
+								</div>
+								<div class="count charBar_count vendas" style="top: 493px;">
+									Compras Finalizadas - <%= dataTotal["vendas"] ? dataTotal["vendas"] : 0  %>
+								</div>
+							</div>
+						</div>
 					</div>
-					<h3 class="white-text">Dependentes por Dados Pessoais</h3>
-				</div>
-			</div>
-		</div>
-
-		<div class="shiny-html-output no-padding col-sm-12 col-md-12 col-xs-12 shiny-bound-output" id="boxCorretorPorDependentes">
-			<div class="animated flipInY">
-				<div class="tile-stats orange-bg">
-					<div class="icon"><i class="fa fa-level-down dark-orange-text"></i></div>
-					<div class="count white-text" id="broker_per_dependent">
-						<%= ((dataTotal["corretor"]*100/dataTotal["dependentes"]) > 0) ? (dataTotal["corretor"]*100/(dataTotal["dependentes"] == 0 ? 1 : dataTotal["dependentes"])).toFixed(2) : "0.00"%> %
-					</div>
-					<h3 class="white-text">Corretor por Dependentes</h3>
-				</div>
-			</div>
-		</div>
-
-		<div class="shiny-html-output no-padding col-sm-12 col-md-12 col-xs-12 shiny-bound-output" id="boxCheckoutPorCorretor">
-			<div class="animated flipInY">
-				<div class="tile-stats orange-bg">
-					<div class="icon"><i class="fa fa-level-down dark-orange-text"></i></div>
-					<div class="count white-text" id="checkout_per_broker">
-						<%= ((dataTotal["checkout"]*100/dataTotal["corretor"]) > 0) ? (dataTotal["checkout"]*100/(dataTotal["corretor"] == 0 ? 1 : dataTotal["corretor"])).toFixed(2) : "0.00"%> %
-					</div>
-					<h3 class="white-text">Checkout por Corretor</h3>
-				</div>
-			</div>
-		</div>
-
-		<div class="shiny-html-output no-padding col-sm-12 col-md-12 col-xs-12 shiny-bound-output" id="boxCompraFinalizadaPorCheckout">
-			<div class="animated flipInY">
-				<div class="tile-stats orange-bg">
-					<div class="icon"><i class="fa fa-level-down dark-orange-text"></i></div>
-					<div class="count white-text" id="purchase_per_checkout">
-						<%= ((dataTotal["vendas"]*100/dataTotal["checkout"]) > 0) ? (dataTotal["vendas"]*100/(dataTotal["checkout"] == 0 ? 1 : dataTotal["checkout"])).toFixed(2) : "0.00"%> %
-					</div>
-					<h3 class="white-text">Compra Finalizada por Checkout</h3>
-				</div>
-			</div>
-		</div>
-
-		<div class="shiny-html-output no-padding col-sm-12 col-md-12 col-xs-12 shiny-bound-output" id="boxCompraFinalizadaPorVisita">
-			<div class="animated flipInY">
-				<div class="tile-stats orange-bg">
-					<div class="icon"><i class="fa fa-level-down dark-orange-text"></i></div>
-					<div class="count white-text" id="purchase_per_session">
-						<%= ((dataTotal["vendas"]*100/dataTotal["sessions"]) > 0) ? (dataTotal["vendas"]*100/(dataTotal["sessions"] == 0 ? 1 : dataTotal["sessions"])).toFixed(2) : "0.00"%> %
-					</div>
-					<h3 class="white-text">Compra Finalizada por Visita</h3>
-				</div>
-			</div>
-		</div>
-	</div>
-</div>
-</div>
-
-<div class="row">
-	<div class="shiny-html-output col-md-12 col-sm-12 col-xs-12 shiny-bound-output">
-		<div class="x_panel" style="min-height: 530px;">
-			<div class="x_title no-padding"><h4>Gráfico</h4></div>
-				<div class="clearfix"></div>
-				<div style="float:right">
-					<div class="pull-right">
-						<div class="btn-group tiny-side-padding">
-							<button type="button" class="btn btn-info dropdown-toggle" data-toggle="dropdown" aria-expanded="false">Métrica <i class="caret white-text"></i></button>
-							<ul role="menu" class="dropdown-menu pull-right">
-								<li><a onclick="setMetric('visitas')">Visitas</a></li>
-								<li><a onclick="setMetric('precadastro')">Pré-Cadastro</a></li>
-								<li><a onclick="setMetric('dadospessoais')">Dados Pessoais</a></li>
-								<li><a onclick="setMetric('dependentes')">Dependentes</a></li>
-								<li><a onclick="setMetric('corretor')">Corretor</a></li>
-								<li><a onclick="setMetric('checkout')">Checkout</a></li>
-								<li><a onclick="setMetric('receita')">Compra</a></li>
-							</ul>
-						</div> <!-- OK -->
-						<div class="btn-group tiny-side-padding">
-						<button type="button" class="btn btn-warning dropdown-toggle" data-toggle="dropdown" aria-expanded="false">KPI <i class="caret white-text"></i></button>
-							<ul role="menu" class="dropdown-menu pull-right">
-								<li><a onclick="setKPI('registration_per_session')">Pré-Cadastro por Visitas</a></li>
-								<li><a onclick="setKPI('personal_per_registration')">Dados Pessoais por Pré-Cadastro</a></li>
-								<li><a onclick="setKPI('dependent_per_personal')">Dependentes por Dados Pessoais</a></li>
-								<li><a onclick="setKPI('broker_per_dependent')">Corretor por Dependentes</a></li>
-								<li><a onclick="setKPI('checkout_per_broker')">Checkout por Corretor</a></li>
-								<li><a onclick="setKPI('purchase_per_checkout')">Compra por Checkout</a></li>
-							</ul> <!-- OK -->
+					</div> <!-- FUNIL -->
+					<div class="col-sm-12 col-md-5 col-xs-12">
+						<div class="col-sm-12 col-xs-12">
+							<div class="shiny-html-output no-padding col-sm-12 col-md-12 col-xs-12 shiny-bound-output" id="boxPreCadastroPorVisita">
+								<div class="animated flipInY">
+									<div class="tile-stats orange-bg">
+										<div class="icon"><i class="fa fa-level-down dark-orange-text"></i></div>
+										<div class="count white-text" id="registration_per_session">
+											<%= ((dataTotal["precadastro"]*100/dataTotal["sessions"]) > 0) ? (dataTotal["precadastro"]*100/(dataTotal["sessions"] == 0 ? 1 : dataTotal["sessions"])).toFixed(2) : "0.00"%> %
+										</div>
+										<h3 class="white-text">Pré-Cadastro por Visita</h3>
+									</div>
+								</div>
+							</div>
+							<div class="shiny-html-output no-padding col-sm-12 col-md-12 col-xs-12 shiny-bound-output" id="boxDadosPessoaisPorPreCadastro">
+								<div class="animated flipInY">
+									<div class="tile-stats orange-bg">
+										<div class="icon"><i class="fa fa-level-down dark-orange-text"></i></div>
+										<div class="count white-text" id="personal_per_registration">
+											<%= ((dataTotal["dadospessoais"]*100/dataTotal["precadastro"]) > 0) ? (dataTotal["dadospessoais"]*100/(dataTotal["precadastro"] == 0 ? 1 : dataTotal["precadastro"])).toFixed(2) : "0.00"%> %
+										</div>
+										<h3 class="white-text">Dados Pessoais por Pré-Cadastro</h3>
+									</div>
+								</div>
+							</div>
+							<div class="shiny-html-output no-padding col-sm-12 col-md-12 col-xs-12 shiny-bound-output" id="boxDependentesPorDadosPessoais">
+								<div class="animated flipInY">
+									<div class="tile-stats orange-bg">
+										<div class="icon"><i class="fa fa-level-down dark-orange-text"></i></div>
+										<div class="count white-text" id="dependent_per_personal">
+											<%= ((dataTotal["dependentes"]*100/dataTotal["dadospessoais"]) > 0) ? (dataTotal["dependentes"]*100/(dataTotal["dadospessoais"] == 0 ? 1 : dataTotal["dadospessoais"])).toFixed(2) : "0.00"%> %
+										</div>
+										<h3 class="white-text">Dependentes por Dados Pessoais</h3>
+									</div>
+								</div>
+							</div>
+							<div class="shiny-html-output no-padding col-sm-12 col-md-12 col-xs-12 shiny-bound-output" id="boxCorretorPorDependentes">
+								<div class="animated flipInY">
+									<div class="tile-stats orange-bg">
+										<div class="icon"><i class="fa fa-level-down dark-orange-text"></i></div>
+										<div class="count white-text" id="broker_per_dependent">
+											<%= ((dataTotal["corretor"]*100/dataTotal["dependentes"]) > 0) ? (dataTotal["corretor"]*100/(dataTotal["dependentes"] == 0 ? 1 : dataTotal["dependentes"])).toFixed(2) : "0.00"%> %
+										</div>
+										<h3 class="white-text">Corretor por Dependentes</h3>
+									</div>
+								</div>
+							</div>
+							<div class="shiny-html-output no-padding col-sm-12 col-md-12 col-xs-12 shiny-bound-output" id="boxCheckoutPorCorretor">
+								<div class="animated flipInY">
+									<div class="tile-stats orange-bg">
+										<div class="icon"><i class="fa fa-level-down dark-orange-text"></i></div>
+										<div class="count white-text" id="checkout_per_broker">
+											<%= ((dataTotal["checkout"]*100/dataTotal["corretor"]) > 0) ? (dataTotal["checkout"]*100/(dataTotal["corretor"] == 0 ? 1 : dataTotal["corretor"])).toFixed(2) : "0.00"%> %
+										</div>
+										<h3 class="white-text">Checkout por Corretor</h3>
+									</div>
+								</div>
+							</div>
+							<div class="shiny-html-output no-padding col-sm-12 col-md-12 col-xs-12 shiny-bound-output" id="boxCompraFinalizadaPorCheckout">
+								<div class="animated flipInY">
+									<div class="tile-stats orange-bg">
+										<div class="icon"><i class="fa fa-level-down dark-orange-text"></i></div>
+										<div class="count white-text" id="purchase_per_checkout">
+											<%= ((dataTotal["vendas"]*100/dataTotal["checkout"]) > 0) ? (dataTotal["vendas"]*100/(dataTotal["checkout"] == 0 ? 1 : dataTotal["checkout"])).toFixed(2) : "0.00"%> %
+										</div>
+										<h3 class="white-text">Compra Finalizada por Checkout</h3>
+									</div>
+								</div>
+							</div>
+							<div class="shiny-html-output no-padding col-sm-12 col-md-12 col-xs-12 shiny-bound-output" id="boxCompraFinalizadaPorVisita">
+								<div class="animated flipInY">
+									<div class="tile-stats orange-bg">
+										<div class="icon"><i class="fa fa-level-down dark-orange-text"></i></div>
+										<div class="count white-text" id="purchase_per_session">
+											<%= ((dataTotal["vendas"]*100/dataTotal["sessions"]) > 0) ? (dataTotal["vendas"]*100/(dataTotal["sessions"] == 0 ? 1 : dataTotal["sessions"])).toFixed(2) : "0.00"%> %
+										</div>
+										<h3 class="white-text">Compra Finalizada por Visita</h3>
+									</div>
+								</div>
+							</div>
 						</div>
 					</div>
 				</div>
-				<!-- ********** LOADER ************* -->
 				<div class="row">
-					<div class="container">
-						<div class="progress" id="loadingTable">
-						  <div class="progress-bar progress-bar-striped active" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%">
-						    <span class="sr-only">Carregando dados</span>
-						  </div>
+					<div class="shiny-html-output col-md-12 col-sm-12 col-xs-12 shiny-bound-output">
+						<div class="x_panel" style="min-height: 530px;">
+							<div class="x_title no-padding"><h4>Gráfico</h4></div>
+							<div class="clearfix"></div>
+							<div style="float:right">
+								<div class="pull-right">
+									<div class="btn-group tiny-side-padding">
+										<button type="button" class="btn btn-info dropdown-toggle" data-toggle="dropdown" aria-expanded="false">Métrica <i class="caret white-text"></i></button>
+										<ul role="menu" class="dropdown-menu pull-right">
+											<li><a onclick="setMetric('visitas')">Visitas</a></li>
+											<li><a onclick="setMetric('precadastro')">Pré-Cadastro</a></li>
+											<li><a onclick="setMetric('dadospessoais')">Dados Pessoais</a></li>
+											<li><a onclick="setMetric('dependentes')">Dependentes</a></li>
+											<li><a onclick="setMetric('corretor')">Corretor</a></li>
+											<li><a onclick="setMetric('checkout')">Checkout</a></li>
+											<li><a onclick="setMetric('receita')">Compra</a></li>
+										</ul>
+										</div> <!-- OK -->
+										<div class="btn-group tiny-side-padding">
+											<button type="button" class="btn btn-warning dropdown-toggle" data-toggle="dropdown" aria-expanded="false">KPI <i class="caret white-text"></i></button>
+											<ul role="menu" class="dropdown-menu pull-right">
+												<li><a onclick="setKPI('registration_per_session')">Pré-Cadastro por Visitas</a></li>
+												<li><a onclick="setKPI('personal_per_registration')">Dados Pessoais por Pré-Cadastro</a></li>
+												<li><a onclick="setKPI('dependent_per_personal')">Dependentes por Dados Pessoais</a></li>
+												<li><a onclick="setKPI('broker_per_dependent')">Corretor por Dependentes</a></li>
+												<li><a onclick="setKPI('checkout_per_broker')">Checkout por Corretor</a></li>
+												<li><a onclick="setKPI('purchase_per_checkout')">Compra por Checkout</a></li>
+												</ul> <!-- OK -->
+											</div>
+										</div>
+									</div>
+									<div id="divchartGrafico"></div>
+								</div>
+								<!-- <div id="divchartGrafico"></div> -->
+								</div> <!-- termina gráfico -->
+							</div>
+							<div class="row" style="margin-top:30px">
+								<div class="shiny-html-output col-md-12 col-sm-12 col-xs-12 shiny-bound-output" id="DataTable">
+									<!-- <h1 class="loading" id="loadingTable">Carregando todos os dados ...</h1> -->
+									<div class="x_panel">
+										<div class="x_title col-lg-12">
+											<h4 class="x-title no-padding">Tabela de Dados</h4>
+										</div>
+										<div class="clearfix"></div>
+										<div class="x_content no-padding">
+											<div class="col-lg-12" id="divTable">
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
 						</div>
 					</div>
 				</div>
-				<!-- ********** LOADER ************* -->
-			<div id="divchartGrafico"></div>
-		</div>
-		<!-- <div id="divchartGrafico"></div> -->
-	</div> <!-- termina gráfico -->
-</div>
-
-<div class="row" style="margin-top:30px">
-<div class="shiny-html-output col-md-12 col-sm-12 col-xs-12 shiny-bound-output" id="DataTable">
-	<!-- <h1 class="loading" id="loadingTable">Carregando todos os dados ...</h1> -->
-	<div class="x_panel">
-		<div class="x_title col-lg-12">
-			<h4 class="x-title no-padding">Tabela de Dados</h4>
-		</div>
-		<div class="clearfix"></div>
-		<div class="x_content no-padding">
-			<div class="col-lg-12" id="divTable">
-			</div>
-		</div>
-	</div>
-</div>
-</div>
-</div>
-</div>
-</div>
-<div class="modal fade" tabindex="-1" id="dialogFilter" role="dialog" aria-labelledby="gridSystemModalLabel">
-<div class="modal-dialog" role="document">
-<div class="modal-content">
-<div class="modal-header">
-	<button type="button" class="close" data-dismiss="modal"
-	aria-label="Close">
-	<span aria-hidden="true">&times;</span>
-	</button>
-	<h4 class="modal-title" id="gridSystemModalLabel">Filtro</h4>
-</div>
-<div class="modal-body">
-	<form action="" method='post'>
-		<div class="row">
-<div class="col-lg-6 form-group datas">
-	<label class="control-label">Datas</label>
-	<input type="text" id="datas" name="datas" value="<%=datasFilter %>" class="form-control">
-	<i class="glyphicon glyphicon-calendar fa fa-calendar"></i>
-</div>
-<% if(user.type == 2){ %>
-<div class="col-lg-6 form-group">
-	<label>Diretor</label>
-	<select name="filterDiretor" id="filterDiretor" class="form-control">
-		<option value="" hidden>Selecione o(s) Diretor(es)</option>
-	</select>
-</div>
-<div class="col-lg-6 form-group">
-	<label>Gerente</label>
-	<select name="filterGerente" id="filterGerente" class="form-control">
-		<option value="" hidden>Selecione o(s) gerente(es)</option>
-	</select>
-</div>
-<div class="col-lg-6 form-group">
-	<label>Representante</label>
-	<select name="filterRepresentante" id="filterRepresentante" class="form-control">
-		<option value="" hidden>Selecione o(s) representante(es)</option>
-	</select>
-</div>
-<% } %>
-<div class="col-lg-6 form-group">
-	<label>Corretora</label>
-	<select name="filterCorretora" id="filterCorretora" class="form-control">
-		<option value="" hidden>Selecione o(s) corretor(es)</option>
-	</select>
-</div>
-<% if(user.type == 2){ %>
-<div class="col-lg-6 form-group">
-	<label>Mídia</label>
-	<select name="filterMidia" id="filterMidia" class="form-control">
-		<option value="" hidden>Selecione a(s) mídia(es)</option>
-	</select>
-</div>
-<% } %>
-<div class="col-lg-6 form-group">
-	<label>Estrutura de Venda (EV EA AA)</label>
-	<select name="filterEstrutura" id="filterEstrutura" class="form-control">
-		<option value="" hidden>Selecione a(s) estrutura de venda(as)</option>
-	</select>
-</div>
-<div class="col-lg-6 form-group">
-	<label>Região</label>
-	<select name="filterRegiao" id="filterRegiao" class="form-control "  title="Selecione">
-			<option value="" hidden=>Selecione a(s) região(ões)</option>
-		</select>
-	</div>
-<div class="col-lg-6 form-group">
-	<label>Produtor</label>
-	<select name="filterProdutor" id="filterProdutor" class="form-control">
-		<option value="" hidden>Selecione o(s) produtor(es)</option>
-	</select>
-</div>
-</div>
-<div class="modal-footer">
-<input type="submit" class="btn btn-success" name="confirmar" value="Confirmar">
-<button type="button" class="btn btn-default"  onclick="cleanFilter()">Limpar</button>
-<button type="button" class="btn btn-default"  data-dismiss="modal">Fechar</button>
-</div>
-</form>
-</div>
-</div>
-</div>
-</div>
-</body>
-</html>
-<style type="text/css">
-.datas { position: relative; }
-.datas i {
-position: absolute; bottom: 10px; right: 24px; top: auto; cursor: pointer;
-}
-</style>
-
-<script type="text/javascript">
+				<div class="modal fade" tabindex="-1" id="dialogFilter" role="dialog" aria-labelledby="gridSystemModalLabel">
+					<div class="modal-dialog" role="document">
+						<div class="modal-content">
+							<div class="modal-header">
+								<button type="button" class="close" data-dismiss="modal"
+								aria-label="Close">
+								<span aria-hidden="true">&times;</span>
+								</button>
+								<h4 class="modal-title" id="gridSystemModalLabel">Filtro</h4>
+							</div>
+							<div class="modal-body">
+								<form action="" method='post'>
+									<div class="row">
+										<div class="col-lg-6 form-group datas">
+											<label class="control-label">Datas</label>
+											<input type="text" id="datas" name="datas" value="<%=datasFilter %>" class="form-control">
+										</div>
+										<% if(user.type == 2){ %>
+										<div class="col-lg-6 form-group">
+											<label>Diretor</label>
+											<select name="filterDiretor" id="filterDiretor" class="form-control selectized">
+												<option value="" hidden>Selecione o(s) Diretor(es)</option>
+											</select>
+										</div>
+										<div class="col-lg-6 form-group">
+											<label>Gerente</label>
+											<select name="filterGerente" id="filterGerente" class="form-control selectized">
+												<option value="" hidden>Selecione o(s) gerente(es)</option>
+											</select>
+										</div>
+										<div class="col-lg-6 form-group">
+											<label>Representante</label>
+											<select name="filterRepresentante" id="filterRepresentante" class="form-control selectized">
+												<option value="" hidden>Selecione o(s) representante(es)</option>
+											</select>
+										</div>
+										<% } %>
+										<div class="col-lg-6 form-group">
+											<label>Corretora</label>
+											<select name="filterCorretora" id="filterCorretora" class="form-control selectized">
+												<option value="" hidden>Selecione o(s) corretor(es)</option>
+											</select>
+										</div>
+										<% if(user.type == 2){ %>
+										<div class="col-lg-6 form-group">
+											<label>Mídia</label>
+											<select name="filterMidia" id="filterMidia" class="form-control selectized">
+												<option value="" hidden>Selecione a(s) mídia(es)</option>
+											</select>
+										</div>
+										<% } %>
+										<div class="col-lg-6 form-group">
+											<label>Estrutura de Venda (EV EA AA)</label>
+											<select name="filterEstrutura" id="filterEstrutura" class="form-control selectized">
+												<option value="" hidden>Selecione a(s) estrutura de venda(as)</option>
+											</select>
+										</div>
+										<div class="col-lg-6 form-group">
+											<label>Região</label>
+											<select name="filterRegiao" id="filterRegiao" class="form-control selectized"  title="Selecione">
+												<option value="" hidden=>Selecione a(s) região(ões)</option>
+											</select>
+										</div>
+										<div class="col-lg-6 form-group">
+											<label>Produtor</label>
+											<select name="filterProdutor" id="filterProdutor" class="form-control selectized">
+												<option value="" hidden>Selecione o(s) produtor(es)</option>
+											</select>
+										</div>
+									</div>
+									<div class="modal-footer">
+										<input type="submit" class="btn btn-success" name="confirmar" value="Confirmar">
+										<button type="button" class="btn btn-default"  onclick="cleanFilter()">Limpar</button>
+										<button type="button" class="btn btn-default"  data-dismiss="modal">Fechar</button>
+									</div>
+								</form>
+							</div>
+						</div>
+					</div>
+				</div>
+			</body>
+		</html>
+		<style type="text/css">
+		.datas { position: relative; }
+		.datas i {
+		position: absolute; bottom: 10px; right: 24px; top: auto; cursor: pointer;
+		}
+		</style>
+		<script type="text/javascript">
+			
+			$(document).ready(function() {
+				$('#trocaGrafico').click(function(){ //Troca visual de gráficos
+					if($('#chartFunilPSD').is(':visible')){
+						$('#chartFunilPSD').hide();
+						$('#charBar').show();
+					} else {
+						$('#chartFunilPSD').show();
+						$('#charBar').hide();
+					}
+				});
+				$('#marquee').marquee({
+					pauseOnHover: true,
+					duration: 24000,
+					gap: 50,
+					delayBeforeStart: 0,
+					direction: 'left',
+					duplicated: true
+				});
 				
-	$(document).ready(function() {
-		$('#trocaGrafico').click(function(){ //Troca visual de gráficos
-			if($('#chartFunilPSD').is(':visible')){			
-				$('#chartFunilPSD').hide();
-				$('#charBar').show();
-			} else {
-				$('#chartFunilPSD').show();
-				$('#charBar').hide();
-			}
-		});
-
-		$('#marquee').marquee({
-			pauseOnHover: true,
-			duration: 24000,
-			gap: 50,
-			delayBeforeStart: 0,
-			direction: 'left',
-			duplicated: true
-		});
-		
-		$('#datas').daterangepicker({
-			"minDate":"11/09/2017",
-			"maxDate": "<%=limit_date%>",
-			"locale": {
-				"format": "DD/MM/YYYY",
-				"separator": " - ",
-				"applyLabel": "Aplicar",
-				"cancelLabel": "Cancelar",
-				"fromLabel": "De",
-				"toLabel": "Até",
-				"customRangeLabel": "Custom",
-				"daysOfWeek": [
-					"Dom",
-					"Seg",
-					"Ter",
-					"Qua",
-					"Qui",
-					"Sex",
-					"Sáb"
-				],
-				"monthNames": [
-					"Janeiro",
-					"Fevereiro",
-					"Março",
-					"Abril",
-					"Maio",
-					"Junho",
-					"Julho",
-					"Agosto",
-					"Setembro",
-					"Outubro",
-					"Novembro",
-					"Dezembro"
-				],
-				"firstDay": 0
-			}
-		});
-		
-	});
-</script>
+				$('#datas').daterangepicker({
+					"minDate":"11/09/2017",
+					"maxDate": "<%=limit_date%>",
+					"locale": {
+						"format": "DD/MM/YYYY",
+						"separator": " - ",
+						"applyLabel": "Aplicar",
+						"cancelLabel": "Cancelar",
+						"fromLabel": "De",
+						"toLabel": "Até",
+						"customRangeLabel": "Custom",
+						"daysOfWeek": [
+							"Dom",
+							"Seg",
+							"Ter",
+							"Qua",
+							"Qui",
+							"Sex",
+							"Sáb"
+						],
+						"monthNames": [
+							"Janeiro",
+							"Fevereiro",
+							"Março",
+							"Abril",
+							"Maio",
+							"Junho",
+							"Julho",
+							"Agosto",
+							"Setembro",
+							"Outubro",
+							"Novembro",
+							"Dezembro"
+						],
+						"firstDay": 0
+					}
+				});
+			});
+		</script>

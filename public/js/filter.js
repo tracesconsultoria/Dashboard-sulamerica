@@ -1,35 +1,66 @@
 $(document).ready(function() {
 
-	// $('#filterDiretor').selectize({
-	// 	onDropdownHide : function() {}
- //    });
-
-
-	$('#buttonFilter').on('click', function (e) {		
-		setDiretor();
-		setGerente();
-		setRepresentante();
-		setCorretora();
-		setMidia();
-		setRegioes();
-		setEstrutura();
-		setProdutor();
-	});
+	// $('#buttonFilter').on('click', function (e) {		
+	// 	setDiretor();
+	// 	setGerente();
+	// 	setRepresentante();
+	// 	setCorretora();
+	// 	setMidia();
+	// 	setRegioes();
+	// 	setEstrutura();
+	// 	setProdutor();
+	// });
 	
+
+
+
 	$('#filterDiretor').on('change', function (e) {	
+		// configuraDiretor();
 		setGerente($('#filterDiretor').val());
 		setRepresentante($('#filterDiretor').val());
 		setCorretora($('#filterDiretor').val());
 		setEstrutura($('#filterDiretor').val());
 		setProdutor($('#filterDiretor').val());
-	});
+		
+		// $('.selectized').selectize('refresh');
+		localStorage.removeItem('Diretor');
+		localStorage.removeItem('Gerente');
+		localStorage.removeItem('Representante');
+		localStorage.removeItem('Corretora');
+		localStorage.removeItem('Estrutura');
+		localStorage.removeItem('Produtor');
+		var diretor = document.getElementById("filterDiretor");
+		var strDiretor = diretor.options[diretor.selectedIndex].value;
+		localStorage.setItem('Diretor', strDiretor);
 	
+	});
+
+	// function configuraDiretor() {
+	// 	setGerente($('#filterDiretor').val());
+	// 	setRepresentante($('#filterDiretor').val());
+	// 	setCorretora($('#filterDiretor').val());
+	// 	setEstrutura($('#filterDiretor').val());
+	// 	setProdutor($('#filterDiretor').val());
+	// }
+
 	$('#filterGerente').on('change', function (e) {		
 		setDiretor(null, $('#filterGerente').val());
 		setRepresentante(null, $('#filterGerente').val());
 		setCorretora(null, $('#filterGerente').val());
 		setEstrutura(null, $('#filterGerente').val());
 		setProdutor(null, $('#filterGerente').val());
+		
+		// $('.selectized').selectize('refresh');
+		localStorage.removeItem('Diretor');
+		localStorage.removeItem('Gerente');
+		localStorage.removeItem('Representante');
+		localStorage.removeItem('Corretora');
+		localStorage.removeItem('Estrutura');
+		localStorage.removeItem('Produtor');
+		var gerente = document.getElementById("filterGerente");
+		var strGerente = gerente.options[gerente.selectedIndex].value;
+		localStorage.setItem('Gerente', strGerente);
+	
 	});
 	
 	$('#filterRepresentante').on('change', function (e) {		
@@ -38,14 +69,38 @@ $(document).ready(function() {
 		setCorretora(null, null, $('#filterRepresentante').val());
 		setEstrutura(null, null, $('#filterRepresentante').val());
 		setProdutor(null, null, $('#filterRepresentante').val());
+		
+		// $('.selectized').selectize('refresh');
+		localStorage.removeItem('Diretor');
+		localStorage.removeItem('Gerente');
+		localStorage.removeItem('Representante');
+		localStorage.removeItem('Corretora');
+		localStorage.removeItem('Estrutura');
+		localStorage.removeItem('Produtor');
+		var representante = document.getElementById("filterRepresentante");
+		var strRepresentante = representante.options[representante.selectedIndex].value;
+		localStorage.setItem('Representante', strRepresentante);
+	
 	});
 	
-	$('#filterCorretora').on('change', function (e) {		
+	$('#filterCorretora').on('change', function (e) {
 		setDiretor(null, null, null, $('#filterCorretora').val());
 		setGerente(null, null, null, $('#filterCorretora').val());
 		setRepresentante(null, null, null, $('#filterCorretora').val());
 		setEstrutura(null, null, null, $('#filterCorretora').val());
 		setProdutor(null, null, null, $('#filterCorretora').val());
+		
+		// $('.selectized').selectize('refresh');
+		localStorage.removeItem('Diretor');
+		localStorage.removeItem('Gerente');
+		localStorage.removeItem('Representante');
+		localStorage.removeItem('Corretora');
+		localStorage.removeItem('Estrutura');
+		localStorage.removeItem('Produtor');
+		var corretora = document.getElementById("filterCorretora");
+		var strCorretora = corretora.options[corretora.selectedIndex].value;
+		localStorage.setItem('Corretora', strCorretora);
+	
 	});
 
 	$('#filterEstrutura').on('change', function (e) {		
@@ -54,6 +109,18 @@ $(document).ready(function() {
 		setRepresentante(null, null, null, null, null, $('#filterEstrutura').val());
 		setCorretora(null, null, null, null, null, $('#filterEstrutura').val());
 		setProdutor(null, null, null, null, null, $('#filterEstrutura').val());
+		
+		// $('.selectized').selectize('refresh');
+		localStorage.removeItem('Diretor');
+		localStorage.removeItem('Gerente');
+		localStorage.removeItem('Representante');
+		localStorage.removeItem('Corretora');
+		localStorage.removeItem('Estrutura');
+		localStorage.removeItem('Produtor');
+		var estrutura = document.getElementById("filterEstrutura");
+		var strEstrutura = estrutura.options[estrutura.selectedIndex].value;
+		localStorage.setItem('Estrutura', strEstrutura);
+	
 	});
 	
 	$('#filterProdutor').on('change', function (e) {		
@@ -62,18 +129,26 @@ $(document).ready(function() {
 		setRepresentante(null, null, null, null, null, null, $('#filterProdutor').val());
 		setCorretora(null, null, null, null, null, null, $('#filterProdutor').val());
 		setEstrutura(null, null, null, null, null, null, $('#filterProdutor').val());
-	});
-
+		
+		// $('.selectized').selectize('refresh');
+		localStorage.removeItem('Diretor');
+		localStorage.removeItem('Gerente');
+		localStorage.removeItem('Representante');
+		localStorage.removeItem('Corretora');
+		localStorage.removeItem('Estrutura');
+		localStorage.removeItem('Produtor');
+		var produtor = document.getElementById("filterProdutor");
+		var strProdutor = produtor.options[produtor.selectedIndex].value;
+		localStorage.setItem('Produtor', strProdutor);
 	
-
-	
-	
-	
-	
-	
+	});	
 });
 
 function setDiretor(idDiretor = null, idGerente = null, idRepresentante = null, idCorretor = null, idMidia = null, idEstruturaVenda = null, idProdutor = null){
+	
+	var diretor = localStorage.getItem('Diretor');
+	document.getElementById('filterDiretor').value = diretor;
+
 	var data = {};
 	for(i=0; i < document.arrFilter.length; i++){
 		if(
@@ -88,15 +163,17 @@ function setDiretor(idDiretor = null, idGerente = null, idRepresentante = null, 
 	}
 
 	$("#filterDiretor").html(createHtmlSelect(data, $("#filterDiretor").val() ? $("#filterDiretor").val() : document.filterDiretor));
+	// console.log(Object.keys(data));
 	
-	if(Object.keys(data).length == 1){
+	if(Object.keys(data).length == 1) {
 		$("#filterDiretor").attr('readonly', 'readonly');
-	}else{
+	} else {
 		$("#filterDiretor").removeAttr('readonly');
 	}
 } 
 
 function setGerente(idDiretor = null, idGerente = null, idRepresentante = null, idCorretor = null, idMidia = null, idEstruturaVenda = null, idProdutor = null){
+	
 	var data = {};
 	for(i=0; i < document.arrFilter.length; i++){
 		if(
@@ -298,6 +375,14 @@ function sortProperties(obj)
 }
 
 function cleanFilter(){
+	
+	localStorage.removeItem('Diretor');
+	localStorage.removeItem('Gerente');
+	localStorage.removeItem('Corretora');
+	localStorage.removeItem('Produtor');
+	localStorage.removeItem('Representante');
+	localStorage.removeItem('Estrutura');
+
 	document.filterDiretor='';
 	document.filterGerente='';
 	document.filterRepresentante='';
@@ -328,7 +413,7 @@ function cleanFilter(){
 
 
 function createTable(columns){
-	$("#loadingTable").css("display","block");
+	$(".overlayer").css("display","block");
 	
 		
 	var subUrl = '';
@@ -442,7 +527,7 @@ function createTable(columns){
 
 		table += "</tbody></table>";
 		
-		$("#loadingTable").css("display","none");
+		$(".overlayer").css("display","none");
 
 		$('#divTable').html(table);
 		

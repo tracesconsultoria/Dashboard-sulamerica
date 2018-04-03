@@ -20,22 +20,23 @@
 		<link href="/public/css/bootstrap.min.css" rel="stylesheet">
 		<link href="/public/css/AdminLTE.min.css" rel="stylesheet">
 		<link rel="stylesheet" type="text/css" media="all" href="/public/css/style.css">
-		<!--link rel="stylesheet" type="text/css" href="/public/css/bootstrap-multiselect.css"-->
 		<link rel="stylesheet" type="text/css" href="/public/css/dataTables.bootstrap.css">
 		<link rel="stylesheet" type="text/css" href="/public/css/buttons.dataTables.min.css">
-		<!--link rel="stylesheet" type="text/css" href="/public/css/normalize.css"-->
+		<!-- <link rel="stylesheet" type="text/css" href="/public/css/normalize.css"> -->
 		<!--link rel="stylesheet" type="text/css" href="/public/css/stylesheet.css"-->
-		<link rel="stylesheet" type="text/css" href="/public/css/bootstrap-select.min.css">		
+		<!-- <link rel="stylesheet" type="text/css" href="/public/css/bootstrap-select.min.css">		 -->
+
+		<!-- <link rel="stylesheet" type="text/css" href="/public/css/selectized.bootstrap3.css"> -->
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/selectize.js/0.12.4/css/selectize.default.min.css">
+		
 
 		
-		<link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/css/select2.min.css" rel="stylesheet" />
-
-		
-		<script src="/public/js/assets/jquery/jquery-3.1.0.min.js"></script>
+		<!-- <script src="/public/js/assets/jquery/jquery-3.1.0.min.js"></script> -->
+		<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 		<script src="/public/js/assets/tether/tether.min.js"></script>
 		<script src="/public/js/assets/bootstrap/bootstrap4-alpha3.min.js"></script>
 
-		<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/js/select2.min.js"></script>
+		<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/selectize.js/0.12.4/js/standalone/selectize.js"></script> -->
 		
 		<script src="/public/js/canvasjs.min.js"></script>
 		<script type="text/javascript" src="/public/js/moment.min.js"></script>
@@ -51,7 +52,8 @@
 		<script type="text/javascript" src="/public/js/buttons.html5.min.js"></script>
 		<script type="text/javascript" src="/public/js/buttons.print.min.js"></script>
 		<script type="text/javascript" src="/public/js/buttons.colVis.min.js"></script>
-		<script type="text/javascript" src="/public/js/standalone/selectize.js"></script>
+		<!-- <script type="text/javascript" src="/public/js/standalone/selectize.js"></script> -->
+		<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/selectize.js/0.12.4/js/standalone/selectize.min.js"></script>
 		<script type="text/javascript" src="/public/js/index.js"></script>
 		<script type="text/javascript" src="/public/js/bootstrap-select.min.js"></script>
 	</head>
@@ -66,8 +68,16 @@
 		document.filterProdutor="<%=filterProdutor%>";
 		document.filterEstrutura="<%=filterEstrutura%>";
 		document.filterRegiao="<%=filterRegiao%>";
+		// $('#buttonFilter').fadeTo(1000, 0.4);
+		// $('#buttonFilter').hide();
+		// $('.selectized').prop('disabled', true);
 		$.get("/filter", function(arrFilter) {
+		// $('#buttonFilter').fadeTo(0.4, 1000);
+		// $('#buttonFilter').show();
+		// $('.selectized').prop('disabled', false);
+			// console.log('chamou funcao' + Date());
 		document.arrFilter = JSON.parse(arrFilter);
+		// console.log('Meio' + Date());
 		setDiretor(null, null, null, null, null, null, null, false);
 		setGerente(null, null, null, null, null, null, null, false);
 		setRepresentante(null, null, null, null, null, null, null, false);
@@ -76,13 +86,23 @@
 		setRegioes();
 		setEstrutura(null, null, null, null, null, null, null, false);
 		setProdutor(null, null, null, null, null, null, null, false);
-		
-		$('.selectpicker').selectpicker({
-			style: 'btn-action',
-			size: 4
-		});
+		// console.log('FIM' + Date());
 
-		$('.selectpicker').selectpicker('refresh');
+		// $('.selectized').selectize([]);
+
+		$(window).keydown(function(event){
+			if(event.keyCode == 13) {
+				event.preventDefault();
+				return false;
+				}
+			});
+
+		// $('.selectpicker').selectpicker({
+		// 	style: 'btn-action',
+		// 	size: 4
+		// });
+
+		// $('.selectpicker').selectpicker('refresh');
 		
 	})
 
@@ -588,7 +608,7 @@
 </div>
 </div>
 </div>
-<div class="modal fade" tabindex="-1" id="dialogFilter" role="dialog" aria-labelledby="gridSystemModalLabel"> <!-- MODAL -->
+<div class="modal fade" tabindex="-1" id="dialogFilter" role="dialog" aria-labelledby="gridSystemModalLabel">
 <div class="modal-dialog" role="document">
 <div class="modal-content">
 <div class="modal-header">
@@ -603,59 +623,61 @@
 		<div class="row">
 <div class="col-lg-6 form-group datas">
 	<label class="control-label">Datas</label>
-	<input type="text" id="datas" name="datas" value="<%= datasFilter %>" class="form-control calendario">
-	<!-- <i class="fa fa-calendar"></i> -->
+	<input type="text" id="datas" name="datas" value="<%=datasFilter %>" class="form-control">
+	<i class="glyphicon glyphicon-calendar fa fa-calendar"></i>
 </div>
 <% if(user.type == 2){ %>
 <div class="col-lg-6 form-group">
 	<label>Diretor</label>
-	<select name="filterDiretor" id="filterDiretor" class="form-control selectpicker" multiple title="Selecione">
+	<select name="filterDiretor" id="filterDiretor" class="form-control">
 		<option value="" hidden>Selecione o(s) Diretor(es)</option>
 	</select>
 </div>
 <div class="col-lg-6 form-group">
 	<label>Gerente</label>
-	<select name="filterGerente" id="filterGerente" class="form-control selectpicker" multiple title="Selecione">
+	<select name="filterGerente" id="filterGerente" class="form-control">
 		<option value="" hidden>Selecione o(s) gerente(es)</option>
 	</select>
 </div>
 <div class="col-lg-6 form-group">
 	<label>Representante</label>
-	<select name="filterRepresentante" id="filterRepresentante" class="form-control selectpicker" multiple title="Selecione">
+	<select name="filterRepresentante" id="filterRepresentante" class="form-control">
 		<option value="" hidden>Selecione o(s) representante(es)</option>
 	</select>
 </div>
 <% } %>
 <div class="col-lg-6 form-group">
 	<label>Corretora</label>
-	<select name="filterCorretora" id="filterCorretora" class="form-control selectpicker" multiple title="Selecione">
+	<select name="filterCorretora" id="filterCorretora" class="form-control">
 		<option value="" hidden>Selecione o(s) corretor(es)</option>
 	</select>
 </div>
 <% if(user.type == 2){ %>
 <div class="col-lg-6 form-group">
 	<label>Mídia</label>
-	<select name="filterMidia" id="filterMidia" class="form-control  selectpicker" multiple title="Selecione">
+	<select name="filterMidia" id="filterMidia" class="form-control">
 		<option value="" hidden>Selecione a(s) mídia(es)</option>
 	</select>
 </div>
 <% } %>
 <div class="col-lg-6 form-group">
 	<label>Estrutura de Venda (EV EA AA)</label>
-	<select name="filterEstrutura" id="filterEstrutura" class="form-control selectpicker" multiple title="Selecione">
+	<select name="filterEstrutura" id="filterEstrutura" class="form-control">
 		<option value="" hidden>Selecione a(s) estrutura de venda(as)</option>
 	</select>
 </div>
 <div class="col-lg-6 form-group">
-	<label>Produtor</label>
-	<select name="filterProdutor" id="filterProdutor" class="form-control selectpicker" multiple title="Selecione">
-		<option value="" hidden>Selecione o(s) produtor(es)</option>
-	</select>
-	</div><div class="col-lg-6 form-group">
-		<label>Região</label>
-		<select name="filterRegiao" id="filterRegiao" class="selectpicker" multiple title="Selecione a(s) região(ões)">
+	<label>Região</label>
+	<select name="filterRegiao" id="filterRegiao" class="form-control "  title="Selecione">
+			<option value="" hidden=>Selecione a(s) região(ões)</option>
 		</select>
 	</div>
+<div class="col-lg-6 form-group">
+	<label>Produtor</label>
+	<select name="filterProdutor" id="filterProdutor" class="form-control">
+		<option value="" hidden>Selecione o(s) produtor(es)</option>
+	</select>
+</div>
 </div>
 <div class="modal-footer">
 <input type="submit" class="btn btn-success" name="confirmar" value="Confirmar">
@@ -672,19 +694,13 @@
 <style type="text/css">
 .datas { position: relative; }
 .datas i {
-	position: absolute; bottom: 10px; right: 24px; top: auto;
+position: absolute; bottom: 10px; right: 24px; top: auto; cursor: pointer;
 }
 </style>
 
 <script type="text/javascript">
 				
 	$(document).ready(function() {
-
-		// $(".select2").select2({
-		// 	minimumResultsForSearch: Infinity
-		// });
-
-
 		$('#trocaGrafico').click(function(){ //Troca visual de gráficos
 			if($('#chartFunilPSD').is(':visible')){			
 				$('#chartFunilPSD').hide();
@@ -704,7 +720,7 @@
 			duplicated: true
 		});
 		
-		$('.calendario').daterangepicker({
+		$('#datas').daterangepicker({
 			"minDate":"11/09/2017",
 			"maxDate": "<%=limit_date%>",
 			"locale": {
@@ -741,5 +757,6 @@
 				"firstDay": 0
 			}
 		});
+		
 	});
 </script>
