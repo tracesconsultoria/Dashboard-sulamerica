@@ -71,6 +71,8 @@
 						setGerente(diretor);
 						setRepresentante(diretor);
 						setCorretora(diretor);
+						setMidia();
+						setRegioes();
 						setEstrutura(diretor);
 						setProdutor(diretor);
 
@@ -78,11 +80,12 @@
 			var gerente = localStorage.getItem('Gerente');
 			$('#filterGerente').val(gerente);
 			if (gerente) {
-			alert(gerente);
 						setDiretor(null, gerente);
 						setGerente(null, gerente);
 						setRepresentante(null, gerente);
 						setCorretora(null, gerente);
+						setMidia();
+						setRegioes();
 						setEstrutura(null, gerente);
 						setProdutor(null, gerente);
 
@@ -96,6 +99,8 @@
 						setGerente(null, null, representante);
 						setRepresentante(null, null, representante);
 						setCorretora(null, null, representante);
+						setMidia();
+						setRegioes();
 						setEstrutura(null, null, representante);
 						setProdutor(null, null, representante);
 
@@ -108,6 +113,8 @@
 						setGerente(null, null, null, corretora);
 						setRepresentante(null, null, null, corretora);
 						setCorretora(null, null, null, corretora);
+						setMidia();
+						setRegioes();
 						setEstrutura(null, null, null, corretora);
 						setProdutor(null, null, null, corretora);
 
@@ -121,6 +128,8 @@
 						setGerente(null, null, null, null, null, estrutura);
 						setRepresentante(null, null, null, null, null, estrutura);
 						setCorretora(null, null, null, null, null, estrutura);
+						setMidia();
+						setRegioes();
 						setEstrutura(null, null, null, null, null, estrutura);
 						setProdutor(null, null, null, null, null, estrutura);
 
@@ -132,6 +141,8 @@
 						setGerente(null, null, null, null, null, null, produtor);
 						setRepresentante(null, null, null, null, null, null, produtor);
 						setCorretora(null, null, null, null, null, null,  produtor);
+						setMidia();
+						setRegioes();
 						setEstrutura(null, null, null, null, null, null,  produtor);
 						setProdutor(null, null, null, null, null, null, produtor);
 

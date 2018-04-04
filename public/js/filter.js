@@ -1,19 +1,5 @@
 $(document).ready(function() {
 
-	// $('#buttonFilter').on('click', function (e) {		
-	// 	setDiretor();
-	// 	setGerente();
-	// 	setRepresentante();
-	// 	setCorretora();
-	// 	setMidia();
-	// 	setRegioes();
-	// 	setEstrutura();
-	// 	setProdutor();
-	// });
-	
-
-
-
 	$('#filterDiretor').on('change', function (e) {	
 		// configuraDiretor();
 		setGerente($('#filterDiretor').val());
@@ -34,14 +20,6 @@ $(document).ready(function() {
 		localStorage.setItem('Diretor', strDiretor);
 	
 	});
-
-	// function configuraDiretor() {
-	// 	setGerente($('#filterDiretor').val());
-	// 	setRepresentante($('#filterDiretor').val());
-	// 	setCorretora($('#filterDiretor').val());
-	// 	setEstrutura($('#filterDiretor').val());
-	// 	setProdutor($('#filterDiretor').val());
-	// }
 
 	$('#filterGerente').on('change', function (e) {		
 		setDiretor(null, $('#filterGerente').val());
