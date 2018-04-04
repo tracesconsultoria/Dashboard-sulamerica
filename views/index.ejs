@@ -64,6 +64,7 @@
 		document.arrFilter = JSON.parse(arrFilter);
 		// console.log('Meio' + Date());
 
+<<<<<<< Updated upstream
 			var diretor = localStorage.getItem('Diretor');
 			$('#filterDiretor').val(diretor);
 			if (diretor) {
@@ -88,10 +89,65 @@
 						setRegioes();
 						setEstrutura(null, gerente);
 						setProdutor(null, gerente);
+=======
+		var stored_Diretor = localStorage.getItem('Diretor');
+		var diretor = JSON.parse(stored_Diretor);
+		if (diretor != null) {
+			var diretors = diretor.join();
+			$('#filterDiretor option').each(function() {
+				for (var i = 0; i < diretor.length; i++) {
+					if (this.value.toString === diretor[i].toString) {
+						this.selected = true;
+					}
+				}
+			});
+			alert(diretors);
+			setDiretor(diretors);
+			setGerente(diretors);
+			setRepresentante(diretors);
+			setCorretora(diretors);
+			setEstrutura(diretors);
+			setProdutor(diretors);
+		} else {
+				console.log('ELSE');
+				setDiretor(null, null, null, null, null, null, null, false);
+				setGerente(null, null, null, null, null, null, null, false);
+				setRepresentante(null, null, null, null, null, null, null, false);
+				setCorretora(null, null, null, null, null, null, null, false);
+				setMidia();
+				setRegioes();
+				setEstrutura(null, null, null, null, null, null, null, false);
+				setProdutor(null, null, null, null, null, null, null, false);
+		}
 
-			} else {
+>>>>>>> Stashed changes
+
+			// var diretor = localStorage.getItem('Diretor');
+			// $('#filterDiretor').val(diretor);
+// 			if (diretor) {
+// 						// setDiretor(diretor);
+// 						// setGerente(diretor);
+// 						// setRepresentante(diretor);
+// 						// setCorretora(diretor);
+// 						// setEstrutura(diretor);
+// 						// setProdutor(diretor);
+
+// 			} else {
+// 			var gerente = localStorage.getItem('Gerente');
+// 			$('#filterGerente').val(gerente);
+// 			if (gerente) {
+// 			alert(gerente);
+// 						setDiretor(null, gerente);
+// 						setGerente(null, gerente);
+// 						setRepresentante(null, gerente);
+// 						setCorretora(null, gerente);
+// 						setEstrutura(null, gerente);
+// 						setProdutor(null, gerente);
+
+// 			} else {
 				
 
+<<<<<<< Updated upstream
 			var representante = localStorage.getItem('Representante');
 			$('#filterRepresentante').val(representante);
 			if (representante) {
@@ -103,9 +159,21 @@
 						setRegioes();
 						setEstrutura(null, null, representante);
 						setProdutor(null, null, representante);
+=======
+// 			var representante = localStorage.getItem('Representante');
+// 			$('#filterRepresentante').val(representante);
+// 			if (representante) {
+// 						setDiretor(null, null, representante);
+// 						setGerente(null, null, representante);
+// 						setRepresentante(null, null, representante);
+// 						setCorretora(null, null, representante);
+// 						setEstrutura(null, null, representante);
+// 						setProdutor(null, null, representante);
+>>>>>>> Stashed changes
 
-			} else {
+// 			} else {
 
+<<<<<<< Updated upstream
 			var corretora = localStorage.getItem('Corretora');
 			$('#filterCorretora').val(corretora);
 			if (corretora) {
@@ -117,10 +185,22 @@
 						setRegioes();
 						setEstrutura(null, null, null, corretora);
 						setProdutor(null, null, null, corretora);
+=======
+// 			var corretora = localStorage.getItem('Corretora');
+// 			$('#filterCorretora').val(corretora);
+// 			if (corretora) {
+// 						setDiretor(null, null, null, corretora);
+// 						setGerente(null, null, null, corretora);
+// 						setRepresentante(null, null, null, corretora);
+// 						setCorretora(null, null, null, corretora);
+// 						setEstrutura(null, null, null, corretora);
+// 						setProdutor(null, null, null, corretora);
+>>>>>>> Stashed changes
 
-			} else {
+// 			} else {
 
 
+<<<<<<< Updated upstream
 			var estrutura = localStorage.getItem('Estrutura');
 			$('#filterEstrutura').val(estrutura);
 			if (estrutura) {
@@ -145,23 +225,35 @@
 						setRegioes();
 						setEstrutura(null, null, null, null, null, null,  produtor);
 						setProdutor(null, null, null, null, null, null, produtor);
+=======
+// 			var estrutura = localStorage.getItem('Estrutura');
+// 			$('#filterEstrutura').val(estrutura);
+// 			if (estrutura) {
+// 						setDiretor(null, null, null, null, null, estrutura);
+// 						setGerente(null, null, null, null, null, estrutura);
+// 						setRepresentante(null, null, null, null, null, estrutura);
+// 						setCorretora(null, null, null, null, null, estrutura);
+// 						setEstrutura(null, null, null, null, null, estrutura);
+// 						setProdutor(null, null, null, null, null, estrutura);
 
-			} else {
-				setDiretor(null, null, null, null, null, null, null, false);
-				setGerente(null, null, null, null, null, null, null, false);
-				setRepresentante(null, null, null, null, null, null, null, false);
-				setCorretora(null, null, null, null, null, null, null, false);
-				setMidia();
-				setRegioes();
-				setEstrutura(null, null, null, null, null, null, null, false);
-				setProdutor(null, null, null, null, null, null, null, false);
-				
-			}
-		}
-	}
-}
-}
-}		// console.log('FIM' + Date());
+// 			} else {
+// 			var produtor = localStorage.getItem('Produtor');
+// 			$('#filterProdutor').val(produtor);
+// 			if (produtor) {
+// 						setDiretor(null, null, null, null, null, null, produtor);
+// 						setGerente(null, null, null, null, null, null, produtor);
+// 						setRepresentante(null, null, null, null, null, null, produtor);
+// 						setCorretora(null, null, null, null, null, null,  produtor);
+// 						setEstrutura(null, null, null, null, null, null,  produtor);
+// 						setProdutor(null, null, null, null, null, null, produtor);
+>>>>>>> Stashed changes
+
+			
+// 		}
+// 	}
+// }
+// }
+// }		// console.log('FIM' + Date());
 
 		$(window).keydown(function(event){ // Impede de recarregar a página ao apertar ENTER
 			if(event.keyCode == 13) {
@@ -704,52 +796,52 @@
 										<% if(user.type == 2){ %>
 										<div class="col-lg-6 form-group">
 											<label>Diretor</label>
-											<select name="filterDiretor" id="filterDiretor" class="form-control selectized">
+											<select name="filterDiretor" id="filterDiretor" class="form-control selectized" multiple="multiple">
 												<option value="" hidden>Selecione o(s) Diretor(es)</option>
 											</select>
 										</div>
 										<div class="col-lg-6 form-group">
 											<label>Gerente</label>
-											<select name="filterGerente" id="filterGerente" class="form-control selectized">
+											<select name="filterGerente" id="filterGerente" class="form-control selectized" multiple="multiple">
 												<option value="" hidden>Selecione o(s) gerente(es)</option>
 											</select>
 										</div>
 										<div class="col-lg-6 form-group">
 											<label>Representante</label>
-											<select name="filterRepresentante" id="filterRepresentante" class="form-control selectized">
+											<select name="filterRepresentante" id="filterRepresentante" class="form-control selectized" multiple="multiple">
 												<option value="" hidden>Selecione o(s) representante(es)</option>
 											</select>
 										</div>
 										<% } %>
 										<div class="col-lg-6 form-group">
 											<label>Corretora</label>
-											<select name="filterCorretora" id="filterCorretora" class="form-control selectized">
+											<select name="filterCorretora" id="filterCorretora" class="form-control selectized" multiple="multiple">
 												<option value="" hidden>Selecione o(s) corretor(es)</option>
 											</select>
 										</div>
 										<% if(user.type == 2){ %>
 										<div class="col-lg-6 form-group">
 											<label>Mídia</label>
-											<select name="filterMidia" id="filterMidia" class="form-control selectized">
+											<select name="filterMidia" id="filterMidia" class="form-control selectized" multiple="multiple">
 												<option value="" hidden>Selecione a(s) mídia(es)</option>
 											</select>
 										</div>
 										<% } %>
 										<div class="col-lg-6 form-group">
 											<label>Estrutura de Venda (EV EA AA)</label>
-											<select name="filterEstrutura" id="filterEstrutura" class="form-control selectized">
+											<select name="filterEstrutura" id="filterEstrutura" class="form-control selectized" multiple="multiple">
 												<option value="" hidden>Selecione a(s) estrutura de venda(as)</option>
 											</select>
 										</div>
 										<div class="col-lg-6 form-group">
 											<label>Região</label>
-											<select name="filterRegiao" id="filterRegiao" class="form-control selectized"  title="Selecione">
+											<select name="filterRegiao" id="filterRegiao" class="form-control selectized"  title="Selecione" multiple="multiple">
 												<option value="" hidden=>Selecione a(s) região(ões)</option>
 											</select>
 										</div>
 										<div class="col-lg-6 form-group">
 											<label>Produtor</label>
-											<select name="filterProdutor" id="filterProdutor" class="form-control selectized">
+											<select name="filterProdutor" id="filterProdutor" class="form-control selectized" multiple="multiple">
 												<option value="" hidden>Selecione o(s) produtor(es)</option>
 											</select>
 										</div>

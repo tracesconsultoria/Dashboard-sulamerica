@@ -1,25 +1,46 @@
 $(document).ready(function() {
 
 	$('#filterDiretor').on('change', function (e) {	
-		// configuraDiretor();
-		setGerente($('#filterDiretor').val());
+		
+		setGerente($('#filterDiretor').val());		
 		setRepresentante($('#filterDiretor').val());
 		setCorretora($('#filterDiretor').val());
 		setEstrutura($('#filterDiretor').val());
 		setProdutor($('#filterDiretor').val());
 		
 		// $('.selectized').selectize('refresh');
+		
+		//limpa tudo primeiro
 		localStorage.removeItem('Diretor');
 		localStorage.removeItem('Gerente');
 		localStorage.removeItem('Representante');
 		localStorage.removeItem('Corretora');
 		localStorage.removeItem('Estrutura');
 		localStorage.removeItem('Produtor');
+<<<<<<< Updated upstream
 		var diretor = document.getElementById("filterDiretor");
 		var strDiretor = diretor.options[diretor.selectedIndex].value;
 		localStorage.setItem('Diretor', strDiretor);
 	
 	});
+=======
+		
+		// var diretor = document.getElementById("filterDiretor");
+		// var strDiretor = diretor.options[diretor.selectedIndex].value;
+		// localStorage.setItem('Diretor', strDiretor);
+
+		var selected = []; // create an array to hold all currently selected motivations
+		// loop through each available motivation
+		$('#filterDiretor option').each(function() {
+			// if it's selected, add it to the array above
+			if (this.selected) {
+				selected.push(this.value);
+			}
+		});
+		// store the array of selected options
+		localStorage.setItem('Diretor', JSON.stringify(selected));
+		});
+>>>>>>> Stashed changes
 
 	$('#filterGerente').on('change', function (e) {		
 		setDiretor(null, $('#filterGerente').val());
@@ -123,11 +144,8 @@ $(document).ready(function() {
 });
 
 function setDiretor(idDiretor = null, idGerente = null, idRepresentante = null, idCorretor = null, idMidia = null, idEstruturaVenda = null, idProdutor = null){
-	
-	var diretor = localStorage.getItem('Diretor');
-	document.getElementById('filterDiretor').value = diretor;
-
 	var data = {};
+	// alert('FILTER ' + typeof idDiretor);
 	for(i=0; i < document.arrFilter.length; i++){
 		if(
 			document.arrFilter[i].diretorCodigo != null && 
