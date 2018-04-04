@@ -17,13 +17,6 @@ $(document).ready(function() {
 		localStorage.removeItem('Corretora');
 		localStorage.removeItem('Estrutura');
 		localStorage.removeItem('Produtor');
-<<<<<<< Updated upstream
-		var diretor = document.getElementById("filterDiretor");
-		var strDiretor = diretor.options[diretor.selectedIndex].value;
-		localStorage.setItem('Diretor', strDiretor);
-	
-	});
-=======
 		
 		// var diretor = document.getElementById("filterDiretor");
 		// var strDiretor = diretor.options[diretor.selectedIndex].value;
@@ -40,7 +33,6 @@ $(document).ready(function() {
 		// store the array of selected options
 		localStorage.setItem('Diretor', JSON.stringify(selected));
 		});
->>>>>>> Stashed changes
 
 	$('#filterGerente').on('change', function (e) {		
 		setDiretor(null, $('#filterGerente').val());

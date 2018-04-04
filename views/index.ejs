@@ -64,32 +64,7 @@
 		document.arrFilter = JSON.parse(arrFilter);
 		// console.log('Meio' + Date());
 
-<<<<<<< Updated upstream
-			var diretor = localStorage.getItem('Diretor');
-			$('#filterDiretor').val(diretor);
-			if (diretor) {
-						setDiretor(diretor);
-						setGerente(diretor);
-						setRepresentante(diretor);
-						setCorretora(diretor);
-						setMidia();
-						setRegioes();
-						setEstrutura(diretor);
-						setProdutor(diretor);
 
-			} else {
-			var gerente = localStorage.getItem('Gerente');
-			$('#filterGerente').val(gerente);
-			if (gerente) {
-						setDiretor(null, gerente);
-						setGerente(null, gerente);
-						setRepresentante(null, gerente);
-						setCorretora(null, gerente);
-						setMidia();
-						setRegioes();
-						setEstrutura(null, gerente);
-						setProdutor(null, gerente);
-=======
 		var stored_Diretor = localStorage.getItem('Diretor');
 		var diretor = JSON.parse(stored_Diretor);
 		if (diretor != null) {
@@ -120,7 +95,6 @@
 				setProdutor(null, null, null, null, null, null, null, false);
 		}
 
->>>>>>> Stashed changes
 
 			// var diretor = localStorage.getItem('Diretor');
 			// $('#filterDiretor').val(diretor);
@@ -145,87 +119,7 @@
 // 						setProdutor(null, gerente);
 
 // 			} else {
-				
-
-<<<<<<< Updated upstream
-			var representante = localStorage.getItem('Representante');
-			$('#filterRepresentante').val(representante);
-			if (representante) {
-						setDiretor(null, null, representante);
-						setGerente(null, null, representante);
-						setRepresentante(null, null, representante);
-						setCorretora(null, null, representante);
-						setMidia();
-						setRegioes();
-						setEstrutura(null, null, representante);
-						setProdutor(null, null, representante);
-=======
-// 			var representante = localStorage.getItem('Representante');
-// 			$('#filterRepresentante').val(representante);
-// 			if (representante) {
-// 						setDiretor(null, null, representante);
-// 						setGerente(null, null, representante);
-// 						setRepresentante(null, null, representante);
-// 						setCorretora(null, null, representante);
-// 						setEstrutura(null, null, representante);
-// 						setProdutor(null, null, representante);
->>>>>>> Stashed changes
-
-// 			} else {
-
-<<<<<<< Updated upstream
-			var corretora = localStorage.getItem('Corretora');
-			$('#filterCorretora').val(corretora);
-			if (corretora) {
-						setDiretor(null, null, null, corretora);
-						setGerente(null, null, null, corretora);
-						setRepresentante(null, null, null, corretora);
-						setCorretora(null, null, null, corretora);
-						setMidia();
-						setRegioes();
-						setEstrutura(null, null, null, corretora);
-						setProdutor(null, null, null, corretora);
-=======
-// 			var corretora = localStorage.getItem('Corretora');
-// 			$('#filterCorretora').val(corretora);
-// 			if (corretora) {
-// 						setDiretor(null, null, null, corretora);
-// 						setGerente(null, null, null, corretora);
-// 						setRepresentante(null, null, null, corretora);
-// 						setCorretora(null, null, null, corretora);
-// 						setEstrutura(null, null, null, corretora);
-// 						setProdutor(null, null, null, corretora);
->>>>>>> Stashed changes
-
-// 			} else {
-
-
-<<<<<<< Updated upstream
-			var estrutura = localStorage.getItem('Estrutura');
-			$('#filterEstrutura').val(estrutura);
-			if (estrutura) {
-						setDiretor(null, null, null, null, null, estrutura);
-						setGerente(null, null, null, null, null, estrutura);
-						setRepresentante(null, null, null, null, null, estrutura);
-						setCorretora(null, null, null, null, null, estrutura);
-						setMidia();
-						setRegioes();
-						setEstrutura(null, null, null, null, null, estrutura);
-						setProdutor(null, null, null, null, null, estrutura);
-
-			} else {
-			var produtor = localStorage.getItem('Produtor');
-			$('#filterProdutor').val(produtor);
-			if (produtor) {
-						setDiretor(null, null, null, null, null, null, produtor);
-						setGerente(null, null, null, null, null, null, produtor);
-						setRepresentante(null, null, null, null, null, null, produtor);
-						setCorretora(null, null, null, null, null, null,  produtor);
-						setMidia();
-						setRegioes();
-						setEstrutura(null, null, null, null, null, null,  produtor);
-						setProdutor(null, null, null, null, null, null, produtor);
-=======
+	
 // 			var estrutura = localStorage.getItem('Estrutura');
 // 			$('#filterEstrutura').val(estrutura);
 // 			if (estrutura) {
@@ -246,7 +140,92 @@
 // 						setCorretora(null, null, null, null, null, null,  produtor);
 // 						setEstrutura(null, null, null, null, null, null,  produtor);
 // 						setProdutor(null, null, null, null, null, null, produtor);
->>>>>>> Stashed changes
+
+// 			var estrutura = localStorage.getItem('Estrutura');
+// 			$('#filterEstrutura').val(estrutura);
+// 			if (estrutura) {
+// 						setDiretor(null, null, null, null, null, estrutura);
+// 						setGerente(null, null, null, null, null, estrutura);
+// 						setRepresentante(null, null, null, null, null, estrutura);
+// 						setCorretora(null, null, null, null, null, estrutura);
+// 						setEstrutura(null, null, null, null, null, estrutura);
+// 						setProdutor(null, null, null, null, null, estrutura);
+
+// 			} else {
+// 			var produtor = localStorage.getItem('Produtor');
+// 			$('#filterProdutor').val(produtor);
+// 			if (produtor) {
+// 						setDiretor(null, null, null, null, null, null, produtor);
+// 						setGerente(null, null, null, null, null, null, produtor);
+// 						setRepresentante(null, null, null, null, null, null, produtor);
+// 						setCorretora(null, null, null, null, null, null,  produtor);
+// 						setEstrutura(null, null, null, null, null, null,  produtor);
+// 						setProdutor(null, null, null, null, null, null, produtor);
+
+
+// 			var estrutura = localStorage.getItem('Estrutura');
+// 			$('#filterEstrutura').val(estrutura);
+// 			if (estrutura) {
+// 						setDiretor(null, null, null, null, null, estrutura);
+// 						setGerente(null, null, null, null, null, estrutura);
+// 						setRepresentante(null, null, null, null, null, estrutura);
+// 						setCorretora(null, null, null, null, null, estrutura);
+// 						setEstrutura(null, null, null, null, null, estrutura);
+// 						setProdutor(null, null, null, null, null, estrutura);
+
+// 			} else {
+// 			var produtor = localStorage.getItem('Produtor');
+// 			$('#filterProdutor').val(produtor);
+// 			if (produtor) {
+// 						setDiretor(null, null, null, null, null, null, produtor);
+// 						setGerente(null, null, null, null, null, null, produtor);
+// 						setRepresentante(null, null, null, null, null, null, produtor);
+// 						setCorretora(null, null, null, null, null, null,  produtor);
+// 						setEstrutura(null, null, null, null, null, null,  produtor);
+// 						setProdutor(null, null, null, null, null, null, produtor);
+
+
+// 			var estrutura = localStorage.getItem('Estrutura');
+// 			$('#filterEstrutura').val(estrutura);
+// 			if (estrutura) {
+// 						setDiretor(null, null, null, null, null, estrutura);
+// 						setGerente(null, null, null, null, null, estrutura);
+// 						setRepresentante(null, null, null, null, null, estrutura);
+// 						setCorretora(null, null, null, null, null, estrutura);
+// 						setEstrutura(null, null, null, null, null, estrutura);
+// 						setProdutor(null, null, null, null, null, estrutura);
+
+// 			} else {
+// 			var produtor = localStorage.getItem('Produtor');
+// 			$('#filterProdutor').val(produtor);
+// 			if (produtor) {
+// 						setDiretor(null, null, null, null, null, null, produtor);
+// 						setGerente(null, null, null, null, null, null, produtor);
+// 						setRepresentante(null, null, null, null, null, null, produtor);
+// 						setCorretora(null, null, null, null, null, null,  produtor);
+// 						setEstrutura(null, null, null, null, null, null,  produtor);
+// 						setProdutor(null, null, null, null, null, null, produtor);
+
+// 			var estrutura = localStorage.getItem('Estrutura');
+// 			$('#filterEstrutura').val(estrutura);
+// 			if (estrutura) {
+// 						setDiretor(null, null, null, null, null, estrutura);
+// 						setGerente(null, null, null, null, null, estrutura);
+// 						setRepresentante(null, null, null, null, null, estrutura);
+// 						setCorretora(null, null, null, null, null, estrutura);
+// 						setEstrutura(null, null, null, null, null, estrutura);
+// 						setProdutor(null, null, null, null, null, estrutura);
+
+// 			} else {
+// 			var produtor = localStorage.getItem('Produtor');
+// 			$('#filterProdutor').val(produtor);
+// 			if (produtor) {
+// 						setDiretor(null, null, null, null, null, null, produtor);
+// 						setGerente(null, null, null, null, null, null, produtor);
+// 						setRepresentante(null, null, null, null, null, null, produtor);
+// 						setCorretora(null, null, null, null, null, null,  produtor);
+// 						setEstrutura(null, null, null, null, null, null,  produtor);
+// 						setProdutor(null, null, null, null, null, null, produtor);
 
 			
 // 		}
