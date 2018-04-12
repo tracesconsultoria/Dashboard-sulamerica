@@ -1,5 +1,6 @@
 $(document).ready(function() {
 
+
     $('#filterDiretor').on('change', function(e) {
         $('#filterGerente').find('option').remove();
         $('#filterRepresentante').find('option').remove();
@@ -9,11 +10,6 @@ $(document).ready(function() {
 
         $('#filterDiretor').val().forEach(function(valor) {
             setGeral(valor, null, null, 1, null, 1, null, 1, null, 1, null, 1, null, 1);
-            //            setGerente(valor);
-            //            setRepresentante(valor);
-            //            setCorretora(valor);
-            //            setEstrutura(valor);
-            //            setProdutor(valor);
         });
 
         $('.multiselect').select2('destroy');
@@ -30,13 +26,7 @@ $(document).ready(function() {
 
         $('#filterGerente').val().forEach(function(valor) {
             setGeral(null, 1, valor, null, null, 1, null, 1, null, 1, null, 1, null, 1);
-
-            // setDiretor(null, valor);
-            // setRepresentante(null, valor);
-            // setCorretora(null, valor);
-            // setEstrutura(null, valor);
-            // setProdutor(null, valor);
-        });
+		});
 
         $('.multiselect').select2('destroy');
         $('.multiselect').select2();
@@ -51,11 +41,6 @@ $(document).ready(function() {
 
         $('#filterRepresentante').val().forEach(function(valor) {
             setGeral(null, 1, null, 1, valor, null, null, 1, null, 1, null, 1, null, 1);
-            // setDiretor(null, null, $('#filterRepresentante').val());
-            // setGerente(null, null, $('#filterRepresentante').val());
-            // setCorretora(null, null, $('#filterRepresentante').val());
-            // setEstrutura(null, null, $('#filterRepresentante').val());
-            // setProdutor(null, null, $('#filterRepresentante').val());
         });
 
         $('.multiselect').select2('destroy');
@@ -71,11 +56,6 @@ $(document).ready(function() {
 
         $('#filterCorretora').val().forEach(function(valor) {
             setGeral(null, 1, null, 1, null, 1, valor, null, null, 1, null, 1, null, 1);
-            // setDiretor(null, null, null, valor);
-            // setGerente(null, null, null, valor);
-            // setRepresentante(null, null, null, valor);
-            // setEstrutura(null, null, null, valor);
-            // setProdutor(null, null, null, valor);
         });
 
         $('.multiselect').select2('destroy');
@@ -91,12 +71,7 @@ $(document).ready(function() {
 
         $('#filterEstrutura').val().forEach(function(valor) {
             setGeral(null, 1, null, 1, null, 1, null, 1, null, 1, valor, null, null, 1);
-            // setDiretor(null, null, null, null, null, valor);
-            // setGerente(null, null, null, null, null, valor);
-            // setRepresentante(null, null, null, null, null, valor);
-            // setCorretora(null, null, null, null, null, valor);
-            // setProdutor(null, null, null, null, null, valor);
-        });
+       });
 
         $('.multiselect').select2('destroy');
         $('.multiselect').select2();
@@ -111,11 +86,6 @@ $(document).ready(function() {
 
         $('#filterProdutor').val().forEach(function(valor) {
             setGeral(null, 1, null, 1, null, 1, null, 1, null, 1, null, 1, valor, null);
-            // setDiretor(null, null, null, null, null, null, valor);
-            // setGerente(null, null, null, null, null, null, valor);
-            // setRepresentante(null, null, null, null, null, null, valor);
-            // setCorretora(null, null, null, null, null, null, valor);
-            // setEstrutura(null, null, null, null, null, null, valor);
         });
 
         $('.multiselect').select2('destroy');
@@ -318,6 +288,7 @@ function setRegioes(dados = null, idDiretor = null, idGerente = null, idRepresen
 	$("#filterRegiao").html(createHtmlSelect(data, $("#filterRegiao").val() ? $("#filterRegiao").val() : document.filterRegiao));
 }
 
+
 function createOptions(select, dataList) {
     if (!select) {
         return;
@@ -328,9 +299,7 @@ function createOptions(select, dataList) {
         let option = document.createElement('option');
         option.value = value[0];
         option.text = value[1];
-
         select.add(option);
-
         val.push(value[0]);
     });
     return val;
@@ -346,6 +315,7 @@ function createHtmlSelect(dataList, selected) {
 
     return html;
 }
+
 
 function validation(data, idDiretor = null, idGerente = null, idRepresentante = null, idCorretor = null, idMidia = null, idEstruturaVenda = null, idProdutor = null) {
     if (idDiretor != null && idDiretor != '' && data.diretorCodigo != idDiretor) {
@@ -377,7 +347,6 @@ function validation(data, idDiretor = null, idGerente = null, idRepresentante = 
     }
     return true;
 }
-
 // var roundToPlusInfinity = function(n, fd) {
 //     console.log('passou roundToPlusInfinity');
 //     var scale = Math.pow(10, fd),
