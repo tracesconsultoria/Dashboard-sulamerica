@@ -8,7 +8,7 @@ $(document).ready(function() {
         $('#filterProdutor').find('option').remove();
 
         $('#filterDiretor').val().forEach(function(valor) {
-            setGeral(valor, null, null, 1, null, 1, null, 1, null, 1, null, 1);
+            setGeral(valor, null, null, 1, null, 1, null, 1, null, 1, null, 1, null, 1);
             //            setGerente(valor);
             //            setRepresentante(valor);
             //            setCorretora(valor);
@@ -29,7 +29,7 @@ $(document).ready(function() {
         $('#filterProdutor').find('option').remove();
 
         $('#filterGerente').val().forEach(function(valor) {
-            setGeral(null, 1, valor, null, null, 1, null, 1, null, 1, null, 1);
+            setGeral(null, 1, valor, null, null, 1, null, 1, null, 1, null, 1, null, 1);
 
             // setDiretor(null, valor);
             // setRepresentante(null, valor);
@@ -50,7 +50,7 @@ $(document).ready(function() {
         $('#filterProdutor').find('option').remove();
 
         $('#filterRepresentante').val().forEach(function(valor) {
-            setGeral(null, 1, null, 1, valor, null, null, 1, null, 1, null, 1);
+            setGeral(null, 1, null, 1, valor, null, null, 1, null, 1, null, 1, null, 1);
             // setDiretor(null, null, $('#filterRepresentante').val());
             // setGerente(null, null, $('#filterRepresentante').val());
             // setCorretora(null, null, $('#filterRepresentante').val());
@@ -70,7 +70,7 @@ $(document).ready(function() {
         $('#filterProdutor').find('option').remove();
 
         $('#filterCorretora').val().forEach(function(valor) {
-            setGeral(null, 1, null, 1, null, 1, valor, null, null, 1, null, 1);
+            setGeral(null, 1, null, 1, null, 1, valor, null, null, 1, null, 1, null, 1);
             // setDiretor(null, null, null, valor);
             // setGerente(null, null, null, valor);
             // setRepresentante(null, null, null, valor);
@@ -90,7 +90,7 @@ $(document).ready(function() {
         $('#filterProdutor').find('option').remove();
 
         $('#filterEstrutura').val().forEach(function(valor) {
-            setGeral(null, 1, null, 1, null, 1, null, 1, valor, null, null, 1);
+            setGeral(null, 1, null, 1, null, 1, null, 1, null, 1, valor, null, null, 1);
             // setDiretor(null, null, null, null, null, valor);
             // setGerente(null, null, null, null, null, valor);
             // setRepresentante(null, null, null, null, null, valor);
@@ -110,7 +110,7 @@ $(document).ready(function() {
         $('#filterEstrutura').find('option').remove();
 
         $('#filterProdutor').val().forEach(function(valor) {
-            setGeral(null, 1, null, 1, null, 1, null, 1, null, 1, valor, null);
+            setGeral(null, 1, null, 1, null, 1, null, 1, null, 1, null, 1, valor, null);
             // setDiretor(null, null, null, null, null, null, valor);
             // setGerente(null, null, null, null, null, null, valor);
             // setRepresentante(null, null, null, null, null, null, valor);
@@ -302,124 +302,6 @@ function setGeral(idDiretor = null, execDiretor = null, idGerente = null, execGe
 }
 
 
-// function setDiretor(idDiretor = null, idGerente = null, idRepresentante = null, idCorretor = null, idMidia = null, idEstruturaVenda = null, idProdutor = null, isOnChange = true) {
-//     var data = {};
-//     for (i = 0; i < document.arrFilter.length; i++) {
-//         if (
-//             document.arrFilter[i].diretorCodigo != null &&
-//             document.arrFilter[i].diretorNome != null &&
-//             document.arrFilter[i].diretorCodigo != '-1'
-//         ) {
-//             if (validation(document.arrFilter[i], idDiretor, idGerente, idRepresentante, idCorretor, idMidia, idEstruturaVenda, idProdutor)) {
-//     			console.log('passou setDiretor');
-//                 data[document.arrFilter[i].diretorCodigo] = document.arrFilter[i].diretorNome;
-//             }
-//         }
-//     }
-//     var valoresMacados = createOptions(document.getElementById("filterDiretor"), data);
-//     if (isOnChange) {
-//         var tempVal = $("#filterDiretor").val();
-//         tempVal.push(valoresMacados);
-//         $("#filterDiretor").val(tempVal);
-//     }
-
-//     if (Object.keys(data).length == 1) {
-//         $("#filterDiretor").attr('readonly', 'readonly');
-//     } else {
-//         $("#filterDiretor").removeAttr('readonly');
-//     }
-// }
-
-// function setGerente(idDiretor = null, idGerente = null, idRepresentante = null, idCorretor = null, idMidia = null, idEstruturaVenda = null, idProdutor = null, isOnChange = true) {
-//     var data = {};
-//     for (i = 0; i < document.arrFilter.length; i++) {
-//         if (
-//             document.arrFilter[i].gerenteCodigo != null &&
-//             document.arrFilter[i].gerenteNome != null &&
-//             document.arrFilter[i].gerenteCodigo != '-1'
-//         ) {
-//             if (validation(document.arrFilter[i], idDiretor, idGerente, idRepresentante, idCorretor, idMidia, idEstruturaVenda, idProdutor)) {
-//             	console.log('passou setGerente');
-//                 data[document.arrFilter[i].gerenteCodigo] = document.arrFilter[i].gerenteNome;
-//             }
-//         }
-//     }
-
-//     var valoresMacados = createOptions(document.getElementById("filterGerente"), data);
-
-//     if (isOnChange) {
-//         var tempVal = $("#filterGerente").val();
-//         tempVal.push(valoresMacados);
-//         $("#filterGerente").val(tempVal);
-//     }
-
-//     if (Object.keys(data).length == 1) {
-//         $("#filterGerente").attr('readonly', 'readonly');
-//     } else {
-//         $("#filterGerente").removeAttr('readonly');
-//     }
-// }
-
-// function setRepresentante(idDiretor = null, idGerente = null, idRepresentante = null, idCorretor = null, idMidia = null, idEstruturaVenda = null, idProdutor = null, isOnChange = true) {
-//     var data = {};
-//     for (i = 0; i < document.arrFilter.length; i++) {
-//         if (
-//             document.arrFilter[i].representanteCodigo != null &&
-//             document.arrFilter[i].representanteNome != null &&
-//             document.arrFilter[i].representanteCodigo != '-1'
-//         ) {
-//             if (validation(document.arrFilter[i], idDiretor, idGerente, idRepresentante, idCorretor, idMidia, idEstruturaVenda, idProdutor)) {
-//     			console.log('passou setRepresentante');
-//                 data[document.arrFilter[i].representanteCodigo] = document.arrFilter[i].representanteNome;
-//             }
-//         }
-//     }
-
-//     var valoresMacados = createOptions(document.getElementById("filterRepresentante"), data);
-
-//     if (isOnChange) {
-//         var tempVal = $("#filterRepresentante").val();
-//         tempVal.push(valoresMacados);
-//         $("#filterRepresentante").val(tempVal);
-//     }
-
-//     if (Object.keys(data).length == 1) {
-//         $("#filterRepresentante").attr('readonly', 'readonly');
-//     } else {
-//         $("#filterRepresentante").removeAttr('readonly');
-//     }
-// }
-
-// function setCorretora(idDiretor = null, idGerente = null, idRepresentante = null, idCorretor = null, idMidia = null, idEstruturaVenda = null, idProdutor = null, isOnChange = true) {
-//     var data = {};
-//     for (i = 0; i < document.arrFilter.length; i++) {
-//         if (
-//             document.arrFilter[i].id_corretora != null &&
-//             document.arrFilter[i].corretor_nome != null &&
-//             document.arrFilter[i].id_corretora != '-1'
-//         ) {
-//             if (validation(document.arrFilter[i], idDiretor, idGerente, idRepresentante, idCorretor, idMidia, idEstruturaVenda, idProdutor)) {
-//     			console.log('passou setCorretora');
-//                 data[document.arrFilter[i].id_corretora] = document.arrFilter[i].corretor_nome;
-//             }
-//         }
-//     }
-
-//     var valoresMacados = createOptions(document.getElementById("filterCorretora"), data);
-
-//     if (isOnChange) {
-//         var tempVal = $("#filterCorretora").val();
-//         tempVal.push(valoresMacados);
-//         $("#filterCorretora").val(tempVal);
-//     }
-
-//     if (Object.keys(data).length == 1) {
-//         $("#filterCorretora").attr('readonly', 'readonly');
-//     } else {
-//         $("#filterCorretora").removeAttr('readonly');
-//     }
-// }
-
 function setMidia(dados = null, idDiretor = null, idGerente = null, idRepresentante = null, idCorretor = null, idMidia = null, idEstruturaVenda = null, idProdutor = null) {
     var data = {};
     $.each(document.midias, function(index, value) {
@@ -435,66 +317,6 @@ function setRegioes(dados = null, idDiretor = null, idGerente = null, idRepresen
     });
 	$("#filterRegiao").html(createHtmlSelect(data, $("#filterRegiao").val() ? $("#filterRegiao").val() : document.filterRegiao));
 }
-
-// function setEstrutura(idDiretor = null, idGerente = null, idRepresentante = null, idCorretor = null, idMidia = null, idEstruturaVenda = null, idProdutor = null, isOnChange = true) {
-//     var data = {};
-//     for (i = 0; i < document.arrFilter.length; i++) {
-//         if (
-//             document.arrFilter[i].estruturaVenda != null &&
-//             document.arrFilter[i].estruturaVenda != null &&
-//             document.arrFilter[i].estruturaVenda != '-1'
-//         ) {
-//             if (validation(document.arrFilter[i], idDiretor, idGerente, idRepresentante, idCorretor, idMidia, idEstruturaVenda, idProdutor)) {
-//     			console.log('passou setEstrutura');
-//                 data[document.arrFilter[i].estruturaVenda] = document.arrFilter[i].estruturaVenda;
-//             }
-//         }
-//     }
-
-//     var valoresMacados = createOptions(document.getElementById("filterEstrutura"), data);
-
-//     if (isOnChange) {
-//         var tempVal = $("#filterEstrutura").val();
-//         tempVal.push(valoresMacados);
-//         $("#filterEstrutura").val(tempVal);
-//     }
-
-//     if (Object.keys(data).length == 1) {
-//         $("#filterEstrutura").attr('readonly', 'readonly');
-//     } else {
-//         $("#filterEstrutura").removeAttr('readonly');
-//     }
-// }
-
-// function setProdutor(idDiretor = null, idGerente = null, idRepresentante = null, idCorretor = null, idMidia = null, idEstruturaVenda = null, idProdutor = null, isOnChange = true) {
-//     var data = {};
-//     for (i = 0; i < document.arrFilter.length; i++) {
-//         if (
-//             document.arrFilter[i].id_produtor != null &&
-//             document.arrFilter[i].produtor_nome != null &&
-//             document.arrFilter[i].id_produtor != '-1'
-//         ) {
-//             if (validation(document.arrFilter[i], idDiretor, idGerente, idRepresentante, idCorretor, idMidia, idEstruturaVenda, idProdutor)) {
-//     			console.log('passou setProdutor');
-//                 data[document.arrFilter[i].id_produtor] = document.arrFilter[i].produtor_nome;
-//             }
-//         }
-//     }
-
-//     var valoresMacados = createOptions(document.getElementById("filterProdutor"), data);
-
-//     if (isOnChange) {
-//         var tempVal = $("#filterProdutor").val();
-//         tempVal.push(valoresMacados);
-//         $("#filterProdutor").val(tempVal);
-//     }
-
-//     if (Object.keys(data).length == 1) {
-//         $("#filterProdutor").attr('readonly', 'readonly');
-//     } else {
-//         $("#filterProdutor").removeAttr('readonly');
-//     }
-// }
 
 function createOptions(select, dataList) {
     if (!select) {
@@ -553,8 +375,6 @@ function validation(data, idDiretor = null, idGerente = null, idRepresentante = 
     if (idProdutor != null && idProdutor != '' && data.id_produtor != idProdutor) {
         return false;
     }
-
-    // console.log('acabou validation');
     return true;
 }
 
@@ -606,15 +426,8 @@ function cleanFilter() {
     limparFiltros();
 	$('.multiselect').select2('destroy');
     $('.multiselect').select2();
-
-    setGeral(null, 1, null, 1, null, 1, null, 1, null, 1, null, 1, false);
-    // setDiretor(null, null, null, null, null, null, null, false);
-    // setGerente(null, null, null, null, null, null, null, false);
-    // setRepresentante(null, null, null, null, null, null, null, false);
-    // setCorretora(null, null, null, null, null, null, null, false);
+    setGeral(null, 1, null, 1, null, 1, null, 1, null, 1, null, 1, null, 1, false);
     setMidia();
-    // setEstrutura(null, null, null, null, null, null, null, false);
-    // setProdutor(null, null, null, null, null, null, null, false);
 }
 
 function createTable(columns) {
