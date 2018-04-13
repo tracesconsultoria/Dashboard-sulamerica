@@ -1,5 +1,9 @@
 $(document).ready(function() {
-
+    // $('#buttonFilter').on('click', function (e) {       
+    //     setGeral(null, null, null, null, null, null, null, null, false);
+    //     setMidia();
+    //     setRegioes();
+    // });
 
     $('#filterDiretor').on('change', function(e) {
         $('#filterGerente').find('option').remove();
@@ -467,20 +471,22 @@ function createTable(columns) {
     if (columns != undefined) {
         var cdata = columns[0];
         var cmidia = columns[1];
-        var cev = columns[2];
-        var cea = columns[3];
-        var caa = columns[4];
-        var cprodutor = columns[5];
+        var cregiao = columns[2];
+        var cev = columns[3];
+        var cea = columns[4];
+        var caa = columns[5];
+        var cprodutor = columns[6];
     } else {
         var cdata = true;
         var cmidia = true;
+        var cregiao = true;
         var cev = true;
         var cea = true;
         var caa = true;
         var cprodutor = true;
     }
 
-    subUrl += '&cdata=' + cdata + '&cmidia=' + cmidia + '&cev=' + cev + '&cea=' + cea + '&caa=' + caa + '&cprodutor=' + cprodutor;
+    subUrl += '&cdata=' + cdata + '&cmidia=' + cmidia + '&cregiao=' + cregiao + '&cev=' + cev + '&cea=' + cea + '&caa=' + caa + '&cprodutor=' + cprodutor;
 
     var url = "/getTable?filterDiretor=" + document.filterDiretor + "&filterGerente=" + document.filterGerente + "&filterRepresentante=" + document.filterRepresentante + "&filterCorretora=" + document.filterCorretora + "&filterMidia=" + document.filterMidia + "&filterProdutor=" + document.filterProdutor + "&filterEstrutura=" + document.filterEstrutura + "&datas=" + document.datas + "&filterRegiao=" + document.filterRegiao + subUrl;
     // console.log(url);
@@ -628,10 +634,11 @@ function createTable(columns) {
         var table = $('#tabela_dados').DataTable();
         table.column(0).visible(cdata);
         table.column(1).visible(cmidia);
-        table.column(2).visible(cev);
-        table.column(3).visible(cea);
-        table.column(4).visible(caa);
-        table.column(5).visible(cprodutor);
+        table.column(2).visible(cregiao);
+        table.column(3).visible(cev);
+        table.column(4).visible(cea);
+        table.column(5).visible(caa);
+        table.column(6).visible(cprodutor);
 
 
         $('#tabela_dados').on('column-visibility.dt', function(e, settings, column, state) {

@@ -35,6 +35,7 @@ console.log('get/');
 	
 	app.get('/filter', isLoggedIn, function(req, res) {
 console.log('get/filter');		
+console.time('filter');
 		
 		var connection_users = mysql.createConnection(dbOdontoConfig.connection);
 		connection_users.query('USE ' + dbOdontoConfig.database);
@@ -57,7 +58,9 @@ console.log('get/filter');
 				'SCE.id_corretora id_corretora, '+
 				'UPPER(c.NomeProdutor) corretor_nome, '+
 				'SCPE.id id_produtor, '+
-				'UPPER(SCPE.produtor_nome) produtor_nome '+
+				'UPPER(SCPE.produtor_nome) produtor_nome, '+
+				'SCE.inspetorCodigo inspetorCodigo, '+
+				'UPPER(SCE.inspetorNome) inspetorNome '+
 			'FROM  '+
 				'servus_corretor_estruturadevenda SCE  '+
 				'LEFT JOIN servus_corretor_produtor_estruturadevenda SCPE ON SCE.ev=SCPE.ev AND SCE.ea=SCPE.ea AND SCE.aa=SCPE.aa  '+
@@ -72,6 +75,7 @@ console.log('get/filter');
 			if (errUser) throw errUser;
 
 			res.send(JSON.stringify(resultUsers))
+console.timeEnd('filter');
 			
 
 		});	
@@ -118,6 +122,7 @@ console.log('get/regioes');
 	
 	app.get('/metricas', isLoggedIn, function(req, res) {
 console.log('get/metricas');		
+console.time('metricas');
 		
 		var connection = mysql.createConnection(dbConfig.connection);
 		connection.query('USE ' + dbConfig.database);
@@ -143,8 +148,11 @@ console.log('get/metricas');
 		if(req.param("filterProdutor"))
 			whereFoundFilter += 'and SCPE.id="'+req.param("filterProdutor")+'" '
 
-                if(req.param("filterEstrutura"))
-                       whereFoundFilter += 'and CONCAT(SCE.ev," ",SCE.ea," ",SCE.aa) in ('+montarp(req.param("filterEstrutura"))+') ';
+        if(req.param("filterEstrutura"))
+            whereFoundFilter += 'and CONCAT(SCE.ev," ",SCE.ea," ",SCE.aa) in ('+montarp(req.param("filterEstrutura"))+') ';
+
+		if(req.param("filterInspetor"))
+			whereFoundFilter += 'and SCE.inspetorCodigo="'+req.param("filterInspetor")+'" '
 
 //		if(req.param("filterEstrutura")) {
 //			var rp = '';
@@ -184,7 +192,7 @@ console.log('get/metricas');
 			var where_user = "WHERE 1=1 ";
 			
 			if(req.user.type == 1){
-				if (rowsFoundFilter.length > 0){
+				if (rowsFoundFilter.length > 0 && rowsFoundFilter.length < 1000){
 					where_user += ' AND(';
 					for (var i in rowsFoundFilter) {
 						where_user += ' CONCAT(SCE.ev," ",SCE.ea," ",SCE.aa) = "'+rowsFoundFilter[i].estruturaVenda+'" OR';
@@ -199,10 +207,12 @@ console.log('get/metricas');
 					req.param("filterGerente") !='' || 
 					req.param("filterRepresentante") !='' || 
 					req.param("filterCorretora") !='' || 
-					req.param("filterProdutor") !='' 
+					req.param("filterProdutor") !='' ||
+					req.param("filterInspetor") !='' 
 				)
 			){
-				if (rowsFoundFilter.length > 0){
+				console.log('rowsFoundFilter.length'+rowsFoundFilter.length);
+				if (rowsFoundFilter.length > 0 && rowsFoundFilter.length < 1000){
 					where_ga += ' AND(';
 					where_vida += ' AND(';
 					for (var i in rowsFoundFilter) {
@@ -290,7 +300,7 @@ console.log('get/metricas');
 					where_ga+
 					' GROUP BY ga.date, pd.date_finish; '
 			
-//			console.log('----metricas-GGG-AAA'+queryGA+'-----');
+			console.log('----metricas-GGG-AAA'+queryGA+'-----');
 			connection.query(queryGA, function(errData, rowsData, fieldsData) {
 				if (errData) throw errData;
 				
@@ -298,6 +308,7 @@ console.log('get/metricas');
 				
 					res.send(JSON.stringify(rowsData))
 //					res.send((rowsData))
+console.timeEnd('metricas');
 				});
 			});		
 			
@@ -307,6 +318,7 @@ console.log('get/metricas');
 	
 	app.get('/getTable', isLoggedIn, function(req, res) {
 console.log('get/getTable');		
+console.time('getTable');
 
 		var connection = mysql.createConnection(dbConfig.connection);
 		connection.query('USE ' + dbConfig.database);
@@ -334,10 +346,14 @@ console.log('get/getTable');
 		if(req.param("filterProdutor"))
 			whereFoundFilter += 'and SCPE.id in ('+req.param("filterProdutor")+') ';
 
-                if(req.param("filterEstrutura"))
-                       whereFoundFilter += 'and CONCAT(SCE.ev," ",SCE.ea," ",SCE.aa) in ('+montarp(req.param("filterEstrutura"))+') ';
-//                       whereFoundFilter += 'and CONCAT(SCE.ev," ",SCE.ea," ",SCE.aa) = "'+req.param("filterEstrutura")+'" '
+		if(req.param("filterEstrutura"))
+			whereFoundFilter += 'and CONCAT(SCE.ev," ",SCE.ea," ",SCE.aa) in ('+montarp(req.param("filterEstrutura"))+') ';
 
+		if(req.param("filterInspetor"))
+			whereFoundFilter += 'and SCE.inspetorCodigo in ('+req.param("filterInspetor")+') ';
+		
+		
+//                       whereFoundFilter += 'and CONCAT(SCE.ev," ",SCE.ea," ",SCE.aa) = "'+req.param("filterEstrutura")+'" '
 //		if(req.param("filterEstrutura")) {
 //			var rp = '';
 //			for (i=0;i<req.param("filterEstrutura").length;i++) rp += '"'+req.param("filterEstrutura")[i]+'",';
@@ -366,7 +382,7 @@ console.log('get/getTable');
 			
 		
 		
-//		console.log('YYYYYYYYYYYYYY'+queryFoundFilter+'yyyyyyyyyy');
+console.log('YYYYYYYYYYYYYY'+queryFoundFilter+'yyyyyyyyyy');
 
 		
 		connection_users.query(queryFoundFilter, function(errFoundFilter, rowsFoundFilter, fieldsFoundFilter) {
@@ -379,7 +395,8 @@ console.log('get/getTable');
 			var where_user = "WHERE 1=1 ";
 			
 			if(req.user.type == 1){
-				if (rowsFoundFilter.length > 0){
+console.log('rowsFoundFilter.lengthh'+rowsFoundFilter.length);
+				if (rowsFoundFilter.length > 0 && rowsFoundFilter.length < 1000){
 					where_user += ' AND(';
 					for (var i in rowsFoundFilter) {
 						where_user += ' CONCAT(SCE.ev," ",SCE.ea," ",SCE.aa) = "'+rowsFoundFilter[i].estruturaVenda+'" OR';
@@ -394,10 +411,11 @@ console.log('get/getTable');
 					req.param("filterGerente") !='' || 
 					req.param("filterRepresentante") !='' || 
 					req.param("filterCorretora") !='' || 
-					req.param("filterProdutor") !='' 
+					req.param("filterProdutor") !='' ||
+					req.param("filterInspetor") !='' 
 				))
 			){
-				if (rowsFoundFilter.length > 0){
+				if (rowsFoundFilter.length > 0 && rowsFoundFilter.length < 1000){
 					where_ga += ' AND(';
 					where_vida += ' AND(';
 					for (var i in rowsFoundFilter) {
@@ -480,13 +498,16 @@ console.log('get/getTable');
 			if(req.param("cprodutor") != 'false') {
 				groupby += 'ga.nmpd,';
 			}
+			if(req.param("cregiao") != 'false') {
+				groupby += 'ga.regiao,';
+			}
 			
 
 			if(groupby != '') groupby = 'GROUP BY  '+groupby.substr(0, groupby.length-1);
 			
 			var queryFullGA = 
 					'SELECT  '+
-						'ga.corretor,  '+
+//						'ga.corretor corretora,  '+
 						'ga.corretor_type,  '+
 						'coalesce(ga.regiao, \'\') as regiao,	'+
 						'ga.ev,  '+
@@ -532,7 +553,9 @@ console.log('get/getTable');
 						where_ga+ 
 						groupby+
 					' union  '+
-						'SELECT  "corretor" as corretor, (case pd.ev_s when 999999 then "Corretor" else "" end) as corretor_type, coalesce(ga.regiao, \'\') as regiao, pd.ev_s as ev, pd.ea_s as ea, pd.aa_s as aa, "" as idpd, "" as nmpd, 0 as sessions,   '+
+						'SELECT  '+
+//						'"corretor" as corretor, '+
+						'(case pd.ev_s when 999999 then "Corretor" else "" end) as corretor_type, coalesce(ga.regiao, \'\') as regiao, pd.ev_s as ev, pd.ea_s as ea, pd.aa_s as aa, "" as idpd, "" as nmpd, 0 as sessions,   '+
 						'0 as impressions,  0 as adClicks, 0 as adCost, 0 as precadastro,  '+
 						'IFNULL(pd.vidas,0.00) as dependentes, 0 as dadospessoais, 0 as corretor,  '+
 						'0.00 as comprasfinalizada, IFNULL(pd.vidas,0.00) as vidas, 0 as checkout,  '+
@@ -552,7 +575,8 @@ console.log('get/getTable');
 						'	sum(valor_total) as valor_total  '+
 						'	from plan_dash '+where_vida+' group by date_format(date_finish, "%Y-%m-%d"), ev_selecionado, ea_selecionado, aa_selecionado ) AS pd ON 1=1 '+
 						groupbypd+
-						'WHERE 1=1  AND (ga.ev is null) ';
+						'WHERE 1=1  AND (ga.ev is null) '+
+						groupby+';';
 						
 						if(req.param("filterMidia")) {
 							var midias = req.param("filterMidia").split(",");
@@ -570,12 +594,15 @@ console.log('get/getTable');
 							queryFullGA += ' AND ga.regiao in ('+regioes.join(",")+') ';
 						}
 						
-//			console.error('XXXXXXFullGA:'+queryFullGA+'xxxxxxxxxxxxxx');
+//console.error('XXXXXXFullGA:'+queryFullGA+'xxxxxxxxxxxxxx');
 // count(id)   sum(qtd_dep ;
 
 			connection.query(queryFullGA, function(errData, rowsDatas, fieldsData) {
 				if (errData) throw errData;
+console.timeEnd('getTable');
+console.time('getTableJSON');
 					res.send(JSON.stringify(rowsDatas))
+console.timeEnd('getTableJSON');
 
 				});
 			});		
@@ -584,6 +611,7 @@ console.log('get/getTable');
 	
 	
 	function indexPage(req, res){
+console.time('index');
 		var connection = mysql.createConnection(dbConfig.connection);
 		connection.query('USE ' + dbConfig.database);
 
@@ -611,6 +639,8 @@ console.log('get/getTable');
         if(req.param("filterEstrutura"))
                 whereFoundFilter += 'and CONCAT(SCE.ev," ",SCE.ea," ",SCE.aa) in ('+montarp(req.param("filterEstrutura"))+') ';
 		
+		if(req.param("filterInspetor"))
+			whereFoundFilter += 'and SCE.inspetorCodigo in ('+req.param("filterInspetor")+') ';
 
 //		if(req.param("filterEstrutura"))
 //                       whereFoundFilter += 'and CONCAT(SCE.ev," ",SCE.ea," ",SCE.aa) in ('+montarp(req.param("filterEstrutura"))+') ';
@@ -653,7 +683,7 @@ console.log('get/getTable');
 			var where_user = "WHERE 1=1 ";
 			
 			if(req.user.type == 1){
-				if (rowsFoundFilter.length > 0){
+				if (rowsFoundFilter.length > 0 && rowsFoundFilter.length < 1000){
 					where_user += ' AND(';
 					for (var i in rowsFoundFilter) {
 						where_user += ' CONCAT(SCE.ev," ",SCE.ea," ",SCE.aa) = "'+rowsFoundFilter[i].estruturaVenda+'" OR';
@@ -668,10 +698,11 @@ console.log('get/getTable');
 					req.param("filterGerente") !='' || 
 					req.param("filterRepresentante") !='' || 
 					req.param("filterCorretora") !='' || 
-					req.param("filterProdutor") !='' 
+					req.param("filterProdutor") !='' ||
+					req.param("filterInspetor") !='' 
 				) && req.param("confirmar") != undefined)
 			){
-				if (rowsFoundFilter.length > 0){
+				if (rowsFoundFilter.length > 0 && rowsFoundFilter.length < 1000){
 					where_ga += ' AND(';
 					where_vida += ' AND(';
 					for (var i in rowsFoundFilter) {
@@ -798,13 +829,18 @@ console.log('get/getTable');
 						filterProdutor : req.param("filterProdutor"),
 						filterEstrutura : req.param("filterEstrutura"),
 						filterRegiao : req.param("filterRegiao"),
+						filterInspetor : req.param("filterInspetor"),
 						datasFilter: dates,
 						limit_date : limit_date,
 						dataTotal : dataTotal
 					});
+					//
+console.timeEnd('index');
+					
 				});
 			});		
 		});
+		
 	};
 
 	app.get('/login', function(req, res) {

@@ -1,8 +1,17 @@
+@media (min-width: 768px) {
+    .modal-dialog {
+    width: 90%;
+    margin: 30px auto;
+}
+}
 label {
     display: table-cell !important;
     max-width: 100%;
     margin-bottom: 5px;
     font-weight: 700;
+}
+.select2-container {
+    width: 100% !important;
 }
 .select2-container--default .select2-selection--multiple {
     background-color: white  !important;
@@ -17,7 +26,7 @@ label {
     min-height: 34px  !important;
     user-select: none  !important;
     -webkit-user-select: none  !important;
-    width: 270px  !important;
+    width: 100% !important;
 }
 .select2-dropdown {
     background-color: white;

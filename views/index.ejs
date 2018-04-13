@@ -48,7 +48,7 @@
 		
 		<script>
 		$(document).ready(function() {	
-			document.datas="<%=datasFilter%>";
+		document.datas="<%=datasFilter%>";
 		document.filterDiretor="<%=filterDiretor%>";
 		document.filterGerente="<%=filterGerente%>";
 		document.filterRepresentante="<%=filterRepresentante%>";
@@ -629,75 +629,78 @@
 								<span aria-hidden="true">&times;</span>
 								</button>
 								<h4 class="modal-title" id="gridSystemModalLabel">Filtro</h4>
+								<form action="" method='post'>
+								<button type="button" class="btn btn-default pull-right"  data-dismiss="modal" style="margin-right: 20.4px;">Fechar</button>
+								<button type="button" class="btn btn-default pull-right" onclick="cleanFilter()">Limpar</button>
+								<input type="submit" class="btn btn-success pull-right" name="confirmar" value="Confirmar">
 							</div>
 							<div class="modal-body">
 								<div class="carregando">
 									<div class="loader"></div>
 								</div>
-								<form action="" method='post'>
 									<div class="row">
-										<div class="col-lg-6 form-group datas">
-											<label class="control-label">Datas</label>
-											<input type="text" id="datas" name="datas" value="01/04/2018 - 11/04/2018" class="form-control">
-										</div>
-										
-										<div class="col-lg-6 form-group">
-											<label>Diretor</label>
-											<select name="filterDiretor" id="filterDiretor" class="form-control multiselect" multiple="multiple">
-												<option value="" hidden>Selecione o(s) Diretor(es)</option>
-											</select>
-										</div>
-										<div class="col-lg-6 form-group">
-											<label>Gerente</label>
-											<select name="filterGerente" id="filterGerente" class="form-control multiselect" multiple="multiple">
-												<option value="" hidden>Selecione o(s) gerente(es)</option>
-											</select>
-										</div>
-										<div class="col-lg-6 form-group">
-											<label>Representante</label>
-											<select name="filterRepresentante" id="filterRepresentante" class="form-control multiselect" multiple="multiple">
-												<option value="" hidden>Selecione o(s) representante(es)</option>
-											</select>
-										</div>
-										
-										<div class="col-lg-6 form-group">
-											<label>Corretora</label>
-											<select name="filterCorretora" id="filterCorretora" class="form-control multiselect" multiple="multiple">
-												<option value="" hidden>Selecione o(s) corretor(es)</option>
-											</select>
-										</div>
-										
-										<div class="col-lg-6 form-group">
-											<label>Mídia</label>
-											<select name="filterMidia" id="filterMidia" class="form-control multiselect" multiple="multiple">
-												<option value="" hidden>Selecione a(s) mídia(es)</option>
-											</select>
-										</div>
-										
-										<div class="col-lg-6 form-group">
-											<label>Estrutura de Venda (EV EA AA)</label>
-											<select name="filterEstrutura" id="filterEstrutura" class="form-control multiselect" multiple="multiple">
-												<option value="" hidden>Selecione a(s) estrutura de venda(as)</option>
-											</select>
-										</div>
-										<div class="col-lg-6 form-group">
-											<label>Região</label>
-											<select name="filterRegiao" id="filterRegiao" class="form-control multiselect"  title="Selecione" multiple="multiple">
-												<option value="" hidden=>Selecione a(s) região(ões)</option>
-											</select>
-										</div>
-										<div class="col-lg-6 form-group">
-											<label>Produtor</label>
-											<select name="filterProdutor" id="filterProdutor" class="form-control multiselect" multiple="multiple">
-												<option value="" hidden>Selecione o(s) produtor(es)</option>
-											</select>
-										</div>
-										<div class="col-lg-6 form-group">
-											<label>Inspetor</label>
-											<select name="filterInspetor" id="filterInspetor" class="form-control multiselect" multiple="multiple">
-												<option value="" hidden>Selecione o(s) inspetor(es)</option>
-											</select>
-										</div>
+										<div class="col-md-6">
+											<div class="form-group datas">
+												<label class="control-label">Datas</label>
+												<input type="text" id="datas" name="datas" value="01/04/2018 - 11/04/2018" class="form-control">
+											</div>
+											<div class="form-group">
+												<label>Gerente</label>
+												<select name="filterGerente" id="filterGerente" class="form-control multiselect" multiple="multiple">
+													<option value="" hidden>Selecione o(s) gerente(es)</option>
+												</select>
+											</div>
+											<div class="form-group">
+												<label>Corretora</label>
+												<select name="filterCorretora" id="filterCorretora" class="form-control multiselect" multiple="multiple">
+													<option value="" hidden>Selecione o(s) corretor(es)</option>
+												</select>
+											</div>
+											<div class="form-group">
+												<label>Estrutura de Venda (EV EA AA)</label>
+												<select name="filterEstrutura" id="filterEstrutura" class="form-control multiselect" multiple="multiple">
+													<option value="" hidden>Selecione a(s) estrutura de venda(as)</option>
+												</select>
+											</div>
+											<div class="form-group">
+												<label>Produtor</label>
+												<select name="filterProdutor" id="filterProdutor" class="form-control multiselect" multiple="multiple">
+													<option value="" hidden>Selecione o(s) produtor(es)</option>
+												</select>
+											</div>
+										</div> <!-- coluna 1 -->
+										<div class="col-md-6">
+											<div class="form-group">
+												<label>Diretor</label>
+												<select name="filterDiretor" id="filterDiretor" class="form-control multiselect" multiple="multiple">
+													<option value="" hidden>Selecione o(s) Diretor(es)</option>
+												</select>
+											</div>
+											<div class="form-group">
+												<label>Representante</label>
+												<select name="filterRepresentante" id="filterRepresentante" class="form-control multiselect" multiple="multiple">
+													<option value="" hidden>Selecione o(s) representante(es)</option>
+												</select>
+											</div>
+											<div class="form-group">
+												<label>Mídia</label>
+												<select name="filterMidia" id="filterMidia" class="form-control multiselect" multiple="multiple">
+													<option value="" hidden>Selecione a(s) mídia(es)</option>
+												</select>
+											</div>
+											<div class="form-group">
+												<label>Região</label>
+												<select name="filterRegiao" id="filterRegiao" class="form-control multiselect"  title="Selecione" multiple="multiple">
+													<option value="" hidden=>Selecione a(s) região(ões)</option>
+												</select>
+											</div>
+											<div class="form-group">
+												<label>Inspetor</label>
+												<select name="filterInspetor" id="filterInspetor" class="form-control multiselect" multiple="multiple">
+													<option value="" hidden>Selecione o(s) inspetor(es)</option>
+												</select>
+											</div>
+										</div> <!-- coluna 2 -->
 									</div>
 									<div class="modal-footer">
 										<input type="submit" class="btn btn-success" name="confirmar" value="Confirmar">
