@@ -16,7 +16,6 @@
 		<link href="/public/js/assets/web-analytics/style.css" rel="stylesheet">
 		<link rel="stylesheet" type="text/css" media="all" href="/public/css/daterangepicker.css" />
 		<link rel="stylesheet" type="text/css" media="all" href="/public/css/customTheme.css" />
-		<!-- <link rel="stylesheet" type="text/css" media="all" href="/public/css/bootstrap-select.min.css" /> -->
 		<link href="/public/css/bootstrap.min.css" rel="stylesheet">
 		<link href="/public/css/AdminLTE.min.css" rel="stylesheet">
 		<link rel="stylesheet" type="text/css" media="all" href="/public/css/style.css">
@@ -46,37 +45,31 @@
 		<script type="text/javascript" src="/public/js/buttons.print.min.js"></script>
 		<script type="text/javascript" src="/public/js/buttons.colVis.min.js"></script>
 		<script type="text/javascript" src="/public/js/index.js"></script>
-		<!-- <script type="text/javascript" src="/public/js/bootstrap-select.min.js"></script> -->
+		
 		<script>
 		$(document).ready(function() {	
-			document.datas="01/04/2018 - 11/04/2018";
-			document.filterDiretor="";
-			document.filterGerente="";
-			document.filterRepresentante="";
-			document.filterCorretora="";
-			document.filterMidia="";
-			document.filterProdutor="";
-			document.filterEstrutura="";
-			document.filterRegiao="";
+			document.datas="<%=datasFilter%>";
+		document.filterDiretor="<%=filterDiretor%>";
+		document.filterGerente="<%=filterGerente%>";
+		document.filterRepresentante="<%=filterRepresentante%>";
+		document.filterCorretora="<%=filterCorretora%>";
+		document.filterMidia="<%=filterMidia%>";
+		document.filterProdutor="<%=filterProdutor%>";
+		document.filterEstrutura="<%=filterEstrutura%>";
+		document.filterRegiao="<%=filterRegiao%>";
+		document.filterInspetor="<%=filterInspetor%>";
 			$.get("/filter", function(arrFilter) {
 				document.arrFilter = JSON.parse(arrFilter);
-//				setDiretor(null, null, null, null, null, null, null, false);
-				setGeral(null, 1, null, 1, null, 1, null, 1, null, 1, null, 1, null, 1, false);
-//				setGerente(null, null, null, null, null, null, null, false);
-//				setRepresentante(null, null, null, null, null, null, null, false);
-//				setCorretora(null, null, null, null, null, null, null, false);
+				setGeral(null, 1, null, 1, null, 1, null, 1, null, 1, null, 1, null, 1,  null, 1, false);
 				setMidia();
 				setRegioes();
-//				setEstrutura(null, null, null, null, null, null, null, false);
-//				setProdutor(null, null, null, null, null, null, null, false);
 				
-				
-				$(window).keydown(function(event){
-					if(event.keyCode == 13) {
-						event.preventDefault();
-						return false;
-						}
-					});
+			$(window).keydown(function(event){
+				if(event.keyCode == 13) {
+					event.preventDefault();
+					return false;
+					}
+				});
 			})
 			$.get("/midias", function(result){
 			document.midias = JSON.parse(result)
@@ -167,15 +160,10 @@
 				document.chartGrafico.render();
 				
 			});
-			//console.log(document.dateDependentes_dadospessoais);
-			
 			
 			var chartFunil = new CanvasJS.Chart("chartFunil", {
 			animationEnabled: false,
 			height: 500,
-						//			title:{
-								//				text: ""
-						//			},
 			data: [{
 				indexLabelMaxWidth: 300,
 				indexLabelFontSize: 13,
@@ -198,9 +186,7 @@
 			});
 			chartFunil.render();
 			createTable();
-			
-			//calculatePercentage();
-			// });
+
 			function calculatePercentage() {
 			var dataPoint = chartFunil.options.data[0].dataPoints;
 			var total = dataPoint[0].y;
@@ -330,207 +316,250 @@
 				<div class="navbar-right">
 					<table border=0 style="margin-right: 30px !important;">
 						<tr>
-							<td class="name_menu" style="color:#fff; height:14px"><center></center></td>
+							<td class="name_menu" style="color:#fff; height:14px"><center><%= user.name %></center></td>
 						</tr>
 						<tr>
 							<td><center>
-								<div class="overlayer2">Carrengando...</div>
-								<div class="btn-group btn-group-sm" role="group" id="butaos" aria-label="...">
-									<a href="#" class="btn btn-default btn-primary" data-toggle="modal" data-target="#dialogFilter" id="buttonFilter"><span class="fa fa-search"></span> &nbsp;Filtro&nbsp;</a>
+								<div class="overlayer2">
+									Carregando...
+								</div>
+								<div class="btn-group btn-group-sm" role="group" aria-label="...">
 									
+									<a href="#" class="btn btn-default btn-primary" data-toggle="modal" data-target="#dialogFilter" id="buttonFilter"><span class="fa fa-search"></span> &nbsp;Filtro&nbsp;</a>
+									<% if(user.id == 1){ %>
+									<a href="/edit" class="btn btn-default"><span class="fa fa-cogs"></span> &nbsp;Editar&nbsp;</a>
+									<% } %>
 									<a href="/logout" class="btn btn-default" ><span class="fa fa-sign-out"></span> &nbsp;Sair&nbsp;</a>
 								</div>
 							</center></td>
 						</tr>
 					</table>
 				</div>
-				
+				<%
+				if(1!=1){
+				%>
+				<div class="transparency" style="width: 100%">
+					<div class="marquee" style="width: 100%;" id="marquee" data-duplicated='true'>
+						&nbsp;&nbsp;&nbsp;&nbsp;
+						<i class="fa fa-user"></i>&nbsp;Visitas&nbsp;&nbsp;
+						<span class="<%=rowsWeek["sessions"] >= 0 ? "plus" : "less" %>">&nbsp;<img src="/public/img/<%=rowsWeek["sessions"] >= 0 ? "plus" : "less"%>.png">&nbsp;<%=rowsWeek["sessions"].toFixed(2)%>%</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+						
+						<i class="fa fa-pencil-square-o"></i>&nbsp;Pré-Cadastro&nbsp;&nbsp;
+						<span class="<%=rowsWeek["precadastro"] >= 0 ? "plus" : "less"%>">&nbsp;<img src="/public/img/<%=rowsWeek["precadastro"] >= 0 ? "plus" : "less"%>.png">&nbsp;<%=rowsWeek["precadastro"].toFixed(2)%>%</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+						
+						<i class="fa fa-check"></i>&nbsp;Cadastro Finalizado&nbsp;&nbsp;
+						<span class="<%=rowsWeek["dependentes"] >= 0 ? "plus" : "less"%>">&nbsp;<img src="/public/img/<%=rowsWeek["dependentes"] >= 0 ? "plus" : "less"%>.png">&nbsp;<%=rowsWeek["dependentes"].toFixed(2)%>%</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+						
+						<i class="fa fa-heart"></i>&nbsp;Vidas&nbsp;&nbsp;
+						<span class="<%=rowsWeekUser["qtd_dependentes"] >= 0 ? "plus" : "less"%>">&nbsp;<img src="/public/img/<%=rowsWeekUser["qtd_dependentes"] >= 0 ? "plus" : "less"%>.png">&nbsp;<%=rowsWeekUser["qtd_dependentes"].toFixed(2)%>%</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+						
+						<i class="fa fa-handshake-o"></i>&nbsp;Vendas&nbsp;&nbsp;
+						<span class="<%=rowsWeekUser["vendas"] >= 0 ? "plus" : "less"%>">&nbsp;<img src="/public/img/<%=rowsWeekUser["vendas"] >= 0 ? "plus" : "less"%>.png">&nbsp;<%=rowsWeekUser["vendas"].toFixed(2)%>%</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+						
+						<i class="fa fa-usd"></i>&nbsp;Receitas&nbsp;&nbsp;
+						<span class="<%=rowsWeekUser["receita"] >= 0 ? "plus" : "less"%>">&nbsp;<img src="/public/img/<%=rowsWeekUser["receita"] >= 0 ? "plus" : "less"%>.png">&nbsp;<%=rowsWeekUser["receita"].toFixed(2)%>%</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+						
+					</div>
+				</div>
+				<%
+				}
+				%>
 			</nav>
 			
 			
-			<div class="row tile_count">
-				<div class="shiny-html-output col-sm-5 col-md-2 col-xs-12 tile_stats_count shiny-bound-output" id="boxVisitas">
-					<span class="count_top"><i class="fa fa-user"></i> Visitas</span>
-					<div id="sessions" class="count">
-						10082
+<div class="row tile_count">
+	<div class="shiny-html-output col-sm-5 col-md-2 col-xs-12 tile_stats_count shiny-bound-output" id="boxVisitas">
+		<span class="count_top"><i class="fa fa-user"></i> Visitas</span>
+		<div id="sessions" class="count">
+			<%= dataTotal["sessions"] ? dataTotal["sessions"].toLocaleString("pt-BR").replace(",", ".")  : 0  %>
+		</div>
+	</div>
+<div class="shiny-html-output col-sm-12 col-md-2 col-xs-12 tile_stats_count shiny-bound-output" id="boxPreCadastro">
+		<span class="count_top"><i class="fa fa-pencil-square-o"></i> Pré-Cadastro</span>
+		<div id="pre_registration" class="count">
+			<%= dataTotal["precadastro"] ? dataTotal["precadastro"] : 0  %>
+		</div>
+</div>
+<div class="shiny-html-output col-sm-12 col-md-2 col-xs-12 tile_stats_count shiny-bound-output" id="boxCadastroFinalizado">
+	<span class="count_top"><i class="fa fa-check"></i> Cadastro Finalizado</span>
+	<div id="personal_data_completed" class="count">
+		<%= dataTotal["dadospessoais"] ? dataTotal["dadospessoais"] : 0  %>
+	</div>
+</div>
+<div class="shiny-html-output col-sm-12 col-md-2 col-xs-12 tile_stats_count shiny-bound-output" id="boxVidas">
+	<span class="count_top"><i class="fa fa-heart"></i> Vidas</span>
+	<div id="lifes" class="count">
+		<%= dataTotal["vidas"] ? dataTotal["vidas"] : 0  %>
+	</div>
+</div>
+<div class="shiny-html-output col-sm-12 col-md-2 col-xs-12 tile_stats_count shiny-bound-output" id="boxVendas">
+	<span class="count_top"><i class="fa fa-handshake-o"></i> Vendas</span>
+	<div id="transactions" class="count">
+		<%= dataTotal["vendas"] ? dataTotal["vendas"] : 0  %>
+	</div>
+</div>
+<div class="shiny-html-output col-sm-12 col-md-2 col-xs-12 tile_stats_count shiny-bound-output" id="boxReceita">
+	<span class="count_top"><i class="fa fa-usd"></i> Receita</span>
+	<div id="revenue" class="count">
+		
+		<%= dataTotal["receita"] ? dataTotal["receita"].toLocaleString("pt-BR").replace(",", "|").replace(".", ",").replace("|", ".").substr(0, (dataTotal["receita"].toLocaleString("pt-BR").replace(",", "|").replace(".", ",").indexOf(",") + 3)) : 0  %>
+	</div>
+</div>
+</div>
+
+
+
+<div class="row">
+<div class="shiny-html-output col-md-7 col-sm-12 col-xs-12 shiny-bound-output">
+	<div class="x_panel" style="min-height: 567px;margin-bottom: 50px;">
+		<div class="x_title no-padding">
+			<a href="#!" id="trocaGrafico" class="pull-right"><i class="fa fa-eye"  style="font-size:24px"></i></a>
+			<!-- <a href="#!" id="trocaGrafico" class="btn btn-primary pull-right btn-xs"><i class="fa fa-eye"></i></a> -->
+			<h4>Funil</h4>
+		</div>
+			<div class="clearfix"></div>
+				<div class="x-content no-padding">
+					<div id="chartFunil" style="display: none;"></div>
+					<div id="chartFunilPSD">
+						<img src="/public/img/funil.png" alt="" class="img-responsive">
+						<div class="count charBar_count visitas">
+							Visitas - <%= dataTotal["sessions"] ? dataTotal["sessions"].toLocaleString("pt-BR").replace(",", ".") : 0  %>
+						</div>
+						<div class="count charBar_count precadastro" style="top: 142px;">
+							Pré-Cadastro - <%= dataTotal["precadastro"] ? dataTotal["precadastro"] : 0  %>
+						</div>
+						<div class="count charBar_count dadospessoais" style="top: 216px;">
+							Dados Pessoais - <%= dataTotal["dadospessoais"] ? dataTotal["dadospessoais"] : 0  %>
+						</div>
+						<div class="count charBar_count dependentes" style="top: 284px;">
+							Dependentes - <%= dataTotal["dependentes"] ? dataTotal["dependentes"] : 0  %>
+						</div>
+						<div class="count charBar_count corretor" style="top: 354px;">
+							Corretor - <%= dataTotal["corretor"] ? dataTotal["corretor"] : 0  %>
+						</div>
+						<div class="count charBar_count checkout" style="top: 423px;">
+							Checkout - <%= dataTotal["checkout"] ? dataTotal["checkout"] : 0  %>
+						</div>
+						<div class="count charBar_count vendas" style="top: 493px;">
+							Compras Finalizadas - <%= dataTotal["vendas"] ? dataTotal["vendas"] : 0  %>
+						</div>
+					</div>
+					<div id="charBar" style="display: none">
+						<img src="/public/img/dashboard.png" alt="" class="img-responsive">
+						<div class="count charBar_count visitas">
+							Visitas - <%= dataTotal["sessions"] ? dataTotal["sessions"].toLocaleString("pt-BR").replace(",", ".") : 0  %>
+						</div>
+						<div class="count charBar_count precadastro" style="top: 142px;">
+							Pré-Cadastro - <%= dataTotal["precadastro"] ? dataTotal["precadastro"] : 0  %>
+						</div>
+						<div class="count charBar_count dadospessoais" style="top: 216px;">
+							Dados Pessoais - <%= dataTotal["dadospessoais"] ? dataTotal["dadospessoais"] : 0  %>
+						</div>
+						<div class="count charBar_count dependentes" style="top: 284px;">
+							Dependentes - <%= dataTotal["dependentes"] ? dataTotal["dependentes"] : 0  %>
+						</div>
+						<div class="count charBar_count corretor" style="top: 354px;">
+							Corretor - <%= dataTotal["corretor"] ? dataTotal["corretor"] : 0  %>
+						</div>
+						<div class="count charBar_count checkout" style="top: 423px;">
+							Checkout - <%= dataTotal["checkout"] ? dataTotal["checkout"] : 0  %>
+						</div>
+						<div class="count charBar_count vendas" style="top: 493px;">
+							Compras Finalizadas - <%= dataTotal["vendas"] ? dataTotal["vendas"] : 0  %>
+						</div>
 					</div>
 				</div>
-				<div class="shiny-html-output col-sm-12 col-md-2 col-xs-12 tile_stats_count shiny-bound-output" id="boxPreCadastro">
-					<span class="count_top"><i class="fa fa-pencil-square-o"></i> Pré-Cadastro</span>
-					<div id="pre_registration" class="count">
-						629
-					</div>
+	</div>
+</div> <!-- FUNIL -->
+<div class="col-sm-12 col-md-5 col-xs-12">
+	<div class="col-sm-12 col-xs-12">
+		<div class="shiny-html-output no-padding col-sm-12 col-md-12 col-xs-12 shiny-bound-output" id="boxPreCadastroPorVisita">
+		<div class="animated flipInY">
+			<div class="tile-stats orange-bg">
+				<div class="icon"><i class="fa fa-level-down dark-orange-text"></i></div>
+				<div class="count white-text" id="registration_per_session">
+					<%= ((dataTotal["precadastro"]*100/dataTotal["sessions"]) > 0) ? (dataTotal["precadastro"]*100/(dataTotal["sessions"] == 0 ? 1 : dataTotal["sessions"])).toFixed(2) : "0.00"%> %
 				</div>
-				<div class="shiny-html-output col-sm-12 col-md-2 col-xs-12 tile_stats_count shiny-bound-output" id="boxCadastroFinalizado">
-					<span class="count_top"><i class="fa fa-check"></i> Cadastro Finalizado</span>
-					<div id="personal_data_completed" class="count">
-						367
+				<h3 class="white-text">Pré-Cadastro por Visita</h3>
+			</div>
+		</div>
+		</div>
+
+		<div class="shiny-html-output no-padding col-sm-12 col-md-12 col-xs-12 shiny-bound-output" id="boxDadosPessoaisPorPreCadastro">
+			<div class="animated flipInY">
+				<div class="tile-stats orange-bg">
+					<div class="icon"><i class="fa fa-level-down dark-orange-text"></i></div>
+					<div class="count white-text" id="personal_per_registration">
+						<%= ((dataTotal["dadospessoais"]*100/dataTotal["precadastro"]) > 0) ? (dataTotal["dadospessoais"]*100/(dataTotal["precadastro"] == 0 ? 1 : dataTotal["precadastro"])).toFixed(2) : "0.00"%> %
 					</div>
-				</div>
-				<div class="shiny-html-output col-sm-12 col-md-2 col-xs-12 tile_stats_count shiny-bound-output" id="boxVidas">
-					<span class="count_top"><i class="fa fa-heart"></i> Vidas</span>
-					<div id="lifes" class="count">
-						37
-					</div>
-				</div>
-				<div class="shiny-html-output col-sm-12 col-md-2 col-xs-12 tile_stats_count shiny-bound-output" id="boxVendas">
-					<span class="count_top"><i class="fa fa-handshake-o"></i> Vendas</span>
-					<div id="transactions" class="count">
-						29
-					</div>
-				</div>
-				<div class="shiny-html-output col-sm-12 col-md-2 col-xs-12 tile_stats_count shiny-bound-output" id="boxReceita">
-					<span class="count_top"><i class="fa fa-usd"></i> Receita</span>
-					<div id="revenue" class="count">
-						
-						19386,23
-					</div>
+					<h3 class="white-text">Dados Pessoais por Pré-Cadastro</h3>
 				</div>
 			</div>
-			<div class="row">
-				<div class="shiny-html-output col-md-7 col-sm-12 col-xs-12 shiny-bound-output">
-					<div class="x_panel" style="min-height: 567px;margin-bottom: 50px;">
-						<div class="x_title no-padding">
-							<a href="#!" id="trocaGrafico" class="pull-right"><i class="fa fa-eye"  style="font-size:24px"></i></a>
-							<!-- <a href="#!" id="trocaGrafico" class="btn btn-primary pull-right btn-xs"><i class="fa fa-eye"></i></a> -->
-							<h4>Funil</h4>
-						</div>
-						<div class="clearfix"></div>
-						<div class="x-content no-padding">
-							<div id="chartFunil" style="display: none;"></div>
-							<div id="chartFunilPSD">
-								<img src="/public/img/funil.png" alt="" class="img-responsive">
-								<div class="count charBar_count visitas">
-									Visitas - 10082
-								</div>
-								<div class="count charBar_count precadastro" style="top: 142px;">
-									Pré-Cadastro - 629
-								</div>
-								<div class="count charBar_count dadospessoais" style="top: 216px;">
-									Dados Pessoais - 367
-								</div>
-								<div class="count charBar_count dependentes" style="top: 284px;">
-									Dependentes - 313
-								</div>
-								<div class="count charBar_count corretor" style="top: 354px;">
-									Corretor - 184
-								</div>
-								<div class="count charBar_count checkout" style="top: 423px;">
-									Checkout - 216
-								</div>
-								<div class="count charBar_count vendas" style="top: 493px;">
-									Compras Finalizadas - 29
-								</div>
-							</div>
-							<div id="charBar" style="display: none">
-								<img src="/public/img/dashboard.png" alt="" class="img-responsive">
-								<div class="count charBar_count visitas">
-									Visitas - 10082
-								</div>
-								<div class="count charBar_count precadastro" style="top: 142px;">
-									Pré-Cadastro - 629
-								</div>
-								<div class="count charBar_count dadospessoais" style="top: 216px;">
-									Dados Pessoais - 367
-								</div>
-								<div class="count charBar_count dependentes" style="top: 284px;">
-									Dependentes - 313
-								</div>
-								<div class="count charBar_count corretor" style="top: 354px;">
-									Corretor - 184
-								</div>
-								<div class="count charBar_count checkout" style="top: 423px;">
-									Checkout - 216
-								</div>
-								<div class="count charBar_count vendas" style="top: 493px;">
-									Compras Finalizadas - 29
-								</div>
-							</div>
-						</div>
+		</div>
+
+		<div class="shiny-html-output no-padding col-sm-12 col-md-12 col-xs-12 shiny-bound-output" id="boxDependentesPorDadosPessoais">
+			<div class="animated flipInY">
+				<div class="tile-stats orange-bg">
+					<div class="icon"><i class="fa fa-level-down dark-orange-text"></i></div>
+					<div class="count white-text" id="dependent_per_personal">
+						<%= ((dataTotal["dependentes"]*100/dataTotal["dadospessoais"]) > 0) ? (dataTotal["dependentes"]*100/(dataTotal["dadospessoais"] == 0 ? 1 : dataTotal["dadospessoais"])).toFixed(2) : "0.00"%> %
 					</div>
-					</div> <!-- FUNIL -->
-					<div class="col-sm-12 col-md-5 col-xs-12">
-						<div class="col-sm-12 col-xs-12">
-							<div class="shiny-html-output no-padding col-sm-12 col-md-12 col-xs-12 shiny-bound-output" id="boxPreCadastroPorVisita">
-								<div class="animated flipInY">
-									<div class="tile-stats orange-bg">
-										<div class="icon"><i class="fa fa-level-down dark-orange-text"></i></div>
-										<div class="count white-text" id="registration_per_session">
-											6.24 %
-										</div>
-										<h3 class="white-text">Pré-Cadastro por Visita</h3>
-									</div>
-								</div>
-							</div>
-							<div class="shiny-html-output no-padding col-sm-12 col-md-12 col-xs-12 shiny-bound-output" id="boxDadosPessoaisPorPreCadastro">
-								<div class="animated flipInY">
-									<div class="tile-stats orange-bg">
-										<div class="icon"><i class="fa fa-level-down dark-orange-text"></i></div>
-										<div class="count white-text" id="personal_per_registration">
-											58.35 %
-										</div>
-										<h3 class="white-text">Dados Pessoais por Pré-Cadastro</h3>
-									</div>
-								</div>
-							</div>
-							<div class="shiny-html-output no-padding col-sm-12 col-md-12 col-xs-12 shiny-bound-output" id="boxDependentesPorDadosPessoais">
-								<div class="animated flipInY">
-									<div class="tile-stats orange-bg">
-										<div class="icon"><i class="fa fa-level-down dark-orange-text"></i></div>
-										<div class="count white-text" id="dependent_per_personal">
-											85.29 %
-										</div>
-										<h3 class="white-text">Dependentes por Dados Pessoais</h3>
-									</div>
-								</div>
-							</div>
-							<div class="shiny-html-output no-padding col-sm-12 col-md-12 col-xs-12 shiny-bound-output" id="boxCorretorPorDependentes">
-								<div class="animated flipInY">
-									<div class="tile-stats orange-bg">
-										<div class="icon"><i class="fa fa-level-down dark-orange-text"></i></div>
-										<div class="count white-text" id="broker_per_dependent">
-											58.79 %
-										</div>
-										<h3 class="white-text">Corretor por Dependentes</h3>
-									</div>
-								</div>
-							</div>
-							<div class="shiny-html-output no-padding col-sm-12 col-md-12 col-xs-12 shiny-bound-output" id="boxCheckoutPorCorretor">
-								<div class="animated flipInY">
-									<div class="tile-stats orange-bg">
-										<div class="icon"><i class="fa fa-level-down dark-orange-text"></i></div>
-										<div class="count white-text" id="checkout_per_broker">
-											117.39 %
-										</div>
-										<h3 class="white-text">Checkout por Corretor</h3>
-									</div>
-								</div>
-							</div>
-							<div class="shiny-html-output no-padding col-sm-12 col-md-12 col-xs-12 shiny-bound-output" id="boxCompraFinalizadaPorCheckout">
-								<div class="animated flipInY">
-									<div class="tile-stats orange-bg">
-										<div class="icon"><i class="fa fa-level-down dark-orange-text"></i></div>
-										<div class="count white-text" id="purchase_per_checkout">
-											13.43 %
-										</div>
-										<h3 class="white-text">Compra Finalizada por Checkout</h3>
-									</div>
-								</div>
-							</div>
-							<div class="shiny-html-output no-padding col-sm-12 col-md-12 col-xs-12 shiny-bound-output" id="boxCompraFinalizadaPorVisita">
-								<div class="animated flipInY">
-									<div class="tile-stats orange-bg">
-										<div class="icon"><i class="fa fa-level-down dark-orange-text"></i></div>
-										<div class="count white-text" id="purchase_per_session">
-											0.29 %
-										</div>
-										<h3 class="white-text">Compra Finalizada por Visita</h3>
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
+					<h3 class="white-text">Dependentes por Dados Pessoais</h3>
 				</div>
+			</div>
+		</div>
+
+		<div class="shiny-html-output no-padding col-sm-12 col-md-12 col-xs-12 shiny-bound-output" id="boxCorretorPorDependentes">
+			<div class="animated flipInY">
+				<div class="tile-stats orange-bg">
+					<div class="icon"><i class="fa fa-level-down dark-orange-text"></i></div>
+					<div class="count white-text" id="broker_per_dependent">
+						<%= ((dataTotal["corretor"]*100/dataTotal["dependentes"]) > 0) ? (dataTotal["corretor"]*100/(dataTotal["dependentes"] == 0 ? 1 : dataTotal["dependentes"])).toFixed(2) : "0.00"%> %
+					</div>
+					<h3 class="white-text">Corretor por Dependentes</h3>
+				</div>
+			</div>
+		</div>
+
+		<div class="shiny-html-output no-padding col-sm-12 col-md-12 col-xs-12 shiny-bound-output" id="boxCheckoutPorCorretor">
+			<div class="animated flipInY">
+				<div class="tile-stats orange-bg">
+					<div class="icon"><i class="fa fa-level-down dark-orange-text"></i></div>
+					<div class="count white-text" id="checkout_per_broker">
+						<%= ((dataTotal["checkout"]*100/dataTotal["corretor"]) > 0) ? (dataTotal["checkout"]*100/(dataTotal["corretor"] == 0 ? 1 : dataTotal["corretor"])).toFixed(2) : "0.00"%> %
+					</div>
+					<h3 class="white-text">Checkout por Corretor</h3>
+				</div>
+			</div>
+		</div>
+
+		<div class="shiny-html-output no-padding col-sm-12 col-md-12 col-xs-12 shiny-bound-output" id="boxCompraFinalizadaPorCheckout">
+			<div class="animated flipInY">
+				<div class="tile-stats orange-bg">
+					<div class="icon"><i class="fa fa-level-down dark-orange-text"></i></div>
+					<div class="count white-text" id="purchase_per_checkout">
+						<%= ((dataTotal["vendas"]*100/dataTotal["checkout"]) > 0) ? (dataTotal["vendas"]*100/(dataTotal["checkout"] == 0 ? 1 : dataTotal["checkout"])).toFixed(2) : "0.00"%> %
+					</div>
+					<h3 class="white-text">Compra Finalizada por Checkout</h3>
+				</div>
+			</div>
+		</div>
+
+		<div class="shiny-html-output no-padding col-sm-12 col-md-12 col-xs-12 shiny-bound-output" id="boxCompraFinalizadaPorVisita">
+			<div class="animated flipInY">
+				<div class="tile-stats orange-bg">
+					<div class="icon"><i class="fa fa-level-down dark-orange-text"></i></div>
+					<div class="count white-text" id="purchase_per_session">
+						<%= ((dataTotal["vendas"]*100/dataTotal["sessions"]) > 0) ? (dataTotal["vendas"]*100/(dataTotal["sessions"] == 0 ? 1 : dataTotal["sessions"])).toFixed(2) : "0.00"%> %
+					</div>
+					<h3 class="white-text">Compra Finalizada por Visita</h3>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+</div>
+
 				<div class="row">
 					<div class="shiny-html-output col-md-12 col-sm-12 col-xs-12 shiny-bound-output">
 						<div class="x_panel" style="min-height: 530px;">
@@ -569,7 +598,6 @@
 										</div>
 									</div>
 								</div>
-								<!-- <div id="divchartGrafico"></div> -->
 								</div> <!-- termina gráfico -->
 							</div>
 							<div class="row" style="margin-top:30px">
@@ -662,6 +690,12 @@
 											<label>Produtor</label>
 											<select name="filterProdutor" id="filterProdutor" class="form-control multiselect" multiple="multiple">
 												<option value="" hidden>Selecione o(s) produtor(es)</option>
+											</select>
+										</div>
+										<div class="col-lg-6 form-group">
+											<label>Inspetor</label>
+											<select name="filterInspetor" id="filterInspetor" class="form-control multiselect" multiple="multiple">
+												<option value="" hidden>Selecione o(s) inspetor(es)</option>
 											</select>
 										</div>
 									</div>

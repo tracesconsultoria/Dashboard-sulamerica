@@ -7,9 +7,10 @@ $(document).ready(function() {
         $('#filterCorretora').find('option').remove();
         $('#filterEstrutura').find('option').remove();
         $('#filterProdutor').find('option').remove();
+        $('#filterInspetor').find('option').remove();
 
         $('#filterDiretor').val().forEach(function(valor) {
-            setGeral(valor, null, null, 1, null, 1, null, 1, null, 1, null, 1, null, 1);
+            setGeral(valor, null, null, 1, null, 1, null, 1, null, 1, null, 1, null, 1, null, 1);
         });
 
         $('.multiselect').select2('destroy');
@@ -23,9 +24,10 @@ $(document).ready(function() {
         $('#filterCorretora').find('option').remove();
         $('#filterEstrutura').find('option').remove();
         $('#filterProdutor').find('option').remove();
+        $('#filterInspetor').find('option').remove();
 
         $('#filterGerente').val().forEach(function(valor) {
-            setGeral(null, 1, valor, null, null, 1, null, 1, null, 1, null, 1, null, 1);
+            setGeral(null, 1, valor, null, null, 1, null, 1, null, 1, null, 1, null, 1, null, 1);
 		});
 
         $('.multiselect').select2('destroy');
@@ -38,9 +40,10 @@ $(document).ready(function() {
         $('#filterCorretora').find('option').remove();
         $('#filterEstrutura').find('option').remove();
         $('#filterProdutor').find('option').remove();
+        $('#filterInspetor').find('option').remove();
 
         $('#filterRepresentante').val().forEach(function(valor) {
-            setGeral(null, 1, null, 1, valor, null, null, 1, null, 1, null, 1, null, 1);
+            setGeral(null, 1, null, 1, valor, null, null, 1, null, 1, null, 1, null, 1, null, 1);
         });
 
         $('.multiselect').select2('destroy');
@@ -53,9 +56,10 @@ $(document).ready(function() {
         $('#filterRepresentante').find('option').remove();
         $('#filterEstrutura').find('option').remove();
         $('#filterProdutor').find('option').remove();
+        $('#filterInspetor').find('option').remove();
 
         $('#filterCorretora').val().forEach(function(valor) {
-            setGeral(null, 1, null, 1, null, 1, valor, null, null, 1, null, 1, null, 1);
+            setGeral(null, 1, null, 1, null, 1, valor, null, null, 1, null, 1, null, 1, null, 1);
         });
 
         $('.multiselect').select2('destroy');
@@ -68,9 +72,10 @@ $(document).ready(function() {
         $('#filterRepresentante').find('option').remove();
         $('#filterCorretora').find('option').remove();
         $('#filterProdutor').find('option').remove();
+        $('#filterInspetor').find('option').remove();
 
         $('#filterEstrutura').val().forEach(function(valor) {
-            setGeral(null, 1, null, 1, null, 1, null, 1, null, 1, valor, null, null, 1);
+            setGeral(null, 1, null, 1, null, 1, null, 1, null, 1, valor, null, null, 1, null, 1);
        });
 
         $('.multiselect').select2('destroy');
@@ -83,9 +88,26 @@ $(document).ready(function() {
         $('#filterRepresentante').find('option').remove();
         $('#filterCorretora').find('option').remove();
         $('#filterEstrutura').find('option').remove();
+        $('#filterInspetor').find('option').remove();
 
         $('#filterProdutor').val().forEach(function(valor) {
-            setGeral(null, 1, null, 1, null, 1, null, 1, null, 1, null, 1, valor, null);
+            setGeral(null, 1, null, 1, null, 1, null, 1, null, 1, null, 1, valor, null, null, 1);
+        });
+
+        $('.multiselect').select2('destroy');
+        $('.multiselect').select2();
+
+    });
+
+    $('#filterInspetor').on('change', function(e) {
+        $('#filterDiretor').find('option').remove();
+        $('#filterGerente').find('option').remove();
+        $('#filterRepresentante').find('option').remove();
+        $('#filterCorretora').find('option').remove();
+        $('#filterEstrutura').find('option').remove();
+
+        $('#filterInspetor').val().forEach(function(valor) {
+            setGeral(null, 1, null, 1, null, 1, null, 1, null, 1, null, 1, null, 1, valor, null);
         });
 
         $('.multiselect').select2('destroy');
@@ -95,13 +117,14 @@ $(document).ready(function() {
 
 });
 
-function setGeral(idDiretor = null, execDiretor = null, idGerente = null, execGerente = null, idRepresentante = null, execRepresentante = null, idCorretor = null, execCorretor = null, idMidia = null, execMidia = null, idEstruturaVenda = null, execEstruturaVenda = null, idProdutor = null, execProdutor = null, isOnChange = true) {
+function setGeral(idDiretor = null, execDiretor = null, idGerente = null, execGerente = null, idRepresentante = null, execRepresentante = null, idCorretor = null, execCorretor = null, idMidia = null, execMidia = null, idEstruturaVenda = null, execEstruturaVenda = null, idProdutor = null, execProdutor = null, idInspetor = null, execInspetor = null, isOnChange = true) {
     var dataDiretor = {};
     var dataGerente = {};
     var dataRepresentante = {};
     var dataCorretor = {};
     var dataEstruturaVenda = {};
     var dataProdutor = {};
+    var dataInspetor = {};
     for (i = 0; i < document.arrFilter.length; i++) {
         //diretor
         if (
@@ -110,7 +133,7 @@ function setGeral(idDiretor = null, execDiretor = null, idGerente = null, execGe
             document.arrFilter[i].diretorCodigo != '-1' &&
             execDiretor != null
         ) {
-            if (validation(document.arrFilter[i], idDiretor, idGerente, idRepresentante, idCorretor, idMidia, idEstruturaVenda, idProdutor)) {
+            if (validation(document.arrFilter[i], idDiretor, idGerente, idRepresentante, idCorretor, idMidia, idEstruturaVenda, idProdutor, idInspetor)) {
                 dataDiretor[document.arrFilter[i].diretorCodigo] = document.arrFilter[i].diretorNome;
             }
         }
@@ -121,7 +144,7 @@ function setGeral(idDiretor = null, execDiretor = null, idGerente = null, execGe
             document.arrFilter[i].gerenteCodigo != '-1' &&
             execGerente != null
         ) {
-            if (validation(document.arrFilter[i], idDiretor, idGerente, idRepresentante, idCorretor, idMidia, idEstruturaVenda, idProdutor)) {
+            if (validation(document.arrFilter[i], idDiretor, idGerente, idRepresentante, idCorretor, idMidia, idEstruturaVenda, idProdutor, idInspetor)) {
                 dataGerente[document.arrFilter[i].gerenteCodigo] = document.arrFilter[i].gerenteNome;
             }
         }
@@ -132,7 +155,7 @@ function setGeral(idDiretor = null, execDiretor = null, idGerente = null, execGe
             document.arrFilter[i].representanteCodigo != '-1' &&
             execRepresentante != null
         ) {
-            if (validation(document.arrFilter[i], idDiretor, idGerente, idRepresentante, idCorretor, idMidia, idEstruturaVenda, idProdutor)) {
+            if (validation(document.arrFilter[i], idDiretor, idGerente, idRepresentante, idCorretor, idMidia, idEstruturaVenda, idProdutor, idInspetor)) {
                 dataRepresentante[document.arrFilter[i].representanteCodigo] = document.arrFilter[i].representanteNome;
             }
         }
@@ -143,7 +166,7 @@ function setGeral(idDiretor = null, execDiretor = null, idGerente = null, execGe
             document.arrFilter[i].id_corretora != '-1' &&
             execCorretor != null
         ) {
-            if (validation(document.arrFilter[i], idDiretor, idGerente, idRepresentante, idCorretor, idMidia, idEstruturaVenda, idProdutor)) {
+            if (validation(document.arrFilter[i], idDiretor, idGerente, idRepresentante, idCorretor, idMidia, idEstruturaVenda, idProdutor, idInspetor)) {
                 dataCorretor[document.arrFilter[i].id_corretora] = document.arrFilter[i].corretor_nome;
             }
         }
@@ -156,7 +179,7 @@ function setGeral(idDiretor = null, execDiretor = null, idGerente = null, execGe
             document.arrFilter[i].estruturaVenda != '-1' &&
             execEstruturaVenda != null
         ) {
-            if (validation(document.arrFilter[i], idDiretor, idGerente, idRepresentante, idCorretor, idMidia, idEstruturaVenda, idProdutor)) {
+            if (validation(document.arrFilter[i], idDiretor, idGerente, idRepresentante, idCorretor, idMidia, idEstruturaVenda, idProdutor, idInspetor)) {
                 dataEstruturaVenda[document.arrFilter[i].estruturaVenda] = document.arrFilter[i].estruturaVenda;
             }
         }
@@ -167,8 +190,19 @@ function setGeral(idDiretor = null, execDiretor = null, idGerente = null, execGe
             document.arrFilter[i].id_produtor != '-1' &&
             execProdutor != null
         ) {
-            if (validation(document.arrFilter[i], idDiretor, idGerente, idRepresentante, idCorretor, idMidia, idEstruturaVenda, idProdutor)) {
+            if (validation(document.arrFilter[i], idDiretor, idGerente, idRepresentante, idCorretor, idMidia, idEstruturaVenda, idProdutor, idInspetor)) {
                 dataProdutor[document.arrFilter[i].id_produtor] = document.arrFilter[i].produtor_nome;
+            }
+        }
+        //inspetor
+        if (
+            document.arrFilter[i].inspetorCodigo != null &&
+            document.arrFilter[i].inspetorNome != null &&
+            document.arrFilter[i].inspetorCodigo != '-1' &&
+            execInspetor != null
+        ) {
+            if (validation(document.arrFilter[i], idDiretor, idGerente, idRepresentante, idCorretor, idMidia, idEstruturaVenda, idProdutor, idInspetor)) {
+                dataInspetor[document.arrFilter[i].inspetorCodigo] = document.arrFilter[i].inspetorNome;
             }
         }
     }
@@ -269,10 +303,26 @@ function setGeral(idDiretor = null, execDiretor = null, idGerente = null, execGe
             $("#filterProdutor").removeAttr('readonly');
         }
     }
+
+    //--- inspetor
+    if (execInspetor != null) {
+        var valoresMacadosInspetor = createOptions(document.getElementById("filterInspetor"), dataInspetor);
+        if (isOnChange) {
+            var tempVal = $("#filterInspetor").val();
+            tempVal.push(valoresMacadosInspetor);
+            $("#filterInspetor").val(tempVal);
+        }
+
+        if (Object.keys(dataInspetor).length == 1) {
+            $("#filterInspetor").attr('readonly', 'readonly');
+        } else {
+            $("#filterInspetor").removeAttr('readonly');
+        }
+    }
 }
 
 
-function setMidia(dados = null, idDiretor = null, idGerente = null, idRepresentante = null, idCorretor = null, idMidia = null, idEstruturaVenda = null, idProdutor = null) {
+function setMidia(dados = null, idDiretor = null, idGerente = null, idRepresentante = null, idCorretor = null, idMidia = null, idEstruturaVenda = null, idProdutor = null, idInspetor = null) {
     var data = {};
     $.each(document.midias, function(index, value) {
         data[value.corretor_type] = value.corretor_type;
@@ -280,7 +330,7 @@ function setMidia(dados = null, idDiretor = null, idGerente = null, idRepresenta
     $("#filterMidia").html(createHtmlSelect(data, $("#filterMidia").val() ? $("#filterMidia").val() : document.filterMidia));
 }
 
-function setRegioes(dados = null, idDiretor = null, idGerente = null, idRepresentante = null, idCorretor = null, idMidia = null, idEstruturaVenda = null, idProdutor = null) {
+function setRegioes(dados = null, idDiretor = null, idGerente = null, idRepresentante = null, idCorretor = null, idMidia = null, idEstruturaVenda = null, idProdutor = null, idInspetor = null) {
     var data = {};
 	$.each(document.regioes, function(index, value) {
         data[value.regiao] = value.regiao;
@@ -317,7 +367,7 @@ function createHtmlSelect(dataList, selected) {
 }
 
 
-function validation(data, idDiretor = null, idGerente = null, idRepresentante = null, idCorretor = null, idMidia = null, idEstruturaVenda = null, idProdutor = null) {
+function validation(data, idDiretor = null, idGerente = null, idRepresentante = null, idCorretor = null, idMidia = null, idEstruturaVenda = null, idProdutor = null, idInspetor = null) {
     if (idDiretor != null && idDiretor != '' && data.diretorCodigo != idDiretor) {
         // if(idDiretor != null && idDiretor != '' && jQuery.inArray(data.diretorCodigo, idDiretor) > -1){
         return false;
@@ -345,15 +395,21 @@ function validation(data, idDiretor = null, idGerente = null, idRepresentante = 
     if (idProdutor != null && idProdutor != '' && data.id_produtor != idProdutor) {
         return false;
     }
+
+    if (idInspetor != null && idInspetor != '' && data.dataInspetor != idInspetor) {
+        // if(idInspetor != null && idInspetor != '' && jQuery.inArray(data.dataInspetor, idInspetor) > -1){
+        return false;
+    }
+    
     return true;
 }
-// var roundToPlusInfinity = function(n, fd) {
-//     console.log('passou roundToPlusInfinity');
-//     var scale = Math.pow(10, fd),
-//         rounded = fd ? Math.floor((n * scale + 0.5)) / scale :
-//         Math.round(n);
-//     return rounded.toString();
-// };
+var roundToPlusInfinity = function(n, fd) {
+    console.log('passou roundToPlusInfinity');
+    var scale = Math.pow(10, fd),
+        rounded = fd ? Math.floor((n * scale + 0.5)) / scale :
+        Math.round(n);
+    return rounded.toString();
+};
 
 function sortProperties(obj) {
     // convert object into array
@@ -380,6 +436,7 @@ function limparFiltros() {
     document.filterEstrutura = '';
     document.filterMidia = '';
     document.filterProdutor = '';
+    document.filterInspetor = '';
 
     $('#filterDiretor').find('option').remove();
     $('#filterGerente').find('option').remove();
@@ -389,18 +446,19 @@ function limparFiltros() {
     $('#filterProdutor').find('option').remove();
     $('#filterMidia').find('option').remove();
     $('#filterRegiao').find('option').remove();
+    $('#filterInspetor').find('option').remove();
 }
 
 function cleanFilter() {
     limparFiltros();
 	$('.multiselect').select2('destroy');
     $('.multiselect').select2();
-    setGeral(null, 1, null, 1, null, 1, null, 1, null, 1, null, 1, null, 1, false);
+    setGeral(null, 1, null, 1, null, 1, null, 1, null, 1, null, 1, null, 1, null, 1, false);
     setMidia();
 }
 
 function createTable(columns) {
-
+    console.log('INICIOU LOADS');
     $(".overlayer").css("display", "block");
     $(".overlayer2").css("display", "block");
     $(".butaos").hide();
@@ -519,7 +577,7 @@ function createTable(columns) {
         $(".overlayer").hide();
         $(".overlayer2").hide();
         $(".butaos").show();
-
+        console.log('FIM LOADS');
         $('#divTable').html(table);
 
 
