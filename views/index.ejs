@@ -5,7 +5,7 @@
 		<link rel="stylesheet" href="/public/css/bootstrap.min.css">
 		<link rel="stylesheet" href="/public/css/font-awesome.min.css">
 		<style>
-									body 		{ word-wrap:break-word; }
+													body 		{ word-wrap:break-word; }
 		</style>
 		<meta charset="utf-8">
 		<meta http-equiv="Content-Language" content="pt-br">
@@ -21,7 +21,6 @@
 		<link rel="stylesheet" type="text/css" media="all" href="/public/css/style.css">
 		<link rel="stylesheet" type="text/css" href="/public/css/dataTables.bootstrap.css">
 		<link rel="stylesheet" type="text/css" href="/public/css/buttons.dataTables.min.css">
-
 		
 		<link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/css/select2.min.css" rel="stylesheet" />
 		
@@ -34,7 +33,7 @@
 		<script type="text/javascript" src="/public/js/moment.min.js"></script>
 		<script type="text/javascript" src="/public/js/daterangepicker.js"></script>
 		<script type="text/javascript" src="/public/js/jquery.marquee.min.js"></script>
-		<script type="text/javascript" src="/public/js/filter.js"></script>
+		<script type="text/javascript" src="/public/js/filter.min.js"></script>
 		<script type="text/javascript" src="/public/js/jquery.dataTables.min.js"></script>
 		<script type="text/javascript" src="/public/js/dataTables.bootstrap.min.js"></script>
 		<script type="text/javascript" src="/public/js/dataTables.buttons.min.js"></script>
@@ -47,17 +46,17 @@
 		<script type="text/javascript" src="/public/js/index.js"></script>
 		
 		<script>
-		$(document).ready(function() {	
-		document.datas="<%=datasFilter%>";
-		document.filterDiretor="<%=filterDiretor%>";
-		document.filterGerente="<%=filterGerente%>";
-		document.filterRepresentante="<%=filterRepresentante%>";
-		document.filterCorretora="<%=filterCorretora%>";
-		document.filterMidia="<%=filterMidia%>";
-		document.filterProdutor="<%=filterProdutor%>";
-		document.filterEstrutura="<%=filterEstrutura%>";
-		document.filterRegiao="<%=filterRegiao%>";
-		document.filterInspetor="<%=filterInspetor%>";
+		$(document).ready(function() {
+			document.datas="<%=datasFilter%>";
+			document.filterDiretor="<%=filterDiretor%>";
+			document.filterGerente="<%=filterGerente%>";
+			document.filterRepresentante="<%=filterRepresentante%>";
+			document.filterCorretora="<%=filterCorretora%>";
+			document.filterMidia="<%=filterMidia%>";
+			document.filterProdutor="<%=filterProdutor%>";
+			document.filterEstrutura="<%=filterEstrutura%>";
+			document.filterRegiao="<%=filterRegiao%>";
+			document.filterInspetor="<%=filterInspetor%>";
 			$.get("/filter", function(arrFilter) {
 				document.arrFilter = JSON.parse(arrFilter);
 				setGeral(null, 1, null, 1, null, 1, null, 1, null, 1, null, 1, null, 1,  null, 1, false);
@@ -80,176 +79,175 @@
 			
 			var url = "/metricas?filterDiretor="+document.filterDiretor+"&filterGerente="+document.filterGerente+"&filterRepresentante="+document.filterRepresentante+"&filterCorretora="+document.filterCorretora+"&filterMidia="+document.filterMidia+"&filterProdutor="+document.filterProdutor+"&filterEstrutura="+document.filterEstrutura+"&filterRegiao="+document.filterRegiao+"&datas="+document.datas;
 				$.get(url, function(arrData) {
-						var data = JSON.parse(arrData);
-				document.dateVisitas = [];
-				document.datePrecadastros = [];
-				document.dateVendas = [];
-				document.dateReceitas = [];
-				document.dateVidas = [];
-				document.dateDadospessoais = [];
-				document.dateCorretor = [];
-				document.dateComprasfinalizada = [];
-				document.dateCheckout = [];
-				document.datePrecadastro_visitas = [];
-				document.dateTransactionRevenue = [];
-				document.dateTransactions = [];
-				document.dateDadospessoais_precadastro = [];
-				document.dateDependentes_dadospessoais = [];
-				document.dateCorretor_dependentes = [];
-				document.dateCheckout_corretor = [];
-				document.dateCompra_checkout = [];
-				
-				for (var i=0; i < data.length; i++) {
-					document.dateVisitas.push({ x: new Date(data[i].y, (data[i].m-1), data[i].d), y: (data[i].sessions> 0 ? data[i].sessions : 0)});
-					document.datePrecadastros.push({ x: new Date(data[i].y, (data[i].m-1), data[i].d), y: (data[i].precadastro> 0 ? data[i].precadastro : 0)});
-					document.dateVendas.push({ x: new Date(data[i].y, (data[i].m-1), data[i].d), y: (data[i].vendas> 0 ? data[i].vendas : 0)});
-					document.dateReceitas.push({ x: new Date(data[i].y, (data[i].m-1), data[i].d), y: (data[i].receita> 0 ? data[i].receita : 0)});
-					document.dateVidas.push({ x: new Date(data[i].y, (data[i].m-1), data[i].d), y: (data[i].qtd_dependentes> 0 ? data[i].qtd_dependentes : 0)});
-					document.dateDadospessoais.push({ x: new Date(data[i].y, (data[i].m-1), data[i].d), y: (data[i].dadospessoais> 0 ? data[i].dadospessoais : 0)});
-					document.dateCorretor.push({ x: new Date(data[i].y, (data[i].m-1), data[i].d), y: (data[i].corretor> 0 ? data[i].corretor : 0)});
-					document.dateComprasfinalizada.push({ x: new Date(data[i].y, (data[i].m-1), data[i].d), y: (data[i].comprasfinalizada> 0 ? data[i].comprasfinalizada : 0)});
-					document.dateCheckout.push({ x: new Date(data[i].y, (data[i].m-1), data[i].d), y: (data[i].checkout > 0 ? data[i].checkout : 0)});
-					document.datePrecadastro_visitas.push({ x: new Date(data[i].y, (data[i].m-1), data[i].d), y: (data[i].precadastro_visitas> 0 ? data[i].precadastro_visitas : 0)});
-					document.dateTransactionRevenue.push({ x: new Date(data[i].y, (data[i].m-1), data[i].d), y: (data[i].transactionRevenue> 0 ? data[i].transactionRevenue : 0)});
-					document.dateTransactions.push({ x: new Date(data[i].y, (data[i].m-1), data[i].d), y: (data[i].transactions> 0 ? data[i].transactions : 0)});
-					document.dateDadospessoais_precadastro.push({ x: new Date(data[i].y, (data[i].m-1), data[i].d), y: (data[i].dadospessoais_precadastro> 0 ? data[i].dadospessoais_precadastro : 0)});
-					document.dateDependentes_dadospessoais.push({ x: new Date(data[i].y, (data[i].m-1), data[i].d), y: (data[i].dependentes_dadospessoais> 0 ? data[i].dependentes_dadospessoais : 0)});
-					document.dateCorretor_dependentes.push({ x: new Date(data[i].y, (data[i].m-1), data[i].d), y: (data[i].corretor_dependentes> 0 ? data[i].corretor_dependentes : 0)});
-					document.dateCheckout_corretor.push({ x: new Date(data[i].y, (data[i].m-1), data[i].d), y: (data[i].checkout_corretor> 0 ? data[i].checkout_corretor : 0)});
-					document.dateCompra_checkout.push({ x: new Date(data[i].y, (data[i].m-1), data[i].d), y: (data[i].compra_checkout> 0 ? data[i].compra_checkout : 0)});
-				}
-				document.chartGrafico = new CanvasJS.Chart("divchartGrafico", {
-					animationEnabled: true,
-					title:{
-						text: ""
-					},
-					axisX:{
-						gridColor: "#DDD",
-						valueFormatString: "MMM DD",
-					},
-					axisY :{
-						includeZero: true,
-						gridColor: "#DDD"
-					},
-					axisY2 :{
-						includeZero: true,
-						gridColor: "#DDD"
-					},
-					toolTip: {
-						shared: true
-					},
-					legend: {
-						fontSize: 13
-					},
-					data: [{
-						type: "splineArea",
-						showInLegend: true,
-						name: "Visitas",
-						dataPoints: document.dateVisitas
-					},
-					{
-						type: "splineArea",
-						color: "#f26304",
-						axisYType: "secondary",
-						showInLegend: true,
-						name: "Pré-Cadastro por Visitas",
-						dataPoints: document.dateDadospessoais_precadastro
-					}]
-				});
+				var data = JSON.parse(arrData);
+					document.dateVisitas = [];
+					document.datePrecadastros = [];
+					document.dateVendas = [];
+					document.dateReceitas = [];
+					document.dateVidas = [];
+					document.dateDadospessoais = [];
+					document.dateCorretor = [];
+					document.dateComprasfinalizada = [];
+					document.dateCheckout = [];
+					document.datePrecadastro_visitas = [];
+					document.dateTransactionRevenue = [];
+					document.dateTransactions = [];
+					document.dateDadospessoais_precadastro = [];
+					document.dateDependentes_dadospessoais = [];
+					document.dateCorretor_dependentes = [];
+					document.dateCheckout_corretor = [];
+					document.dateCompra_checkout = [];
 					
-				document.chartGrafico.render();
+					for (var i=0; i < data.length; i++) {
+						document.dateVisitas.push({ x: new Date(data[i].y, (data[i].m-1), data[i].d), y: (data[i].sessions> 0 ? data[i].sessions : 0)});
+						document.datePrecadastros.push({ x: new Date(data[i].y, (data[i].m-1), data[i].d), y: (data[i].precadastro> 0 ? data[i].precadastro : 0)});
+						document.dateVendas.push({ x: new Date(data[i].y, (data[i].m-1), data[i].d), y: (data[i].vendas> 0 ? data[i].vendas : 0)});
+						document.dateReceitas.push({ x: new Date(data[i].y, (data[i].m-1), data[i].d), y: (data[i].receita> 0 ? data[i].receita : 0)});
+						document.dateVidas.push({ x: new Date(data[i].y, (data[i].m-1), data[i].d), y: (data[i].qtd_dependentes> 0 ? data[i].qtd_dependentes : 0)});
+						document.dateDadospessoais.push({ x: new Date(data[i].y, (data[i].m-1), data[i].d), y: (data[i].dadospessoais> 0 ? data[i].dadospessoais : 0)});
+						document.dateCorretor.push({ x: new Date(data[i].y, (data[i].m-1), data[i].d), y: (data[i].corretor> 0 ? data[i].corretor : 0)});
+						document.dateComprasfinalizada.push({ x: new Date(data[i].y, (data[i].m-1), data[i].d), y: (data[i].comprasfinalizada> 0 ? data[i].comprasfinalizada : 0)});
+						document.dateCheckout.push({ x: new Date(data[i].y, (data[i].m-1), data[i].d), y: (data[i].checkout > 0 ? data[i].checkout : 0)});
+						document.datePrecadastro_visitas.push({ x: new Date(data[i].y, (data[i].m-1), data[i].d), y: (data[i].precadastro_visitas> 0 ? data[i].precadastro_visitas : 0)});
+						document.dateTransactionRevenue.push({ x: new Date(data[i].y, (data[i].m-1), data[i].d), y: (data[i].transactionRevenue> 0 ? data[i].transactionRevenue : 0)});
+						document.dateTransactions.push({ x: new Date(data[i].y, (data[i].m-1), data[i].d), y: (data[i].transactions> 0 ? data[i].transactions : 0)});
+						document.dateDadospessoais_precadastro.push({ x: new Date(data[i].y, (data[i].m-1), data[i].d), y: (data[i].dadospessoais_precadastro> 0 ? data[i].dadospessoais_precadastro : 0)});
+						document.dateDependentes_dadospessoais.push({ x: new Date(data[i].y, (data[i].m-1), data[i].d), y: (data[i].dependentes_dadospessoais> 0 ? data[i].dependentes_dadospessoais : 0)});
+						document.dateCorretor_dependentes.push({ x: new Date(data[i].y, (data[i].m-1), data[i].d), y: (data[i].corretor_dependentes> 0 ? data[i].corretor_dependentes : 0)});
+						document.dateCheckout_corretor.push({ x: new Date(data[i].y, (data[i].m-1), data[i].d), y: (data[i].checkout_corretor> 0 ? data[i].checkout_corretor : 0)});
+						document.dateCompra_checkout.push({ x: new Date(data[i].y, (data[i].m-1), data[i].d), y: (data[i].compra_checkout> 0 ? data[i].compra_checkout : 0)});
+					}
+					document.chartGrafico = new CanvasJS.Chart("divchartGrafico", {
+						animationEnabled: true,
+						title:{
+							text: ""
+						},
+						axisX:{
+							gridColor: "#DDD",
+							valueFormatString: "MMM DD",
+						},
+						axisY :{
+							includeZero: true,
+							gridColor: "#DDD"
+						},
+						axisY2 :{
+							includeZero: true,
+							gridColor: "#DDD"
+						},
+						toolTip: {
+							shared: true
+						},
+						legend: {
+							fontSize: 13
+						},
+						data: [{
+							type: "splineArea",
+							showInLegend: true,
+							name: "Visitas",
+							dataPoints: document.dateVisitas
+						},
+						{
+							type: "splineArea",
+							color: "#f26304",
+							axisYType: "secondary",
+							showInLegend: true,
+							name: "Pré-Cadastro por Visitas",
+							dataPoints: document.dateDadospessoais_precadastro
+						}]
+					});
+						
+					document.chartGrafico.render();
+					
+				});
 				
-			});
-			
-			var chartFunil = new CanvasJS.Chart("chartFunil", {
-			animationEnabled: false,
-			height: 500,
-			data: [{
-				indexLabelMaxWidth: 300,
-				indexLabelFontSize: 13,
-				type: "funnel",
-				indexLabel: "{label} - {y}",
-				toolTipContent: "<b>{label}</b>: {y} <b>({percentage}%)</b>",
-				neckWidth: 20,
-				neckHeight: 0,
-				valueRepresents: "area",
-				dataPoints: [
-					{ y: 10082, label: "Visitas" },
-					{ y: 629, label: "Pré-Cadastro" },
-					{ y: 367, label: "Dados Pessoais" },
-					{ y: 313, label: "Dependentes" },
-					{ y: 184, label: "Corretor" },
-					{ y: 216, label: "Checkout" },
-					{ y: 29, label: "Compras Finalizadas" }
-				]
-			}]
-			});
-			chartFunil.render();
-			createTable();
-
-			function calculatePercentage() {
-			var dataPoint = chartFunil.options.data[0].dataPoints;
-			var total = dataPoint[0].y;
-			for(var i = 0; i < dataPoint.length; i++) {
-				if(i == 0) {
-					chartFunil.options.data[0].dataPoints[i].percentage = 100;
-				} else {
-					chartFunil.options.data[0].dataPoints[i].percentage = ((dataPoint[i].y / total) * 100).toFixed(2);
+				var chartFunil = new CanvasJS.Chart("chartFunil", {
+				animationEnabled: false,
+				height: 500,
+				data: [{
+					indexLabelMaxWidth: 300,
+					indexLabelFontSize: 13,
+					type: "funnel",
+					indexLabel: "{label} - {y}",
+					toolTipContent: "<b>{label}</b>: {y} <b>({percentage}%)</b>",
+					neckWidth: 20,
+					neckHeight: 0,
+					valueRepresents: "area",
+					dataPoints: [
+						{ y: 10082, label: "Visitas" },
+						{ y: 629, label: "Pré-Cadastro" },
+						{ y: 367, label: "Dados Pessoais" },
+						{ y: 313, label: "Dependentes" },
+						{ y: 184, label: "Corretor" },
+						{ y: 216, label: "Checkout" },
+						{ y: 29, label: "Compras Finalizadas" }
+					]
+				}]
+				});
+				chartFunil.render();
+				createTable();
+				function calculatePercentage() {
+				var dataPoint = chartFunil.options.data[0].dataPoints;
+				var total = dataPoint[0].y;
+				for(var i = 0; i < dataPoint.length; i++) {
+					if(i == 0) {
+						chartFunil.options.data[0].dataPoints[i].percentage = 100;
+					} else {
+						chartFunil.options.data[0].dataPoints[i].percentage = ((dataPoint[i].y / total) * 100).toFixed(2);
+					}
 				}
-			}
-			}
-			function setMetric(opt){
-			if(opt == 'visitas'){
-				document.chartGrafico.options.data[0].name='Visitas';
-				document.chartGrafico.options.data[0].dataPoints = document.dateVisitas;
-			}else if(opt == 'precadastro'){
-				document.chartGrafico.options.data[0].name='Pré-Cadastro';
-				document.chartGrafico.options.data[0].dataPoints = document.datePrecadastros;
-			}else if(opt == 'dadospessoais'){
-				document.chartGrafico.options.data[0].name='Dados Pessoais';
-				document.chartGrafico.options.data[0].dataPoints = document.dateDadospessoais;
-			}else if(opt == 'dependentes'){
-				document.chartGrafico.options.data[0].name='Vidas';
-				document.chartGrafico.options.data[0].dataPoints = document.dateVidas;
-			}else if(opt == 'corretor'){
-				document.chartGrafico.options.data[0].name='Corretor';
-				document.chartGrafico.options.data[0].dataPoints = document.dateCorretor;
-			}else if(opt == 'checkout'){
-				document.chartGrafico.options.data[0].name='Checkout';
-				document.chartGrafico.options.data[0].dataPoints = document.dateCheckout;
-			}else if(opt == 'receita'){
-				document.chartGrafico.options.data[0].name='Receitas';
-				document.chartGrafico.options.data[0].dataPoints = document.dateReceitas;
-			}
-			document.chartGrafico.render();
-			}
-			function setKPI(opt){
-			if(opt == 'registration_per_session'){
-				document.chartGrafico.options.data[1].name = 'Pré-cadastro por Visitas';
-				document.chartGrafico.options.data[1].dataPoints = document.datePrecadastro_visitas;
-			}else if(opt == 'personal_per_registration'){
-				document.chartGrafico.options.data[1].name = 'Dados Pessoais por Pré-cadastro';
-				document.chartGrafico.options.data[1].dataPoints = document.dateDadospessoais_precadastro;
-			}else if(opt == 'dependent_per_personal'){
-				document.chartGrafico.options.data[1].name = 'Dependentes por Dados Pessoais';
-				document.chartGrafico.options.data[1].dataPoints = document.dateDependentes_dadospessoais;
-			}else if(opt == 'broker_per_dependent'){
-				document.chartGrafico.options.data[1].name = 'Corretor por Dependentes';
-				document.chartGrafico.options.data[1].dataPoints = document.dateCorretor_dependentes;
-			}else if(opt == 'checkout_per_broker'){
-				document.chartGrafico.options.data[1].name = 'Checkout por Corretor';
-				document.chartGrafico.options.data[1].dataPoints = document.dateCheckout_corretor;
-			}else if(opt == 'purchase_per_checkout'){
-				document.chartGrafico.options.data[1].name = 'Compras por Checkout';
-				document.chartGrafico.options.data[1].dataPoints = document.dateCompra_checkout;
-			}
-			
-			document.chartGrafico.render();
-			}
-		});
+				}
+				function setMetric(opt){
+				if(opt == 'visitas'){
+					document.chartGrafico.options.data[0].name='Visitas';
+					document.chartGrafico.options.data[0].dataPoints = document.dateVisitas;
+				}else if(opt == 'precadastro'){
+					document.chartGrafico.options.data[0].name='Pré-Cadastro';
+					document.chartGrafico.options.data[0].dataPoints = document.datePrecadastros;
+				}else if(opt == 'dadospessoais'){
+					document.chartGrafico.options.data[0].name='Dados Pessoais';
+					document.chartGrafico.options.data[0].dataPoints = document.dateDadospessoais;
+				}else if(opt == 'dependentes'){
+					document.chartGrafico.options.data[0].name='Vidas';
+					document.chartGrafico.options.data[0].dataPoints = document.dateVidas;
+				}else if(opt == 'corretor'){
+					document.chartGrafico.options.data[0].name='Corretor';
+					document.chartGrafico.options.data[0].dataPoints = document.dateCorretor;
+				}else if(opt == 'checkout'){
+					document.chartGrafico.options.data[0].name='Checkout';
+					document.chartGrafico.options.data[0].dataPoints = document.dateCheckout;
+				}else if(opt == 'receita'){
+					document.chartGrafico.options.data[0].name='Receitas';
+					document.chartGrafico.options.data[0].dataPoints = document.dateReceitas;
+				}
+				document.chartGrafico.render();
+				}
+				function setKPI(opt){
+				if(opt == 'registration_per_session'){
+					document.chartGrafico.options.data[1].name = 'Pré-cadastro por Visitas';
+					document.chartGrafico.options.data[1].dataPoints = document.datePrecadastro_visitas;
+				}else if(opt == 'personal_per_registration'){
+					document.chartGrafico.options.data[1].name = 'Dados Pessoais por Pré-cadastro';
+					document.chartGrafico.options.data[1].dataPoints = document.dateDadospessoais_precadastro;
+				}else if(opt == 'dependent_per_personal'){
+					document.chartGrafico.options.data[1].name = 'Dependentes por Dados Pessoais';
+					document.chartGrafico.options.data[1].dataPoints = document.dateDependentes_dadospessoais;
+				}else if(opt == 'broker_per_dependent'){
+					document.chartGrafico.options.data[1].name = 'Corretor por Dependentes';
+					document.chartGrafico.options.data[1].dataPoints = document.dateCorretor_dependentes;
+				}else if(opt == 'checkout_per_broker'){
+					document.chartGrafico.options.data[1].name = 'Checkout por Corretor';
+					document.chartGrafico.options.data[1].dataPoints = document.dateCheckout_corretor;
+				}else if(opt == 'purchase_per_checkout'){
+					document.chartGrafico.options.data[1].name = 'Compras por Checkout';
+					document.chartGrafico.options.data[1].dataPoints = document.dateCompra_checkout;
+				}
+				
+				document.chartGrafico.render();
+				}
+			});
 		</script>
 		<style> /*  LOADER */
-		.overlayer { 
+		.overlayer {
 			background-color: black;
 			opacity: 0.8;
 			width: 97.7%;
@@ -258,41 +256,41 @@
 			z-index: 1040;
 			top: 0;
 		}
-		.carregando { 
+		.carregando {
 			display: none;
 			background-color: black;
-		    opacity: 0.8;
-		    width: 100%;
-		    height: 100%;
-		    position: absolute;
-		    z-index: 1040;
-		    top: -57px;
-		    left: 0px;
+		opacity: 0.8;
+		width: 100%;
+		height: 100%;
+		position: absolute;
+		z-index: 1040;
+		top: -57px;
+		left: 0px;
 		}
-		.overlayer2 { 
+		.overlayer2 {
 			right: 15px;
 			background-color: black;
-		    opacity: 0.8;
-		    width: 128px;
-		    height: 31px;
-		    position: absolute;
-		    z-index: 1040;
-		    top: 13px;
-		    color: white;
-		    padding: 5px;
-		    border-radius: 3px;
+		opacity: 0.8;
+		width: 128px;
+		height: 31px;
+		position: absolute;
+		z-index: 1040;
+		top: 13px;
+		color: white;
+		padding: 5px;
+		border-radius: 3px;
 		}
 		.loader {
-		    margin-top: 10px;
-		    margin-left: auto;
-		    margin-right: auto;
-		    border: 6px solid #f3f3f3;
-		    border-radius: 50%;
-		    border-top: 6px solid #3498db;
-		    width: 80px;
-		    height: 80px;
-		    -webkit-animation: spin 2s linear infinite;
-		    animation: spin 2s linear infinite;
+		margin-top: 10px;
+		margin-left: auto;
+		margin-right: auto;
+		border: 6px solid #f3f3f3;
+		border-radius: 50%;
+		border-top: 6px solid #3498db;
+		width: 80px;
+		height: 80px;
+		-webkit-animation: spin 2s linear infinite;
+		animation: spin 2s linear infinite;
 		}
 				/* Safari */
 			@-webkit-keyframes spin {
@@ -302,7 +300,7 @@
 			@keyframes spin {
 			0% { transform: rotate(0deg); }
 			100% { transform: rotate(360deg); }
-		} 
+		}
 		/*  LOADER */
 		</style>
 	</head>
@@ -367,199 +365,189 @@
 			</nav>
 			
 			
-<div class="row tile_count">
-	<div class="shiny-html-output col-sm-5 col-md-2 col-xs-12 tile_stats_count shiny-bound-output" id="boxVisitas">
-		<span class="count_top"><i class="fa fa-user"></i> Visitas</span>
-		<div id="sessions" class="count">
-			<%= dataTotal["sessions"] ? dataTotal["sessions"].toLocaleString("pt-BR").replace(",", ".")  : 0  %>
-		</div>
-	</div>
-<div class="shiny-html-output col-sm-12 col-md-2 col-xs-12 tile_stats_count shiny-bound-output" id="boxPreCadastro">
-		<span class="count_top"><i class="fa fa-pencil-square-o"></i> Pré-Cadastro</span>
-		<div id="pre_registration" class="count">
-			<%= dataTotal["precadastro"] ? dataTotal["precadastro"] : 0  %>
-		</div>
-</div>
-<div class="shiny-html-output col-sm-12 col-md-2 col-xs-12 tile_stats_count shiny-bound-output" id="boxCadastroFinalizado">
-	<span class="count_top"><i class="fa fa-check"></i> Cadastro Finalizado</span>
-	<div id="personal_data_completed" class="count">
-		<%= dataTotal["dadospessoais"] ? dataTotal["dadospessoais"] : 0  %>
-	</div>
-</div>
-<div class="shiny-html-output col-sm-12 col-md-2 col-xs-12 tile_stats_count shiny-bound-output" id="boxVidas">
-	<span class="count_top"><i class="fa fa-heart"></i> Vidas</span>
-	<div id="lifes" class="count">
-		<%= dataTotal["vidas"] ? dataTotal["vidas"] : 0  %>
-	</div>
-</div>
-<div class="shiny-html-output col-sm-12 col-md-2 col-xs-12 tile_stats_count shiny-bound-output" id="boxVendas">
-	<span class="count_top"><i class="fa fa-handshake-o"></i> Vendas</span>
-	<div id="transactions" class="count">
-		<%= dataTotal["vendas"] ? dataTotal["vendas"] : 0  %>
-	</div>
-</div>
-<div class="shiny-html-output col-sm-12 col-md-2 col-xs-12 tile_stats_count shiny-bound-output" id="boxReceita">
-	<span class="count_top"><i class="fa fa-usd"></i> Receita</span>
-	<div id="revenue" class="count">
-		
-		<%= dataTotal["receita"] ? dataTotal["receita"].toLocaleString("pt-BR").replace(",", "|").replace(".", ",").replace("|", ".").substr(0, (dataTotal["receita"].toLocaleString("pt-BR").replace(",", "|").replace(".", ",").indexOf(",") + 3)) : 0  %>
-	</div>
-</div>
-</div>
-
-
-
-<div class="row">
-<div class="shiny-html-output col-md-7 col-sm-12 col-xs-12 shiny-bound-output">
-	<div class="x_panel" style="min-height: 567px;margin-bottom: 50px;">
-		<div class="x_title no-padding">
-			<a href="#!" id="trocaGrafico" class="pull-right"><i class="fa fa-eye"  style="font-size:24px"></i></a>
-			<!-- <a href="#!" id="trocaGrafico" class="btn btn-primary pull-right btn-xs"><i class="fa fa-eye"></i></a> -->
-			<h4>Funil</h4>
-		</div>
-			<div class="clearfix"></div>
-				<div class="x-content no-padding">
-					<div id="chartFunil" style="display: none;"></div>
-					<div id="chartFunilPSD">
-						<img src="/public/img/funil.png" alt="" class="img-responsive">
-						<div class="count charBar_count visitas">
-							Visitas - <%= dataTotal["sessions"] ? dataTotal["sessions"].toLocaleString("pt-BR").replace(",", ".") : 0  %>
-						</div>
-						<div class="count charBar_count precadastro" style="top: 142px;">
-							Pré-Cadastro - <%= dataTotal["precadastro"] ? dataTotal["precadastro"] : 0  %>
-						</div>
-						<div class="count charBar_count dadospessoais" style="top: 216px;">
-							Dados Pessoais - <%= dataTotal["dadospessoais"] ? dataTotal["dadospessoais"] : 0  %>
-						</div>
-						<div class="count charBar_count dependentes" style="top: 284px;">
-							Dependentes - <%= dataTotal["dependentes"] ? dataTotal["dependentes"] : 0  %>
-						</div>
-						<div class="count charBar_count corretor" style="top: 354px;">
-							Corretor - <%= dataTotal["corretor"] ? dataTotal["corretor"] : 0  %>
-						</div>
-						<div class="count charBar_count checkout" style="top: 423px;">
-							Checkout - <%= dataTotal["checkout"] ? dataTotal["checkout"] : 0  %>
-						</div>
-						<div class="count charBar_count vendas" style="top: 493px;">
-							Compras Finalizadas - <%= dataTotal["vendas"] ? dataTotal["vendas"] : 0  %>
-						</div>
-					</div>
-					<div id="charBar" style="display: none">
-						<img src="/public/img/dashboard.png" alt="" class="img-responsive">
-						<div class="count charBar_count visitas">
-							Visitas - <%= dataTotal["sessions"] ? dataTotal["sessions"].toLocaleString("pt-BR").replace(",", ".") : 0  %>
-						</div>
-						<div class="count charBar_count precadastro" style="top: 142px;">
-							Pré-Cadastro - <%= dataTotal["precadastro"] ? dataTotal["precadastro"] : 0  %>
-						</div>
-						<div class="count charBar_count dadospessoais" style="top: 216px;">
-							Dados Pessoais - <%= dataTotal["dadospessoais"] ? dataTotal["dadospessoais"] : 0  %>
-						</div>
-						<div class="count charBar_count dependentes" style="top: 284px;">
-							Dependentes - <%= dataTotal["dependentes"] ? dataTotal["dependentes"] : 0  %>
-						</div>
-						<div class="count charBar_count corretor" style="top: 354px;">
-							Corretor - <%= dataTotal["corretor"] ? dataTotal["corretor"] : 0  %>
-						</div>
-						<div class="count charBar_count checkout" style="top: 423px;">
-							Checkout - <%= dataTotal["checkout"] ? dataTotal["checkout"] : 0  %>
-						</div>
-						<div class="count charBar_count vendas" style="top: 493px;">
-							Compras Finalizadas - <%= dataTotal["vendas"] ? dataTotal["vendas"] : 0  %>
-						</div>
+			<div class="row tile_count">
+				<div class="shiny-html-output col-sm-5 col-md-2 col-xs-12 tile_stats_count shiny-bound-output" id="boxVisitas">
+					<span class="count_top"><i class="fa fa-user"></i> Visitas</span>
+					<div id="sessions" class="count">
+						<%= dataTotal["sessions"] ? dataTotal["sessions"].toLocaleString("pt-BR").replace(",", ".")  : 0  %>
 					</div>
 				</div>
-	</div>
-</div> <!-- FUNIL -->
-<div class="col-sm-12 col-md-5 col-xs-12">
-	<div class="col-sm-12 col-xs-12">
-		<div class="shiny-html-output no-padding col-sm-12 col-md-12 col-xs-12 shiny-bound-output" id="boxPreCadastroPorVisita">
-		<div class="animated flipInY">
-			<div class="tile-stats orange-bg">
-				<div class="icon"><i class="fa fa-level-down dark-orange-text"></i></div>
-				<div class="count white-text" id="registration_per_session">
-					<%= ((dataTotal["precadastro"]*100/dataTotal["sessions"]) > 0) ? (dataTotal["precadastro"]*100/(dataTotal["sessions"] == 0 ? 1 : dataTotal["sessions"])).toFixed(2) : "0.00"%> %
-				</div>
-				<h3 class="white-text">Pré-Cadastro por Visita</h3>
-			</div>
-		</div>
-		</div>
-
-		<div class="shiny-html-output no-padding col-sm-12 col-md-12 col-xs-12 shiny-bound-output" id="boxDadosPessoaisPorPreCadastro">
-			<div class="animated flipInY">
-				<div class="tile-stats orange-bg">
-					<div class="icon"><i class="fa fa-level-down dark-orange-text"></i></div>
-					<div class="count white-text" id="personal_per_registration">
-						<%= ((dataTotal["dadospessoais"]*100/dataTotal["precadastro"]) > 0) ? (dataTotal["dadospessoais"]*100/(dataTotal["precadastro"] == 0 ? 1 : dataTotal["precadastro"])).toFixed(2) : "0.00"%> %
+				<div class="shiny-html-output col-sm-12 col-md-2 col-xs-12 tile_stats_count shiny-bound-output" id="boxPreCadastro">
+					<span class="count_top"><i class="fa fa-pencil-square-o"></i> Pré-Cadastro</span>
+					<div id="pre_registration" class="count">
+						<%= dataTotal["precadastro"] ? dataTotal["precadastro"] : 0  %>
 					</div>
-					<h3 class="white-text">Dados Pessoais por Pré-Cadastro</h3>
+				</div>
+				<div class="shiny-html-output col-sm-12 col-md-2 col-xs-12 tile_stats_count shiny-bound-output" id="boxCadastroFinalizado">
+					<span class="count_top"><i class="fa fa-check"></i> Cadastro Finalizado</span>
+					<div id="personal_data_completed" class="count">
+						<%= dataTotal["dadospessoais"] ? dataTotal["dadospessoais"] : 0  %>
+					</div>
+				</div>
+				<div class="shiny-html-output col-sm-12 col-md-2 col-xs-12 tile_stats_count shiny-bound-output" id="boxVidas">
+					<span class="count_top"><i class="fa fa-heart"></i> Vidas</span>
+					<div id="lifes" class="count">
+						<%= dataTotal["vidas"] ? dataTotal["vidas"] : 0  %>
+					</div>
+				</div>
+				<div class="shiny-html-output col-sm-12 col-md-2 col-xs-12 tile_stats_count shiny-bound-output" id="boxVendas">
+					<span class="count_top"><i class="fa fa-handshake-o"></i> Vendas</span>
+					<div id="transactions" class="count">
+						<%= dataTotal["vendas"] ? dataTotal["vendas"] : 0  %>
+					</div>
+				</div>
+				<div class="shiny-html-output col-sm-12 col-md-2 col-xs-12 tile_stats_count shiny-bound-output" id="boxReceita">
+					<span class="count_top"><i class="fa fa-usd"></i> Receita</span>
+					<div id="revenue" class="count">
+						
+						<%= dataTotal["receita"] ? dataTotal["receita"].toLocaleString("pt-BR").replace(",", "|").replace(".", ",").replace("|", ".").substr(0, (dataTotal["receita"].toLocaleString("pt-BR").replace(",", "|").replace(".", ",").indexOf(",") + 3)) : 0  %>
+					</div>
 				</div>
 			</div>
-		</div>
-
-		<div class="shiny-html-output no-padding col-sm-12 col-md-12 col-xs-12 shiny-bound-output" id="boxDependentesPorDadosPessoais">
-			<div class="animated flipInY">
-				<div class="tile-stats orange-bg">
-					<div class="icon"><i class="fa fa-level-down dark-orange-text"></i></div>
-					<div class="count white-text" id="dependent_per_personal">
-						<%= ((dataTotal["dependentes"]*100/dataTotal["dadospessoais"]) > 0) ? (dataTotal["dependentes"]*100/(dataTotal["dadospessoais"] == 0 ? 1 : dataTotal["dadospessoais"])).toFixed(2) : "0.00"%> %
+			<div class="row">
+				<div class="shiny-html-output col-md-7 col-sm-12 col-xs-12 shiny-bound-output">
+					<div class="x_panel" style="min-height: 567px;margin-bottom: 50px;">
+						<div class="x_title no-padding">
+							<a href="#!" id="trocaGrafico" class="pull-right"><i class="fa fa-eye"  style="font-size:24px"></i></a>
+							<!-- <a href="#!" id="trocaGrafico" class="btn btn-primary pull-right btn-xs"><i class="fa fa-eye"></i></a> -->
+							<h4>Funil</h4>
+						</div>
+						<div class="clearfix"></div>
+						<div class="x-content no-padding">
+							<div id="chartFunil" style="display: none;"></div>
+							<div id="chartFunilPSD">
+								<img src="/public/img/funil.png" alt="" class="img-responsive">
+								<div class="count charBar_count visitas">
+									Visitas - <%= dataTotal["sessions"] ? dataTotal["sessions"].toLocaleString("pt-BR").replace(",", ".") : 0  %>
+								</div>
+								<div class="count charBar_count precadastro" style="top: 142px;">
+									Pré-Cadastro - <%= dataTotal["precadastro"] ? dataTotal["precadastro"] : 0  %>
+								</div>
+								<div class="count charBar_count dadospessoais" style="top: 216px;">
+									Dados Pessoais - <%= dataTotal["dadospessoais"] ? dataTotal["dadospessoais"] : 0  %>
+								</div>
+								<div class="count charBar_count dependentes" style="top: 284px;">
+									Dependentes - <%= dataTotal["dependentes"] ? dataTotal["dependentes"] : 0  %>
+								</div>
+								<div class="count charBar_count corretor" style="top: 354px;">
+									Corretor - <%= dataTotal["corretor"] ? dataTotal["corretor"] : 0  %>
+								</div>
+								<div class="count charBar_count checkout" style="top: 423px;">
+									Checkout - <%= dataTotal["checkout"] ? dataTotal["checkout"] : 0  %>
+								</div>
+								<div class="count charBar_count vendas" style="top: 493px;">
+									Compras Finalizadas - <%= dataTotal["vendas"] ? dataTotal["vendas"] : 0  %>
+								</div>
+							</div>
+							<div id="charBar" style="display: none">
+								<img src="/public/img/dashboard.png" alt="" class="img-responsive">
+								<div class="count charBar_count visitas">
+									Visitas - <%= dataTotal["sessions"] ? dataTotal["sessions"].toLocaleString("pt-BR").replace(",", ".") : 0  %>
+								</div>
+								<div class="count charBar_count precadastro" style="top: 142px;">
+									Pré-Cadastro - <%= dataTotal["precadastro"] ? dataTotal["precadastro"] : 0  %>
+								</div>
+								<div class="count charBar_count dadospessoais" style="top: 216px;">
+									Dados Pessoais - <%= dataTotal["dadospessoais"] ? dataTotal["dadospessoais"] : 0  %>
+								</div>
+								<div class="count charBar_count dependentes" style="top: 284px;">
+									Dependentes - <%= dataTotal["dependentes"] ? dataTotal["dependentes"] : 0  %>
+								</div>
+								<div class="count charBar_count corretor" style="top: 354px;">
+									Corretor - <%= dataTotal["corretor"] ? dataTotal["corretor"] : 0  %>
+								</div>
+								<div class="count charBar_count checkout" style="top: 423px;">
+									Checkout - <%= dataTotal["checkout"] ? dataTotal["checkout"] : 0  %>
+								</div>
+								<div class="count charBar_count vendas" style="top: 493px;">
+									Compras Finalizadas - <%= dataTotal["vendas"] ? dataTotal["vendas"] : 0  %>
+								</div>
+							</div>
+						</div>
 					</div>
-					<h3 class="white-text">Dependentes por Dados Pessoais</h3>
-				</div>
-			</div>
-		</div>
-
-		<div class="shiny-html-output no-padding col-sm-12 col-md-12 col-xs-12 shiny-bound-output" id="boxCorretorPorDependentes">
-			<div class="animated flipInY">
-				<div class="tile-stats orange-bg">
-					<div class="icon"><i class="fa fa-level-down dark-orange-text"></i></div>
-					<div class="count white-text" id="broker_per_dependent">
-						<%= ((dataTotal["corretor"]*100/dataTotal["dependentes"]) > 0) ? (dataTotal["corretor"]*100/(dataTotal["dependentes"] == 0 ? 1 : dataTotal["dependentes"])).toFixed(2) : "0.00"%> %
+					</div> <!-- FUNIL -->
+					<div class="col-sm-12 col-md-5 col-xs-12">
+						<div class="col-sm-12 col-xs-12">
+							<div class="shiny-html-output no-padding col-sm-12 col-md-12 col-xs-12 shiny-bound-output" id="boxPreCadastroPorVisita">
+								<div class="animated flipInY">
+									<div class="tile-stats orange-bg">
+										<div class="icon"><i class="fa fa-level-down dark-orange-text"></i></div>
+										<div class="count white-text" id="registration_per_session">
+											<%= ((dataTotal["precadastro"]*100/dataTotal["sessions"]) > 0) ? (dataTotal["precadastro"]*100/(dataTotal["sessions"] == 0 ? 1 : dataTotal["sessions"])).toFixed(2) : "0.00"%> %
+										</div>
+										<h3 class="white-text">Pré-Cadastro por Visita</h3>
+									</div>
+								</div>
+							</div>
+							<div class="shiny-html-output no-padding col-sm-12 col-md-12 col-xs-12 shiny-bound-output" id="boxDadosPessoaisPorPreCadastro">
+								<div class="animated flipInY">
+									<div class="tile-stats orange-bg">
+										<div class="icon"><i class="fa fa-level-down dark-orange-text"></i></div>
+										<div class="count white-text" id="personal_per_registration">
+											<%= ((dataTotal["dadospessoais"]*100/dataTotal["precadastro"]) > 0) ? (dataTotal["dadospessoais"]*100/(dataTotal["precadastro"] == 0 ? 1 : dataTotal["precadastro"])).toFixed(2) : "0.00"%> %
+										</div>
+										<h3 class="white-text">Dados Pessoais por Pré-Cadastro</h3>
+									</div>
+								</div>
+							</div>
+							<div class="shiny-html-output no-padding col-sm-12 col-md-12 col-xs-12 shiny-bound-output" id="boxDependentesPorDadosPessoais">
+								<div class="animated flipInY">
+									<div class="tile-stats orange-bg">
+										<div class="icon"><i class="fa fa-level-down dark-orange-text"></i></div>
+										<div class="count white-text" id="dependent_per_personal">
+											<%= ((dataTotal["dependentes"]*100/dataTotal["dadospessoais"]) > 0) ? (dataTotal["dependentes"]*100/(dataTotal["dadospessoais"] == 0 ? 1 : dataTotal["dadospessoais"])).toFixed(2) : "0.00"%> %
+										</div>
+										<h3 class="white-text">Dependentes por Dados Pessoais</h3>
+									</div>
+								</div>
+							</div>
+							<div class="shiny-html-output no-padding col-sm-12 col-md-12 col-xs-12 shiny-bound-output" id="boxCorretorPorDependentes">
+								<div class="animated flipInY">
+									<div class="tile-stats orange-bg">
+										<div class="icon"><i class="fa fa-level-down dark-orange-text"></i></div>
+										<div class="count white-text" id="broker_per_dependent">
+											<%= ((dataTotal["corretor"]*100/dataTotal["dependentes"]) > 0) ? (dataTotal["corretor"]*100/(dataTotal["dependentes"] == 0 ? 1 : dataTotal["dependentes"])).toFixed(2) : "0.00"%> %
+										</div>
+										<h3 class="white-text">Corretor por Dependentes</h3>
+									</div>
+								</div>
+							</div>
+							<div class="shiny-html-output no-padding col-sm-12 col-md-12 col-xs-12 shiny-bound-output" id="boxCheckoutPorCorretor">
+								<div class="animated flipInY">
+									<div class="tile-stats orange-bg">
+										<div class="icon"><i class="fa fa-level-down dark-orange-text"></i></div>
+										<div class="count white-text" id="checkout_per_broker">
+											<%= ((dataTotal["checkout"]*100/dataTotal["corretor"]) > 0) ? (dataTotal["checkout"]*100/(dataTotal["corretor"] == 0 ? 1 : dataTotal["corretor"])).toFixed(2) : "0.00"%> %
+										</div>
+										<h3 class="white-text">Checkout por Corretor</h3>
+									</div>
+								</div>
+							</div>
+							<div class="shiny-html-output no-padding col-sm-12 col-md-12 col-xs-12 shiny-bound-output" id="boxCompraFinalizadaPorCheckout">
+								<div class="animated flipInY">
+									<div class="tile-stats orange-bg">
+										<div class="icon"><i class="fa fa-level-down dark-orange-text"></i></div>
+										<div class="count white-text" id="purchase_per_checkout">
+											<%= ((dataTotal["vendas"]*100/dataTotal["checkout"]) > 0) ? (dataTotal["vendas"]*100/(dataTotal["checkout"] == 0 ? 1 : dataTotal["checkout"])).toFixed(2) : "0.00"%> %
+										</div>
+										<h3 class="white-text">Compra Finalizada por Checkout</h3>
+									</div>
+								</div>
+							</div>
+							<div class="shiny-html-output no-padding col-sm-12 col-md-12 col-xs-12 shiny-bound-output" id="boxCompraFinalizadaPorVisita">
+								<div class="animated flipInY">
+									<div class="tile-stats orange-bg">
+										<div class="icon"><i class="fa fa-level-down dark-orange-text"></i></div>
+										<div class="count white-text" id="purchase_per_session">
+											<%= ((dataTotal["vendas"]*100/dataTotal["sessions"]) > 0) ? (dataTotal["vendas"]*100/(dataTotal["sessions"] == 0 ? 1 : dataTotal["sessions"])).toFixed(2) : "0.00"%> %
+										</div>
+										<h3 class="white-text">Compra Finalizada por Visita</h3>
+									</div>
+								</div>
+							</div>
+						</div>
 					</div>
-					<h3 class="white-text">Corretor por Dependentes</h3>
 				</div>
-			</div>
-		</div>
-
-		<div class="shiny-html-output no-padding col-sm-12 col-md-12 col-xs-12 shiny-bound-output" id="boxCheckoutPorCorretor">
-			<div class="animated flipInY">
-				<div class="tile-stats orange-bg">
-					<div class="icon"><i class="fa fa-level-down dark-orange-text"></i></div>
-					<div class="count white-text" id="checkout_per_broker">
-						<%= ((dataTotal["checkout"]*100/dataTotal["corretor"]) > 0) ? (dataTotal["checkout"]*100/(dataTotal["corretor"] == 0 ? 1 : dataTotal["corretor"])).toFixed(2) : "0.00"%> %
-					</div>
-					<h3 class="white-text">Checkout por Corretor</h3>
-				</div>
-			</div>
-		</div>
-
-		<div class="shiny-html-output no-padding col-sm-12 col-md-12 col-xs-12 shiny-bound-output" id="boxCompraFinalizadaPorCheckout">
-			<div class="animated flipInY">
-				<div class="tile-stats orange-bg">
-					<div class="icon"><i class="fa fa-level-down dark-orange-text"></i></div>
-					<div class="count white-text" id="purchase_per_checkout">
-						<%= ((dataTotal["vendas"]*100/dataTotal["checkout"]) > 0) ? (dataTotal["vendas"]*100/(dataTotal["checkout"] == 0 ? 1 : dataTotal["checkout"])).toFixed(2) : "0.00"%> %
-					</div>
-					<h3 class="white-text">Compra Finalizada por Checkout</h3>
-				</div>
-			</div>
-		</div>
-
-		<div class="shiny-html-output no-padding col-sm-12 col-md-12 col-xs-12 shiny-bound-output" id="boxCompraFinalizadaPorVisita">
-			<div class="animated flipInY">
-				<div class="tile-stats orange-bg">
-					<div class="icon"><i class="fa fa-level-down dark-orange-text"></i></div>
-					<div class="count white-text" id="purchase_per_session">
-						<%= ((dataTotal["vendas"]*100/dataTotal["sessions"]) > 0) ? (dataTotal["vendas"]*100/(dataTotal["sessions"] == 0 ? 1 : dataTotal["sessions"])).toFixed(2) : "0.00"%> %
-					</div>
-					<h3 class="white-text">Compra Finalizada por Visita</h3>
-				</div>
-			</div>
-		</div>
-	</div>
-</div>
-</div>
-
 				<div class="row">
 					<div class="shiny-html-output col-md-12 col-sm-12 col-xs-12 shiny-bound-output">
 						<div class="x_panel" style="min-height: 530px;">
@@ -630,14 +618,14 @@
 								</button>
 								<h4 class="modal-title" id="gridSystemModalLabel">Filtro</h4>
 								<form action="" method='post'>
-								<button type="button" class="btn btn-default pull-right"  data-dismiss="modal" style="margin-right: 20.4px;">Fechar</button>
-								<button type="button" class="btn btn-default pull-right" onclick="cleanFilter()">Limpar</button>
-								<input type="submit" class="btn btn-success pull-right" name="confirmar" value="Confirmar">
-							</div>
-							<div class="modal-body">
-								<div class="carregando">
-									<div class="loader"></div>
+									<button type="button" class="btn btn-primary pull-right"  data-dismiss="modal" style="margin-right: 20.4px;">Fechar</button>
+									<button type="button" class="btn btn-warning pull-right" onclick="cleanFilter()">Limpar</button>
+									<input type="submit" class="btn btn-success pull-right" name="confirmar" value="Confirmar">
 								</div>
+								<div class="modal-body">
+									<div class="carregando">
+										<div class="loader"></div>
+									</div>
 									<div class="row">
 										<div class="col-md-6">
 											<div class="form-group datas">
@@ -668,119 +656,119 @@
 													<option value="" hidden>Selecione o(s) produtor(es)</option>
 												</select>
 											</div>
-										</div> <!-- coluna 1 -->
-										<div class="col-md-6">
-											<div class="form-group">
-												<label>Diretor</label>
-												<select name="filterDiretor" id="filterDiretor" class="form-control multiselect" multiple="multiple">
-													<option value="" hidden>Selecione o(s) Diretor(es)</option>
-												</select>
+											</div> <!-- coluna 1 -->
+											<div class="col-md-6">
+												<div class="form-group">
+													<label>Diretor</label>
+													<select name="filterDiretor" id="filterDiretor" class="form-control multiselect" multiple="multiple">
+														<option value="" hidden>Selecione o(s) Diretor(es)</option>
+													</select>
+												</div>
+												<div class="form-group">
+													<label>Representante</label>
+													<select name="filterRepresentante" id="filterRepresentante" class="form-control multiselect" multiple="multiple">
+														<option value="" hidden>Selecione o(s) representante(es)</option>
+													</select>
+												</div>
+												<div class="form-group">
+													<label>Inspetor</label>
+													<select name="filterInspetor" id="filterInspetor" class="form-control multiselect" multiple="multiple">
+														<option value="" hidden>Selecione o(s) inspetor(es)</option>
+													</select>
+												</div>
+												<div class="form-group">
+													<label>Mídia</label>
+													<select name="filterMidia" id="filterMidia" class="form-control multiselect" multiple="multiple">
+														<option value="" hidden>Selecione a(s) mídia(es)</option>
+													</select>
+												</div>
+												<div class="form-group">
+													<label>Região</label>
+													<select name="filterRegiao" id="filterRegiao" class="form-control multiselect"  title="Selecione" multiple="multiple">
+														<option value="" hidden=>Selecione a(s) região(ões)</option>
+													</select>
+												</div>
+												</div> <!-- coluna 2 -->
 											</div>
-											<div class="form-group">
-												<label>Representante</label>
-												<select name="filterRepresentante" id="filterRepresentante" class="form-control multiselect" multiple="multiple">
-													<option value="" hidden>Selecione o(s) representante(es)</option>
-												</select>
+											<div class="modal-footer">
+												<!-- <input type="submit" class="btn btn-success" name="confirmar" value="Confirmar">
+												<button type="button" class="btn btn-default" onclick="cleanFilter()">Limpar</button>
+												<button type="button" class="btn btn-default"  data-dismiss="modal">Fechar</button> -->
 											</div>
-											<div class="form-group">
-												<label>Mídia</label>
-												<select name="filterMidia" id="filterMidia" class="form-control multiselect" multiple="multiple">
-													<option value="" hidden>Selecione a(s) mídia(es)</option>
-												</select>
-											</div>
-											<div class="form-group">
-												<label>Região</label>
-												<select name="filterRegiao" id="filterRegiao" class="form-control multiselect"  title="Selecione" multiple="multiple">
-													<option value="" hidden=>Selecione a(s) região(ões)</option>
-												</select>
-											</div>
-											<div class="form-group">
-												<label>Inspetor</label>
-												<select name="filterInspetor" id="filterInspetor" class="form-control multiselect" multiple="multiple">
-													<option value="" hidden>Selecione o(s) inspetor(es)</option>
-												</select>
-											</div>
-										</div> <!-- coluna 2 -->
+										</form>
 									</div>
-									<div class="modal-footer">
-										<input type="submit" class="btn btn-success" name="confirmar" value="Confirmar">
-										<button type="button" class="btn btn-default" onclick="cleanFilter()">Limpar</button>
-										<button type="button" class="btn btn-default"  data-dismiss="modal">Fechar</button>
-									</div>
-								</form>
+								</div>
 							</div>
 						</div>
-					</div>
-				</div>
-			</body>
-		</html>
-		<style type="text/css">
-		.datas { position: relative; }
-		.datas i {
-		position: absolute; bottom: 10px; right: 24px; top: auto; cursor: pointer;
-		}
-		</style>
-		<script type="text/javascript">
-						
-		$(document).ready(function() {
-			
-			$('.multiselect').select2();
-			
-			$('#trocaGrafico').click(function() {
-			if($('#chartFunilPSD').is(':visible')){
-				$('#chartFunilPSD').hide();
-				$('#charBar').show();
-			} else {
-				$('#chartFunilPSD').show();
-				$('#charBar').hide();
-			}
-			});
-			$('#marquee').marquee({
-			pauseOnHover: true,
-			duration: 24000,
-			gap: 50,
-			delayBeforeStart: 0,
-			direction: 'left',
-			duplicated: true
-			});
-			
-			$('#datas').daterangepicker({
-			"minDate":"11/09/2017",
-			"maxDate": "11/04/2018",
-			"locale": {
-				"format": "DD/MM/YYYY",
-				"separator": " - ",
-				"applyLabel": "Aplicar",
-				"cancelLabel": "Cancelar",
-				"fromLabel": "De",
-				"toLabel": "Até",
-				"customRangeLabel": "Custom",
-				"daysOfWeek": [
-					"Dom",
-					"Seg",
-					"Ter",
-					"Qua",
-					"Qui",
-					"Sex",
-					"Sáb"
-				],
-				"monthNames": [
-					"Janeiro",
-					"Fevereiro",
-					"Março",
-					"Abril",
-					"Maio",
-					"Junho",
-					"Julho",
-					"Agosto",
-					"Setembro",
-					"Outubro",
-					"Novembro",
-					"Dezembro"
-				],
-				"firstDay": 0
-			}
-			});
-			
-			});
-		</script>
+					</body>
+				</html>
+				<style type="text/css">
+				.datas { position: relative; }
+				.datas i {
+				position: absolute; bottom: 10px; right: 24px; top: auto; cursor: pointer;
+				}
+				</style>
+				<script type="text/javascript">
+								
+				$(document).ready(function() {
+					
+					$('.multiselect').select2();
+					
+					$('#trocaGrafico').click(function() {
+					if($('#chartFunilPSD').is(':visible')){
+						$('#chartFunilPSD').hide();
+						$('#charBar').show();
+					} else {
+						$('#chartFunilPSD').show();
+						$('#charBar').hide();
+					}
+					});
+					$('#marquee').marquee({
+					pauseOnHover: true,
+					duration: 24000,
+					gap: 50,
+					delayBeforeStart: 0,
+					direction: 'left',
+					duplicated: true
+					});
+					
+					$('#datas').daterangepicker({
+					"minDate":"11/09/2017",
+					"maxDate": "11/04/2018",
+					"locale": {
+						"format": "DD/MM/YYYY",
+						"separator": " - ",
+						"applyLabel": "Aplicar",
+						"cancelLabel": "Cancelar",
+						"fromLabel": "De",
+						"toLabel": "Até",
+						"customRangeLabel": "Custom",
+						"daysOfWeek": [
+							"Dom",
+							"Seg",
+							"Ter",
+							"Qua",
+							"Qui",
+							"Sex",
+							"Sáb"
+						],
+						"monthNames": [
+							"Janeiro",
+							"Fevereiro",
+							"Março",
+							"Abril",
+							"Maio",
+							"Junho",
+							"Julho",
+							"Agosto",
+							"Setembro",
+							"Outubro",
+							"Novembro",
+							"Dezembro"
+						],
+						"firstDay": 0
+					}
+					});
+					
+					});
+				</script>

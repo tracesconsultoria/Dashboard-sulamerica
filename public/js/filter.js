@@ -1,9 +1,41 @@
 $(document).ready(function() {
-    // $('#buttonFilter').on('click', function (e) {       
-    //     setGeral(null, null, null, null, null, null, null, null, false);
-    //     setMidia();
-    //     setRegioes();
-    // });
+    $('#buttonFilter').on('click', function(e) {
+        var diretor = JSON.parse(localStorage.getItem('Diretor'));
+            if (diretor) {
+                $('#filterDiretor').val(diretor);                
+                $('#filterDiretor').trigger('change');
+            }
+        var gerente = JSON.parse(localStorage.getItem('Gerente'));
+            if (gerente) {
+                $('#filterGerente').val(gerente);                
+                $('#filterGerente').trigger('change');
+            }
+        var representante = JSON.parse(localStorage.getItem('Representante'));
+            if (representante) {
+                $('#filterRepresentante').val(representante);                
+                $('#filterRepresentante').trigger('change');
+            }
+        var corretora = JSON.parse(localStorage.getItem('Corretora'));
+            if (corretora) {
+                $('#filterCorretora').val(corretora);                
+                $('#filterCorretora').trigger('change');
+            }
+        var estrutura = JSON.parse(localStorage.getItem('Estrutura'));
+            if (estrutura) {
+                $('#filterEstrutura').val(estrutura);                
+                $('#filterEstrutura').trigger('change');
+            }
+        var produtor = JSON.parse(localStorage.getItem('Produtor'));
+            if (produtor) {
+                $('#filterProdutor').val(produtor);                
+                $('#filterProdutor').trigger('change');
+            }
+        var inspetor = JSON.parse(localStorage.getItem('Inspetor'));
+            if (inspetor) {
+                $('#filterInspetor').val(inspetor);                
+                $('#filterInspetor').trigger('change');
+            }
+        });
 
     $('#filterDiretor').on('change', function(e) {
         $('#filterGerente').find('option').remove();
@@ -16,6 +48,8 @@ $(document).ready(function() {
         $('#filterDiretor').val().forEach(function(valor) {
             setGeral(valor, null, null, 1, null, 1, null, 1, null, 1, null, 1, null, 1, null, 1);
         });
+
+        setLocalStorage('Diretor');
 
         $('.multiselect').select2('destroy');
         $('.multiselect').select2();
@@ -34,6 +68,8 @@ $(document).ready(function() {
             setGeral(null, 1, valor, null, null, 1, null, 1, null, 1, null, 1, null, 1, null, 1);
 		});
 
+        setLocalStorage('Gerente');
+
         $('.multiselect').select2('destroy');
         $('.multiselect').select2();
     });
@@ -49,6 +85,8 @@ $(document).ready(function() {
         $('#filterRepresentante').val().forEach(function(valor) {
             setGeral(null, 1, null, 1, valor, null, null, 1, null, 1, null, 1, null, 1, null, 1);
         });
+        
+        setLocalStorage('Representante');
 
         $('.multiselect').select2('destroy');
         $('.multiselect').select2();
@@ -66,6 +104,8 @@ $(document).ready(function() {
             setGeral(null, 1, null, 1, null, 1, valor, null, null, 1, null, 1, null, 1, null, 1);
         });
 
+        setLocalStorage('Corretora');
+
         $('.multiselect').select2('destroy');
         $('.multiselect').select2();
     });
@@ -81,6 +121,8 @@ $(document).ready(function() {
         $('#filterEstrutura').val().forEach(function(valor) {
             setGeral(null, 1, null, 1, null, 1, null, 1, null, 1, valor, null, null, 1, null, 1);
        });
+
+        setLocalStorage('Estrutura');
 
         $('.multiselect').select2('destroy');
         $('.multiselect').select2();
@@ -98,6 +140,8 @@ $(document).ready(function() {
             setGeral(null, 1, null, 1, null, 1, null, 1, null, 1, null, 1, valor, null, null, 1);
         });
 
+        setLocalStorage('Produtor');
+
         $('.multiselect').select2('destroy');
         $('.multiselect').select2();
 
@@ -114,12 +158,24 @@ $(document).ready(function() {
             setGeral(null, 1, null, 1, null, 1, null, 1, null, 1, null, 1, null, 1, valor, null);
         });
 
+        setLocalStorage('Inspetor');
+
         $('.multiselect').select2('destroy');
         $('.multiselect').select2();
 
     });
 
 });
+
+function setLocalStorage(nome) {
+    var selected = []; 
+        $('#filter' + nome + ' option').each(function() {
+            if (this.selected) {
+                selected.push(this.value);
+            }
+        });
+        localStorage.setItem(nome, JSON.stringify(selected));
+}
 
 function setGeral(idDiretor = null, execDiretor = null, idGerente = null, execGerente = null, idRepresentante = null, execRepresentante = null, idCorretor = null, execCorretor = null, idMidia = null, execMidia = null, idEstruturaVenda = null, execEstruturaVenda = null, idProdutor = null, execProdutor = null, idInspetor = null, execInspetor = null, isOnChange = true) {
     var dataDiretor = {};
@@ -326,6 +382,7 @@ function setGeral(idDiretor = null, execDiretor = null, idGerente = null, execGe
 }
 
 
+
 function setMidia(dados = null, idDiretor = null, idGerente = null, idRepresentante = null, idCorretor = null, idMidia = null, idEstruturaVenda = null, idProdutor = null, idInspetor = null) {
     var data = {};
     $.each(document.midias, function(index, value) {
@@ -368,6 +425,7 @@ function createHtmlSelect(dataList, selected) {
     });
 
     return html;
+
 }
 
 
@@ -451,7 +509,19 @@ function limparFiltros() {
     $('#filterMidia').find('option').remove();
     $('#filterRegiao').find('option').remove();
     $('#filterInspetor').find('option').remove();
+
+    localStorage.removeItem('Diretor');
+    localStorage.removeItem('Gerente');
+    localStorage.removeItem('Representante');
+    localStorage.removeItem('Corretora');
+    localStorage.removeItem('Estrutura');
+    localStorage.removeItem('Produtor');
+    localStorage.removeItem('Midia');
+    localStorage.removeItem('Regiao');
+    localStorage.removeItem('Inspetor');
+
 }
+
 
 function cleanFilter() {
     limparFiltros();
@@ -459,8 +529,8 @@ function cleanFilter() {
     $('.multiselect').select2();
     setGeral(null, 1, null, 1, null, 1, null, 1, null, 1, null, 1, null, 1, null, 1, false);
     setMidia();
-}
 
+}
 function createTable(columns) {
     console.log('INICIOU LOADS');
     $(".overlayer").css("display", "block");

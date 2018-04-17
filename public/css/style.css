@@ -50,6 +50,9 @@ label {
     margin-top: 5px;
     padding: 0 5px;
 }
+.select2-selection__choice__remove {
+    display: none !important;
+}
 .logo {
     max-width: 19%;
 }
