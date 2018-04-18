@@ -63,13 +63,22 @@
 				setMidia();
 				setRegioes();
 				
+			})
+
 			$(window).keydown(function(event){
 				if(event.keyCode == 13) {
 					event.preventDefault();
+					console.log(event.keyCode);
 					return false;
-					}
+				}
+			});
+
+			$('.multiselect').on('select2:unselecting', function(e){
+					e.preventDefault();
+					cleanFilter();
 				});
-			})
+			
+
 			$.get("/midias", function(result){
 			document.midias = JSON.parse(result)
 			})
@@ -400,7 +409,7 @@
 					<span class="count_top"><i class="fa fa-usd"></i> Receita</span>
 					<div id="revenue" class="count">
 						
-						<%= dataTotal["receita"] ? dataTotal["receita"].toLocaleString("pt-BR").replace(",", "|").replace(".", ",").replace("|", ".").substr(0, (dataTotal["receita"].toLocaleString("pt-BR").replace(",", "|").replace(".", ",").indexOf(",") + 3)) : 0  %>
+						<%= dataTotal["receita"] ? dataTotal["receita"].replace(".", ",") : 0  %>
 					</div>
 				</div>
 			</div>
