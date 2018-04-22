@@ -524,7 +524,7 @@ console.log('rowsFoundFilter.lengthh'+rowsFoundFilter.length);
 						'SUM(ga.goal3Completions) as dadospessoais, '+
 						'SUM(ga.goal4Completions) as corretor, '+
 						'IFNULL(pd.vendas,0.00) as comprasfinalizada, '+
-						'IFNULL(pd.vidas,0.00) as vidas, '+
+						'SUM(IFNULL(pd.vidas,0.00)) as vidas, '+
 						'SUM(ga.goal6Completions) as checkout, '+
 						'pd.valor_total as transactionRevenue, '+
 						'SUM(ga.transactions) as transactions,  '+
@@ -534,8 +534,8 @@ console.log('rowsFoundFilter.lengthh'+rowsFoundFilter.length);
 						'SUM(IFNULL((ga.goal2Completions/ga.goal4Completions),0.00)) as corretor_dependentes,  '+
 						'SUM(IFNULL((ga.goal4Completions/ga.goal6Completions),0.00)) as checkout_corretor,  '+
 						'SUM(IFNULL((ga.goal6Completions/pd.vendas),0.00)) as compra_checkout,  '+
-						'IFNULL(pd.vendas,0.00) as vendas,  '+
-						'IFNULL(pd.valor_total,0.00) as receitas,  '+
+						'SUM(IFNULL(pd.vendas,0.00)) as vendas,  '+
+						'SUM(IFNULL(pd.valor_total,0.00)) as receitas,  '+
 						'SUM(ga.goal2Completions) as qtd_dependentes,  '+
 						'date_format(ga.date, "%d/%m/%y") as date '+
 					'FROM  '+
@@ -547,8 +547,10 @@ console.log('rowsFoundFilter.lengthh'+rowsFoundFilter.length);
 									'count(id) as vendas, '+
 									'sum(qtd_dependentes) as vidas, '+
 									'date_format(date_finish, "%Y-%m-%d") as date_finish, '+
-									'sum(valor_total) as valor_total '+ 
-								'from plan_dash '+where_vida+' group by date_format(date_finish, "%Y-%m-%d"), ev_selecionado, ea_selecionado, aa_selecionado ) AS pd ON 1=1 '+
+									'sum(valor_total) as valor_total, id '+ 
+								'from plan_dash '+where_vida+
+								' group by date_format(date_finish, "%Y-%m-%d"), ev_selecionado, ea_selecionado, aa_selecionado ) AS pd ON 1=1 '+
+								' and ga.transaction_id=pd.id '+
 								groupbypd+
 						where_ga+ 
 						groupby+
@@ -565,8 +567,10 @@ console.log('rowsFoundFilter.lengthh'+rowsFoundFilter.length);
 						'0.00 as dependentes_dadospessoais,   '+
 						'0.00 as corretor_dependentes,   '+
 						'0.00 as checkout_corretor,   '+
-						'0.00 as compra_checkout,  IFNULL(pd.vendas,0.00) as vendas,   '+
-						'IFNULL(pd.valor_total,0.00) as receitas, IFNULL(pd.vidas,0.00) as qtd_dependentes,   '+
+						'0.00 as compra_checkout,  '+
+						'SUM(IFNULL(pd.vendas,0.00)) as vendas,   '+
+						'SUM(IFNULL(pd.valor_total,0.00)) as receitas, '+
+						'IFNULL(pd.vidas,0.00) as qtd_dependentes,   '+
 						'date_format(pd.date_finish, "%d/%m/%y") as date  '+
 						'FROM  ga_data ga  '+
 						'RIGHT JOIN  '+
@@ -575,8 +579,7 @@ console.log('rowsFoundFilter.lengthh'+rowsFoundFilter.length);
 						'	sum(valor_total) as valor_total  '+
 						'	from plan_dash '+where_vida+' group by date_format(date_finish, "%Y-%m-%d"), ev_selecionado, ea_selecionado, aa_selecionado ) AS pd ON 1=1 '+
 						groupbypd+
-						'WHERE 1=1  AND (ga.ev is null) '+
-						groupby+';';
+						'WHERE 1=1  AND (ga.ev is null)  group by pd.date_finish,pd.ev_s,pd.ea_s,pd.aa_s;';
 						
 						if(req.param("filterMidia")) {
 							var midias = req.param("filterMidia").split(",");
@@ -594,7 +597,7 @@ console.log('rowsFoundFilter.lengthh'+rowsFoundFilter.length);
 							queryFullGA += ' AND ga.regiao in ('+regioes.join(",")+') ';
 						}
 						
-//console.error('XXXXXXFullGA:'+queryFullGA+'xxxxxxxxxxxxxx');
+console.log('XXXXXXFullGA:'+queryFullGA+'xxxxxxxxxxxxxx');
 // count(id)   sum(qtd_dep ;
 
 			connection.query(queryFullGA, function(errData, rowsDatas, fieldsData) {
@@ -778,8 +781,8 @@ console.time('index');
 			var queryPD = 
 					';SELECT  '+
 						'COUNT(id) as vendas, '+
-						'SUM(qtd_dependentes) as vidas, '+
-						'SUM(valor_total) as receita '+
+						'SUM((IFNULL(qtd_dependentes,0))) as vidas, '+
+						'SUM((IFNULL(valor_total,0.00))) as receita '+
 					'FROM  '+
 						'plan_dash '+
 						where_vida;
@@ -791,8 +794,9 @@ console.time('index');
 				'ga_data ';
 
 					
-			console.log('indexGA:'+queryGA);
-			console.log('indexPD:'+queryPD);
+			console.log('-------------------indexGA:'+queryGA);
+			console.log('-------------------indexPD:'+queryPD);
+			console.log('-------------------indexda:'+queryToDate);
 			
 			connection.query(queryGA+queryPD+queryToDate, function(errData, rowsDatas, fieldsData) {
 				if (errData) throw errData;
@@ -814,7 +818,7 @@ console.time('index');
 
 						dataTotal['vidas'] = rowsDataPD.vidas;
 						dataTotal['vendas'] = rowsDataPD.vendas;
-						dataTotal['receita'] = rowsDataPD.receita;
+						dataTotal['receita'] = (rowsDataPD.receita > 0 ? rowsDataPD.receita.toFixed(2) : '.00');
 
 					
 					connection.end();

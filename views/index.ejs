@@ -44,7 +44,7 @@
 		<script type="text/javascript" src="/public/js/buttons.print.min.js"></script>
 		<script type="text/javascript" src="/public/js/buttons.colVis.min.js"></script>
 		<script type="text/javascript" src="/public/js/index.js"></script>
-		
+		<script src="https://cdn.ravenjs.com/3.24.2/raven.min.js" crossorigin="anonymous"></script>
 		<script>
 		$(document).ready(function() {
 			document.datas="<%=datasFilter%>";
@@ -409,7 +409,7 @@
 					<span class="count_top"><i class="fa fa-usd"></i> Receita</span>
 					<div id="revenue" class="count">
 						
-						<%= dataTotal["receita"] ? dataTotal["receita"].replace(".", ",") : 0  %>
+						<%= dataTotal["receita"] ? dataTotal["receita"].replace(".", ",").replace(",00", "0") : 0  %>
 					</div>
 				</div>
 			</div>
@@ -639,7 +639,7 @@
 										<div class="col-md-6">
 											<div class="form-group datas">
 												<label class="control-label">Datas</label>
-												<input type="text" id="datas" name="datas" value="01/04/2018 - 11/04/2018" class="form-control">
+												<input type="text" id="datas" name="datas" value="<%=datasFilter%>" class="form-control">
 											</div>
 											<div class="form-group">
 												<label>Gerente</label>
@@ -743,7 +743,7 @@
 					
 					$('#datas').daterangepicker({
 					"minDate":"11/09/2017",
-					"maxDate": "11/04/2018",
+					"maxDate": "<%=limit_date%>",
 					"locale": {
 						"format": "DD/MM/YYYY",
 						"separator": " - ",
