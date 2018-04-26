@@ -266,7 +266,7 @@ function setGeral(idDiretor = null, execDiretor = null, idGerente = null, execGe
             }
         }
     }
-    console.log('acabou o loop');
+    // console.log('acabou o loop');
     //----
     if (execDiretor != null) {
         var valoresMacadosDiretor = createOptions(document.getElementById("filterDiretor"), dataDiretor);
@@ -466,7 +466,7 @@ function validation(data, idDiretor = null, idGerente = null, idRepresentante = 
     return true;
 }
 var roundToPlusInfinity = function(n, fd) {
-    console.log('passou roundToPlusInfinity');
+    // console.log('passou roundToPlusInfinity');
     var scale = Math.pow(10, fd),
         rounded = fd ? Math.floor((n * scale + 0.5)) / scale :
         Math.round(n);
@@ -532,7 +532,7 @@ function cleanFilter() {
 
 }
 function createTable(columns) {
-    console.log('INICIOU LOADS');
+    // console.log('INICIOU LOADS');
     $(".overlayer").css("display", "block");
     $(".overlayer2").css("display", "block");
     $(".butaos").hide();
@@ -605,7 +605,21 @@ function createTable(columns) {
         table += "</thead>";
         table += "<tbody id='tbody_info'>";
 
+        var totVisitas = 0;
+        var totPreCad = 0;
+        var totCadFin = 0;
+        var totVidas = 0;
+        var totVendas = 0;
+        var totReceita = 0;
+
         for (var i in fullGA) {
+
+            totVisitas += fullGA[i].sessions;
+            totPreCad += fullGA[i].precadastro;
+            totCadFin += fullGA[i].dadospessoais;
+            totVidas += fullGA[i].vidas;
+            totVendas += fullGA[i].vendas;
+            totReceita += fullGA[i].receitas;
             table += "<tr>";
             table += "<td>" + fullGA[i].date + "</td>";
             table += "<td>" + fullGA[i].corretor_type + "</td>";
@@ -619,7 +633,8 @@ function createTable(columns) {
             table += "<td>" + fullGA[i].adClicks + "</td>";
             table += "<td>" + fullGA[i].sessions + "</td>";
             table += "<td>" + fullGA[i].precadastro + "</td>";
-            table += "<td>" + fullGA[i].precadastro_visitas + "</td>";
+            // table += "<td>" + fullGA[i].precadastro_visitas + "</td>";
+            table += "<td>" + (fullGA[i].precadastro / fullGA[i].sessions) + "</td>";
             table += "<td>" + fullGA[i].dadospessoais + "</td>";
             table += "<td>" + fullGA[i].dadospessoais_precadastro + "</td>";
             table += "<td>" + fullGA[i].dependentes + "</td>";
@@ -646,6 +661,13 @@ function createTable(columns) {
 
         }
 
+        console.log(totVisitas);
+        console.log(totPreCad);
+        console.log(totCadFin);
+        console.log(totVidas);
+        console.log(totVendas);
+        console.log(totReceita);
+
         table += "</tbody></table>";
 
 
@@ -653,7 +675,7 @@ function createTable(columns) {
         $(".overlayer").hide();
         $(".overlayer2").hide();
         $(".butaos").show();
-        console.log('FIM LOADS');
+        // console.log('FIM LOADS');
         $('#divTable').html(table);
 
 
@@ -703,22 +725,22 @@ function createTable(columns) {
 
         var table = $('#tabela_dados').DataTable();
         table.column(0).visible(cdata);
-        table.column(1).visible(cmidia);
+        table.column(1).visible(false);
         table.column(2).visible(cregiao);
         table.column(3).visible(cev);
         table.column(4).visible(cea);
         table.column(5).visible(caa);
         table.column(6).visible(cprodutor);
 
-
+        
         $('#tabela_dados').on('column-visibility.dt', function(e, settings, column, state) {
-            console.log('mudou visu da table');
+            // console.log('mudou visu da table');
             var table = $('#tabela_dados').DataTable();
             //table.columns( '.detail' ).visible( false );
 
             createTable(table.columns().visible());
             $(".dt-button-background").trigger("click");
-            console.log(table.columns().visible());
+            // console.log(table.columns().visible());
         });
 
 

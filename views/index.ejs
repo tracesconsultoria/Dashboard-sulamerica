@@ -33,7 +33,7 @@
 		<script type="text/javascript" src="/public/js/moment.min.js"></script>
 		<script type="text/javascript" src="/public/js/daterangepicker.js"></script>
 		<script type="text/javascript" src="/public/js/jquery.marquee.min.js"></script>
-		<script type="text/javascript" src="/public/js/filter.min.js"></script>
+		<script type="text/javascript" src="/public/js/filter.js"></script>
 		<script type="text/javascript" src="/public/js/jquery.dataTables.min.js"></script>
 		<script type="text/javascript" src="/public/js/dataTables.bootstrap.min.js"></script>
 		<script type="text/javascript" src="/public/js/dataTables.buttons.min.js"></script>
@@ -195,65 +195,46 @@
 				chartFunil.render();
 				createTable();
 				function calculatePercentage() {
-				var dataPoint = chartFunil.options.data[0].dataPoints;
-				var total = dataPoint[0].y;
-				for(var i = 0; i < dataPoint.length; i++) {
-					if(i == 0) {
-						chartFunil.options.data[0].dataPoints[i].percentage = 100;
-					} else {
-						chartFunil.options.data[0].dataPoints[i].percentage = ((dataPoint[i].y / total) * 100).toFixed(2);
+					var dataPoint = chartFunil.options.data[0].dataPoints;
+					var total = dataPoint[0].y;
+					for(var i = 0; i < dataPoint.length; i++) {
+						if(i == 0) {
+							chartFunil.options.data[0].dataPoints[i].percentage = 100;
+						} else {
+							chartFunil.options.data[0].dataPoints[i].percentage = ((dataPoint[i].y / total) * 100).toFixed(2);
+						}
 					}
 				}
-				}
-				function setMetric(opt){
-				if(opt == 'visitas'){
-					document.chartGrafico.options.data[0].name='Visitas';
-					document.chartGrafico.options.data[0].dataPoints = document.dateVisitas;
-				}else if(opt == 'precadastro'){
-					document.chartGrafico.options.data[0].name='Pré-Cadastro';
-					document.chartGrafico.options.data[0].dataPoints = document.datePrecadastros;
-				}else if(opt == 'dadospessoais'){
-					document.chartGrafico.options.data[0].name='Dados Pessoais';
-					document.chartGrafico.options.data[0].dataPoints = document.dateDadospessoais;
-				}else if(opt == 'dependentes'){
-					document.chartGrafico.options.data[0].name='Vidas';
-					document.chartGrafico.options.data[0].dataPoints = document.dateVidas;
-				}else if(opt == 'corretor'){
-					document.chartGrafico.options.data[0].name='Corretor';
-					document.chartGrafico.options.data[0].dataPoints = document.dateCorretor;
-				}else if(opt == 'checkout'){
-					document.chartGrafico.options.data[0].name='Checkout';
-					document.chartGrafico.options.data[0].dataPoints = document.dateCheckout;
-				}else if(opt == 'receita'){
-					document.chartGrafico.options.data[0].name='Receitas';
-					document.chartGrafico.options.data[0].dataPoints = document.dateReceitas;
-				}
-				document.chartGrafico.render();
-				}
-				function setKPI(opt){
-				if(opt == 'registration_per_session'){
-					document.chartGrafico.options.data[1].name = 'Pré-cadastro por Visitas';
-					document.chartGrafico.options.data[1].dataPoints = document.datePrecadastro_visitas;
-				}else if(opt == 'personal_per_registration'){
-					document.chartGrafico.options.data[1].name = 'Dados Pessoais por Pré-cadastro';
-					document.chartGrafico.options.data[1].dataPoints = document.dateDadospessoais_precadastro;
-				}else if(opt == 'dependent_per_personal'){
-					document.chartGrafico.options.data[1].name = 'Dependentes por Dados Pessoais';
-					document.chartGrafico.options.data[1].dataPoints = document.dateDependentes_dadospessoais;
-				}else if(opt == 'broker_per_dependent'){
-					document.chartGrafico.options.data[1].name = 'Corretor por Dependentes';
-					document.chartGrafico.options.data[1].dataPoints = document.dateCorretor_dependentes;
-				}else if(opt == 'checkout_per_broker'){
-					document.chartGrafico.options.data[1].name = 'Checkout por Corretor';
-					document.chartGrafico.options.data[1].dataPoints = document.dateCheckout_corretor;
-				}else if(opt == 'purchase_per_checkout'){
-					document.chartGrafico.options.data[1].name = 'Compras por Checkout';
-					document.chartGrafico.options.data[1].dataPoints = document.dateCompra_checkout;
-				}
-				
-				document.chartGrafico.render();
-				}
+				formataNumero();
 			});
+ function setMetrica(opt){ if(opt == 'visitas'){ document.chartGrafico.options.data[0].name='Visitas'; document.chartGrafico.options.data[0].dataPoints
+= document.dateVisitas; }else if(opt == 'precadastro'){ document.chartGrafico.options.data[0].name='Pré-Cadastro'; document.chartGrafico.options.data[0].dataPoints
+= document.datePrecadastros; }else if(opt == 'dadospessoais'){ document.chartGrafico.options.data[0].name='Dados Pessoais';
+document.chartGrafico.options.data[0].dataPoints = document.dateDadospessoais; }else if(opt == 'dependentes'){ document.chartGrafico.options.data[0].name='Vidas';
+document.chartGrafico.options.data[0].dataPoints = document.dateVidas; }else if(opt == 'corretor'){ document.chartGrafico.options.data[0].name='Corretor';
+document.chartGrafico.options.data[0].dataPoints = document.dateCorretor; }else if(opt == 'checkout'){ document.chartGrafico.options.data[0].name='Checkout';
+document.chartGrafico.options.data[0].dataPoints = document.dateCheckout; }else if(opt == 'receita'){ document.chartGrafico.options.data[0].name='Receitas';
+document.chartGrafico.options.data[0].dataPoints = document.dateReceitas; } document.chartGrafico.render(); } function setKPI(opt){
+if(opt == 'registration_per_session'){ document.chartGrafico.options.data[1].name = 'Pré-cadastro por Visitas'; document.chartGrafico.options.data[1].dataPoints
+= document.datePrecadastro_visitas; }else if(opt == 'personal_per_registration'){ document.chartGrafico.options.data[1].name
+= 'Dados Pessoais por Pré-cadastro'; document.chartGrafico.options.data[1].dataPoints = document.dateDadospessoais_precadastro;
+}else if(opt == 'dependent_per_personal'){ document.chartGrafico.options.data[1].name = 'Dependentes por Dados Pessoais';
+document.chartGrafico.options.data[1].dataPoints = document.dateDependentes_dadospessoais; }else if(opt == 'broker_per_dependent'){
+document.chartGrafico.options.data[1].name = 'Corretor por Dependentes'; document.chartGrafico.options.data[1].dataPoints
+= document.dateCorretor_dependentes; }else if(opt == 'checkout_per_broker'){ document.chartGrafico.options.data[1].name =
+'Checkout por Corretor'; document.chartGrafico.options.data[1].dataPoints = document.dateCheckout_corretor; }else if(opt
+== 'purchase_per_checkout'){ document.chartGrafico.options.data[1].name = 'Compras por Checkout'; document.chartGrafico.options.data[1].dataPoints
+= document.dateCompra_checkout; } document.chartGrafico.render(); }
+
+		function formataNumero() {
+			var total = <%= dataTotal['receita'] %>;
+			// console.log(total);
+			var valor = Number(total.toFixed(2)).toLocaleString('pt-br');
+			document.getElementById('revenue').innerHTML = valor;
+			// console.log(valor);
+			
+		}
+		
 		</script>
 		<style> /*  LOADER */
 		.overlayer {
@@ -378,7 +359,7 @@
 				<div class="shiny-html-output col-sm-5 col-md-2 col-xs-12 tile_stats_count shiny-bound-output" id="boxVisitas">
 					<span class="count_top"><i class="fa fa-user"></i> Visitas</span>
 					<div id="sessions" class="count">
-						<%= dataTotal["sessions"] ? dataTotal["sessions"].toLocaleString("pt-BR").replace(",", ".")  : 0  %>
+						<%= dataTotal["sessions"] ? dataTotal["sessions"].toLocaleString('pt-BR')  : 0  %>
 					</div>
 				</div>
 				<div class="shiny-html-output col-sm-12 col-md-2 col-xs-12 tile_stats_count shiny-bound-output" id="boxPreCadastro">
@@ -409,7 +390,6 @@
 					<span class="count_top"><i class="fa fa-usd"></i> Receita</span>
 					<div id="revenue" class="count">
 						
-						<%= dataTotal["receita"] ? dataTotal["receita"].replace(".", ",").replace(",00", "0") : 0  %>
 					</div>
 				</div>
 			</div>
@@ -562,18 +542,20 @@
 						<div class="x_panel" style="min-height: 530px;">
 							<div class="x_title no-padding"><h4>Gráfico</h4></div>
 							<div class="clearfix"></div>
-							<div style="float:right">
-								<div class="pull-right">
+							<div>
+								<div class="pull-right" style="
+									margin-top: -53px;
+								">
 									<div class="btn-group tiny-side-padding">
 										<button type="button" class="btn btn-info dropdown-toggle" data-toggle="dropdown" aria-expanded="false">Métrica <i class="caret white-text"></i></button>
 										<ul role="menu" class="dropdown-menu pull-right">
-											<li><a onclick="setMetric('visitas')">Visitas</a></li>
-											<li><a onclick="setMetric('precadastro')">Pré-Cadastro</a></li>
-											<li><a onclick="setMetric('dadospessoais')">Dados Pessoais</a></li>
-											<li><a onclick="setMetric('dependentes')">Dependentes</a></li>
-											<li><a onclick="setMetric('corretor')">Corretor</a></li>
-											<li><a onclick="setMetric('checkout')">Checkout</a></li>
-											<li><a onclick="setMetric('receita')">Compra</a></li>
+											<li><a onclick="javascript:setMetrica('visitas');">Visitas</a></li>
+											<li><a onclick="javascript:setMetrica('precadastro');">Pré-Cadastro</a></li>
+											<li><a onclick="javascript:setMetrica('dadospessoais');">Dados Pessoais</a></li>
+											<li><a onclick="javascript:setMetrica('dependentes');">Dependentes</a></li>
+											<li><a onclick="javascript:setMetrica('corretor');">Corretor</a></li>
+											<li><a onclick="javascript:setMetrica('checkout');">Checkout</a></li>
+											<li><a onclick="javascript:setMetrica('receita');">Compra</a></li>
 										</ul>
 										</div> <!-- OK -->
 										<div class="btn-group tiny-side-padding">
@@ -685,7 +667,7 @@
 														<option value="" hidden>Selecione o(s) inspetor(es)</option>
 													</select>
 												</div>
-												<div class="form-group">
+												<div class="form-group" style="display: none;">
 													<label>Mídia</label>
 													<select name="filterMidia" id="filterMidia" class="form-control multiselect" multiple="multiple">
 														<option value="" hidden>Selecione a(s) mídia(es)</option>
