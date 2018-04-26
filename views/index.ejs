@@ -207,32 +207,81 @@
 				}
 				formataNumero();
 			});
- function setMetrica(opt){ if(opt == 'visitas'){ document.chartGrafico.options.data[0].name='Visitas'; document.chartGrafico.options.data[0].dataPoints
-= document.dateVisitas; }else if(opt == 'precadastro'){ document.chartGrafico.options.data[0].name='Pré-Cadastro'; document.chartGrafico.options.data[0].dataPoints
-= document.datePrecadastros; }else if(opt == 'dadospessoais'){ document.chartGrafico.options.data[0].name='Dados Pessoais';
-document.chartGrafico.options.data[0].dataPoints = document.dateDadospessoais; }else if(opt == 'dependentes'){ document.chartGrafico.options.data[0].name='Vidas';
-document.chartGrafico.options.data[0].dataPoints = document.dateVidas; }else if(opt == 'corretor'){ document.chartGrafico.options.data[0].name='Corretor';
-document.chartGrafico.options.data[0].dataPoints = document.dateCorretor; }else if(opt == 'checkout'){ document.chartGrafico.options.data[0].name='Checkout';
-document.chartGrafico.options.data[0].dataPoints = document.dateCheckout; }else if(opt == 'receita'){ document.chartGrafico.options.data[0].name='Receitas';
-document.chartGrafico.options.data[0].dataPoints = document.dateReceitas; } document.chartGrafico.render(); } function setKPI(opt){
-if(opt == 'registration_per_session'){ document.chartGrafico.options.data[1].name = 'Pré-cadastro por Visitas'; document.chartGrafico.options.data[1].dataPoints
-= document.datePrecadastro_visitas; }else if(opt == 'personal_per_registration'){ document.chartGrafico.options.data[1].name
-= 'Dados Pessoais por Pré-cadastro'; document.chartGrafico.options.data[1].dataPoints = document.dateDadospessoais_precadastro;
-}else if(opt == 'dependent_per_personal'){ document.chartGrafico.options.data[1].name = 'Dependentes por Dados Pessoais';
-document.chartGrafico.options.data[1].dataPoints = document.dateDependentes_dadospessoais; }else if(opt == 'broker_per_dependent'){
-document.chartGrafico.options.data[1].name = 'Corretor por Dependentes'; document.chartGrafico.options.data[1].dataPoints
-= document.dateCorretor_dependentes; }else if(opt == 'checkout_per_broker'){ document.chartGrafico.options.data[1].name =
-'Checkout por Corretor'; document.chartGrafico.options.data[1].dataPoints = document.dateCheckout_corretor; }else if(opt
-== 'purchase_per_checkout'){ document.chartGrafico.options.data[1].name = 'Compras por Checkout'; document.chartGrafico.options.data[1].dataPoints
-= document.dateCompra_checkout; } document.chartGrafico.render(); }
+ function setMetrica(opt) {
+ 	if (opt == 'visitas') {
+ 		document.chartGrafico.options.data[0].name = 'Visitas';
+ 		document.chartGrafico.options.data[0].dataPoints = document.dateVisitas;
+ 	} else if (opt == 'precadastro') {
+ 		document.chartGrafico.options.data[0].name = 'Pré-Cadastro';
+ 		document.chartGrafico.options.data[0].dataPoints = document.datePrecadastros;
+ 	} else if (opt == 'dadospessoais') {
+ 		document.chartGrafico.options.data[0].name = 'Dados Pessoais';
+ 		document.chartGrafico.options.data[0].dataPoints = document.dateDadospessoais;
+ 	} else if (opt == 'dependentes') {
+ 		document.chartGrafico.options.data[0].name = 'Vidas';
+ 		document.chartGrafico.options.data[0].dataPoints = document.dateVidas;
+ 	} else if (opt == 'corretor') {
+ 		document.chartGrafico.options.data[0].name = 'Corretor';
+ 		document.chartGrafico.options.data[0].dataPoints = document.dateCorretor;
+ 	} else if (opt == 'checkout') {
+ 		document.chartGrafico.options.data[0].name = 'Checkout';
+ 		document.chartGrafico.options.data[0].dataPoints = document.dateCheckout;
+ 	} else if (opt == 'receita') {
+ 		document.chartGrafico.options.data[0].name = 'Receitas';
+ 		document.chartGrafico.options.data[0].dataPoints = document.dateReceitas;
+ 	}
+ 	document.chartGrafico.render();
+ }
+
+ function setKPI(opt) {
+ 	if (opt == 'registration_per_session') {
+ 		document.chartGrafico.options.data[1].name = 'Pré-cadastro por Visitas';
+ 		document.chartGrafico.options.data[1].dataPoints = document.datePrecadastro_visitas;
+ 	} else if (opt == 'personal_per_registration') {
+ 		document.chartGrafico.options.data[1].name = 'Dados Pessoais por Pré-cadastro';
+ 		document.chartGrafico.options.data[1].dataPoints = document.dateDadospessoais_precadastro;
+ 	} else if (opt == 'dependent_per_personal') {
+ 		document.chartGrafico.options.data[1].name = 'Dependentes por Dados Pessoais';
+ 		document.chartGrafico.options.data[1].dataPoints = document.dateDependentes_dadospessoais;
+ 	} else if (opt == 'broker_per_dependent') {
+ 		document.chartGrafico.options.data[1].name = 'Corretor por Dependentes';
+ 		document.chartGrafico.options.data[1].dataPoints = document.dateCorretor_dependentes;
+ 	} else if (opt == 'checkout_per_broker') {
+ 		document.chartGrafico.options.data[1].name =
+ 			'Checkout por Corretor';
+ 		document.chartGrafico.options.data[1].dataPoints = document.dateCheckout_corretor;
+ 	} else if (opt ==
+ 		'purchase_per_checkout') {
+ 		document.chartGrafico.options.data[1].name = 'Compras por Checkout';
+ 		document.chartGrafico.options.data[1].dataPoints = document.dateCompra_checkout;
+ 	}
+ 	document.chartGrafico.render();
+ }
 
 		function formataNumero() {
-			var total = <%= dataTotal['receita'] %>;
-			// console.log(total);
+			var total = <%= dataTotal['receita'] ? dataTotal['receita'] : 0 %>;
 			var valor = Number(total.toFixed(2)).toLocaleString('pt-br');
 			document.getElementById('revenue').innerHTML = valor;
-			// console.log(valor);
+
+			var sessions = <%= dataTotal['sessions'] ? dataTotal['sessions'] : 0%>;
+			var visitas = Number(sessions.toFixed(2)).toLocaleString('pt-br');
+			document.getElementById('sessions').innerHTML = visitas;
 			
+			var pre_registration = <%= dataTotal["precadastro"] ? dataTotal["precadastro"] : 0  %>;
+			var pre_cadastro = Number(pre_registration.toFixed(2)).toLocaleString('pt-br');
+			document.getElementById('pre_registration').innerHTML = pre_cadastro;
+			
+			var personal_data_completed = <%= dataTotal["dadospessoais"] ? dataTotal["dadospessoais"] : 0  %>;
+			var dados_pessoais = Number(personal_data_completed.toFixed(2)).toLocaleString('pt-br');
+			document.getElementById('personal_data_completed').innerHTML = dados_pessoais;
+			
+			var lifes = <%= dataTotal["vidas"] ? dataTotal["vidas"] : 0  %>;
+			var vidas = Number(lifes.toFixed(2)).toLocaleString('pt-br');
+			document.getElementById('lifes').innerHTML = vidas;
+			
+			var transactions = <%= dataTotal["vendas"] ? dataTotal["vendas"] : 0  %>;
+			var vendas = Number(transactions.toFixed(2)).toLocaleString('pt-br');
+			document.getElementById('transactions').innerHTML = vendas;
 		}
 		
 		</script>
@@ -359,31 +408,31 @@ document.chartGrafico.options.data[1].name = 'Corretor por Dependentes'; documen
 				<div class="shiny-html-output col-sm-5 col-md-2 col-xs-12 tile_stats_count shiny-bound-output" id="boxVisitas">
 					<span class="count_top"><i class="fa fa-user"></i> Visitas</span>
 					<div id="sessions" class="count">
-						<%= dataTotal["sessions"] ? dataTotal["sessions"].toLocaleString('pt-BR')  : 0  %>
+						
 					</div>
 				</div>
 				<div class="shiny-html-output col-sm-12 col-md-2 col-xs-12 tile_stats_count shiny-bound-output" id="boxPreCadastro">
 					<span class="count_top"><i class="fa fa-pencil-square-o"></i> Pré-Cadastro</span>
 					<div id="pre_registration" class="count">
-						<%= dataTotal["precadastro"] ? dataTotal["precadastro"] : 0  %>
+						
 					</div>
 				</div>
 				<div class="shiny-html-output col-sm-12 col-md-2 col-xs-12 tile_stats_count shiny-bound-output" id="boxCadastroFinalizado">
 					<span class="count_top"><i class="fa fa-check"></i> Cadastro Finalizado</span>
 					<div id="personal_data_completed" class="count">
-						<%= dataTotal["dadospessoais"] ? dataTotal["dadospessoais"] : 0  %>
+						
 					</div>
 				</div>
 				<div class="shiny-html-output col-sm-12 col-md-2 col-xs-12 tile_stats_count shiny-bound-output" id="boxVidas">
 					<span class="count_top"><i class="fa fa-heart"></i> Vidas</span>
 					<div id="lifes" class="count">
-						<%= dataTotal["vidas"] ? dataTotal["vidas"] : 0  %>
+						
 					</div>
 				</div>
 				<div class="shiny-html-output col-sm-12 col-md-2 col-xs-12 tile_stats_count shiny-bound-output" id="boxVendas">
 					<span class="count_top"><i class="fa fa-handshake-o"></i> Vendas</span>
 					<div id="transactions" class="count">
-						<%= dataTotal["vendas"] ? dataTotal["vendas"] : 0  %>
+						
 					</div>
 				</div>
 				<div class="shiny-html-output col-sm-12 col-md-2 col-xs-12 tile_stats_count shiny-bound-output" id="boxReceita">

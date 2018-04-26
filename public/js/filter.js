@@ -531,6 +531,12 @@ function cleanFilter() {
     setMidia();
 
 }
+
+function formatValue(valor) {
+	return valor.toFixed(2).toLocaleString('pt-BR');
+}
+
+
 function createTable(columns) {
     // console.log('INICIOU LOADS');
     $(".overlayer").css("display", "block");
@@ -633,14 +639,17 @@ function createTable(columns) {
             table += "<td>" + fullGA[i].adClicks + "</td>";
             table += "<td>" + fullGA[i].sessions + "</td>";
             table += "<td>" + fullGA[i].precadastro + "</td>";
-            // table += "<td>" + fullGA[i].precadastro_visitas + "</td>";
-            table += "<td>" + (fullGA[i].precadastro / fullGA[i].sessions) + "</td>";
+//            table += "<td>" + fullGA[i].precadastro_visitas + "</td>";
+            table += "<td>" + formatValue(fullGA[i].sessions > 0 ? (fullGA[i].precadastro / fullGA[i].sessions) : 000) + "</td>";
             table += "<td>" + fullGA[i].dadospessoais + "</td>";
-            table += "<td>" + fullGA[i].dadospessoais_precadastro + "</td>";
+//            table += "<td>" + fullGA[i].dadospessoais_precadastro + "</td>";
+            table += "<td>" + formatValue(fullGA[i].precadastro > 0 ? (fullGA[i].dadospessoais / fullGA[i].precadastro) : 000) + "</td>";
             table += "<td>" + fullGA[i].dependentes + "</td>";
-            table += "<td>" + fullGA[i].dependentes_dadospessoais + "</td>";
+//            table += "<td>" + fullGA[i].dependentes_dadospessoais + "</td>";
+            table += "<td>" + formatValue(fullGA[i].dadospessoais > 0 ? (fullGA[i].dependentes / fullGA[i].dadospessoais) : 000) + "</td>";
             table += "<td>" + fullGA[i].corretor + "</td>";
-            table += "<td>" + fullGA[i].corretor_dependentes + "</td>";
+//            table += "<td>" + fullGA[i].corretor_dependentes + "</td>";
+            table += "<td>" + formatValue(fullGA[i].dependentes > 0 ? (fullGA[i].corretor / fullGA[i].dependentes) : 000) + "</td>";
             table += "<td>" + fullGA[i].checkout + "</td>";
             table += "<td>" + (fullGA[i].adCost > fullGA[i].adClicks && fullGA[i].adClicks > 0 ? (fullGA[i].adCost / fullGA[i].adClicks).toFixed(2) : 0) + "</td>";
             table += "<td>" + (fullGA[i].adCost > fullGA[i].sessions && fullGA[i].sessions > 0 ? (fullGA[i].adCost / fullGA[i].sessions).toFixed(2) : 0) + "</td>";
