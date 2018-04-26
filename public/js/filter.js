@@ -660,10 +660,10 @@ function createTable(columns) {
             table += "<td>" + (fullGA[i].sessions > fullGA[i].adClicks && fullGA[i].adClicks > 0 ? (fullGA[i].sessions / fullGA[i].adClicks).toFixed(2) : 0) + "</td>";
             table += "<td>" + (fullGA[i].adCost > fullGA[i].dependentes && fullGA[i].dependentes > 0 ? (fullGA[i].adCost / fullGA[i].dependentes).toFixed(2) : 0) + "</td>";
             table += "<td>" + (fullGA[i].dependentes > fullGA[i].impressions && fullGA[i].impressions > 0 ? (fullGA[i].dependentes / fullGA[i].impressions).toFixed(2) : 0) + "</td>";
-            table += "<td>" + fullGA[i].checkout_corretor + "</td>";
+            table += "<td>" + formatValue(fullGA[i].corretor > 0 ? (fullGA[i].checkout / fullGA[i].corretor) : 000) + "</td>";
             table += "<td>" + fullGA[i].vendas + "</td>";
-            table += "<td>" + (fullGA[i].vendas >= fullGA[i].checkout && fullGA[i].checkout > 0 && fullGA[i].vendas > 0 ? (fullGA[i].vendas / fullGA[i].checkout).toFixed(2) : '0') + "</td>";
-            table += "<td>" + (fullGA[i].vendas >= fullGA[i].sessions && fullGA[i].sessions > 0 && fullGA[i].vendas > 0 ? (fullGA[i].vendas / fullGA[i].sessions).toFixed(2) : '0') + "</td>";
+            table += "<td>" + formatValue(fullGA[i].checkout > 0 ? (fullGA[i].vendas / fullGA[i].checkout) : 000) + "</td>";
+            table += "<td>" + formatValue(fullGA[i].sessions > 0 ? (fullGA[i].vendas / fullGA[i].sessions) : 000) + "</td>";
             table += "<td>" + (fullGA[i].receitas ? fullGA[i].receitas.toFixed(2) : '0.00') + "</td>";
             table += "<td>" + (fullGA[i].vidas ? fullGA[i].vidas.toFixed(2) : '0') + "</td>";
             table += "</tr>";
